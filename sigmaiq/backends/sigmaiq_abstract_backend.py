@@ -1,6 +1,6 @@
 from abc import ABC
 from sigma.processing.pipeline import ProcessingPipeline
-from sigmaiq.sigmaiq_pipeline_factory import  SigmAIQPipeline, SigmAIQPipelineResolver
+from sigmaiq.sigmaiq_pipeline_factory import SigmAIQPipeline, SigmAIQPipelineResolver
 from sigma.rule import SigmaRule
 from sigma.conversion.base import Backend, TextQueryBackend
 from sigma.collection import SigmaCollection
@@ -10,23 +10,35 @@ from sigmaiq.exceptions import InvalidOutputFormat
 
 class AbstractGenericSigmAIQBackendClass(TextQueryBackend, ABC):
     """
-    Abstract class for the :class:`Generic SigmAIQ Backend Factory
-    <sigmaiq.generic.download_file.generic_download_file_factory>`.
+    Abstract class for the SigmAIQBackendFactory class.
 
-    All AIQ backends must inherit this class, as well as the specific backend class that should be used.
-    This way, we can still have all the functionality of a typical pySigma Backend, but be able to add methods
-    and override things as needed if we need to customize things for the AIQ Platform.
+    All AIQ backends must inherit this class, as well as the specific backend class that should be used based on the
+    selected pySigma backend. This way, we can still have all the functionality of a typical pySigma Backend,
+    but be able to add methods and override things as needed if we need to customize things.
 
     For example, we add a 'custom_formats' attribute, since pySigma backends have their own dict of
     output formats defined, but we can define our own and postprocess output if we supply our own
     custom_format that doesn't appear in the dict defined in the pySigma Backend class , i.e. we want
     to take the string output from the Splunk backend, but then postprocess it and put it in a savedsearches.conf
     stanza to show to the user; this isn't available in the pySigma Splunk Backend.
+
+    Attributes:
+        custom_formats: (Dict) of any custom output formats that are not part of the parent TextBackend class 'formats'
+        attribute. These should be handled by overriding the method `handle_output_format`.
+        Dict should follow {'format': 'description}
+
+        associated_pipelines: (List) of all pipelines that can/should be used with the backend. Usually, these are
+        pipelines that are created alongside the backend by the backend's author. Elements in this list should be
+        listed as keys in sigmaiq.sigmaiq_pipeline_factory.AVAILABLE_PIPELINES.
+
+        default_pipeline: (str) The default pipeline name to use (as seen in AVAILABLE_PIPELINES.keys()) if no pipeline is
+        provided.  Most of the time, the authors of pySigma backends will automatically apply the required pipelines,
+        but some do not.
     """
 
-    custom_formats = {}  # Custom output formats outside of of the backend.formats attribute defined in each pySigma backend
-    associated_pipelines = []  # Specific pipelines included in the pySigma backend that should be applied. These must be defined in the pipeline factory.
-    default_pipeline = ProcessingPipeline()  # Default pipeline to apply if None provided to backend
+    custom_formats = {}
+    associated_pipelines = []
+    default_pipeline = ProcessingPipeline()
 
     def __init__(self, processing_pipeline: ProcessingPipeline = None, output_format: str = None):
         """Initialize instance attributes.
