@@ -40,9 +40,9 @@ and will be added in future releases.
 SigmAIQ can be installed with your favorite package manager:
 
 ```
-pip install pysigma
-pipenv install pysigma
-poetry add pysigma
+pip install sigmaiq
+pipenv install sigmaiq
+poetry add sigmaiq
 ```
 
 ## Usage Quickstart
