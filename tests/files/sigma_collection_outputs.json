@@ -1,0 +1,2727 @@
+{
+  "carbonblack": {
+    "carbonblack": {
+      "default": [
+        "os_type:windows cmdline:valueA",
+        "os_type:windows cmdline:valueB"
+      ],
+      "json": [
+        {
+          "queries": [
+            {
+              "query": "os_type:windows cmdline:valueA",
+              "title": "Test Rule 1",
+              "id": "None",
+              "description": null
+            },
+            {
+              "query": "os_type:windows cmdline:valueB",
+              "title": "Test Rule 2",
+              "id": "None",
+              "description": null
+            }
+          ]
+        }
+      ]
+    },
+    "carbonblack_enterprise": {
+      "default": [
+        "device_os:WINDOWS process_cmdline:valueA",
+        "device_os:WINDOWS process_cmdline:valueB"
+      ],
+      "json": [
+        {
+          "queries": [
+            {
+              "query": "device_os:WINDOWS process_cmdline:valueA",
+              "title": "Test Rule 1",
+              "id": "None",
+              "description": null
+            },
+            {
+              "query": "device_os:WINDOWS process_cmdline:valueB",
+              "title": "Test Rule 2",
+              "id": "None",
+              "description": null
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "crowdstrike_splunk": {
+    "crowdstrike": {
+      "default": [
+        "event_simpleName=\"ProcessRollup2\" CommandLine=\"valueA\"",
+        "event_simpleName=\"ProcessRollup2\" CommandLine=\"valueB\""
+      ]
+    }
+  },
+  "elasticsearch": {
+    "ecs_windows": {
+      "default": [
+        "process.command_line:valueA",
+        "process.command_line:valueB"
+      ],
+      "kibana_ndjson": [
+        {
+          "id": "None",
+          "type": "search",
+          "attributes": {
+            "title": "SIGMA - Test Rule 1",
+            "description": null,
+            "hits": 0,
+            "columns": [],
+            "sort": [
+              "@timestamp",
+              "desc"
+            ],
+            "version": 1,
+            "kibanaSavedObjectMeta": {
+              "searchSourceJSON": "{\"index\": \"beats-*\", \"filter\": [], \"highlight\": {\"pre_tags\": [\"@kibana-highlighted-field@\"], \"post_tags\": [\"@/kibana-highlighted-field@\"], \"fields\": {\"*\": {}}, \"require_field_match\": false, \"fragment_size\": 2147483647}, \"query\": {\"query_string\": {\"query\": \"process.command_line:valueA\", \"analyze_wildcard\": true}}}"
+            }
+          },
+          "references": [
+            {
+              "id": "beats-*",
+              "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+              "type": "index-pattern"
+            }
+          ]
+        },
+        {
+          "id": "None",
+          "type": "search",
+          "attributes": {
+            "title": "SIGMA - Test Rule 2",
+            "description": null,
+            "hits": 0,
+            "columns": [],
+            "sort": [
+              "@timestamp",
+              "desc"
+            ],
+            "version": 1,
+            "kibanaSavedObjectMeta": {
+              "searchSourceJSON": "{\"index\": \"beats-*\", \"filter\": [], \"highlight\": {\"pre_tags\": [\"@kibana-highlighted-field@\"], \"post_tags\": [\"@/kibana-highlighted-field@\"], \"fields\": {\"*\": {}}, \"require_field_match\": false, \"fragment_size\": 2147483647}, \"query\": {\"query_string\": {\"query\": \"process.command_line:valueB\", \"analyze_wildcard\": true}}}"
+            }
+          },
+          "references": [
+            {
+              "id": "beats-*",
+              "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+              "type": "index-pattern"
+            }
+          ]
+        }
+      ],
+      "dsl_lucene": [
+        {
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "process.command_line:valueA",
+                    "analyze_wildcard": true
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "process.command_line:valueB",
+                    "analyze_wildcard": true
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "siem_rule": [
+        {
+          "name": "SIGMA - Test Rule 1",
+          "tags": [],
+          "consumer": "siem",
+          "enabled": true,
+          "throttle": null,
+          "schedule": {
+            "interval": "5m"
+          },
+          "params": {
+            "author": [],
+            "description": "No description",
+            "ruleId": "None",
+            "falsePositives": [],
+            "from": "now-5m",
+            "immutable": false,
+            "license": "DRL",
+            "outputIndex": "",
+            "meta": {
+              "from": "1m"
+            },
+            "maxSignals": 100,
+            "riskScore": 21,
+            "riskScoreMapping": [],
+            "severity": "low",
+            "severityMapping": [],
+            "threat": [],
+            "to": "now",
+            "references": [],
+            "version": 1,
+            "exceptionsList": [],
+            "relatedIntegrations": [],
+            "requiredFields": [],
+            "setup": "",
+            "type": "query",
+            "language": "lucene",
+            "index": [
+              "apm-*-transaction*",
+              "auditbeat-*",
+              "endgame-*",
+              "filebeat-*",
+              "logs-*",
+              "packetbeat-*",
+              "traces-apm*",
+              "winlogbeat-*",
+              "-*elastic-cloud-logs-*"
+            ],
+            "query": "process.command_line:valueA",
+            "filters": []
+          },
+          "rule_type_id": "siem.queryRule",
+          "notify_when": "onActiveAlert",
+          "actions": []
+        },
+        {
+          "name": "SIGMA - Test Rule 2",
+          "tags": [],
+          "consumer": "siem",
+          "enabled": true,
+          "throttle": null,
+          "schedule": {
+            "interval": "5m"
+          },
+          "params": {
+            "author": [],
+            "description": "No description",
+            "ruleId": "None",
+            "falsePositives": [],
+            "from": "now-5m",
+            "immutable": false,
+            "license": "DRL",
+            "outputIndex": "",
+            "meta": {
+              "from": "1m"
+            },
+            "maxSignals": 100,
+            "riskScore": 21,
+            "riskScoreMapping": [],
+            "severity": "low",
+            "severityMapping": [],
+            "threat": [],
+            "to": "now",
+            "references": [],
+            "version": 1,
+            "exceptionsList": [],
+            "relatedIntegrations": [],
+            "requiredFields": [],
+            "setup": "",
+            "type": "query",
+            "language": "lucene",
+            "index": [
+              "apm-*-transaction*",
+              "auditbeat-*",
+              "endgame-*",
+              "filebeat-*",
+              "logs-*",
+              "packetbeat-*",
+              "traces-apm*",
+              "winlogbeat-*",
+              "-*elastic-cloud-logs-*"
+            ],
+            "query": "process.command_line:valueB",
+            "filters": []
+          },
+          "rule_type_id": "siem.queryRule",
+          "notify_when": "onActiveAlert",
+          "actions": []
+        }
+      ],
+      "siem_rule_ndjson": [
+        {
+          "id": "None",
+          "name": "SIGMA - Test Rule 1",
+          "tags": [],
+          "enabled": true,
+          "throttle": "no_actions",
+          "interval": "5m",
+          "author": [],
+          "description": "No description",
+          "rule_id": "None",
+          "false_positives": [],
+          "from": "now-5m",
+          "immutable": false,
+          "license": "DRL",
+          "output_index": "",
+          "meta": {
+            "from": "1m"
+          },
+          "max_signals": 100,
+          "risk_score": 21,
+          "risk_score_mapping": [],
+          "severity": "low",
+          "severity_mapping": [],
+          "threat": [],
+          "to": "now",
+          "references": [],
+          "version": 1,
+          "exceptions_list": [],
+          "related_integrations": [],
+          "required_fields": [],
+          "setup": "",
+          "type": "query",
+          "language": "lucene",
+          "index": [
+            "apm-*-transaction*",
+            "auditbeat-*",
+            "endgame-*",
+            "filebeat-*",
+            "logs-*",
+            "packetbeat-*",
+            "traces-apm*",
+            "winlogbeat-*",
+            "-*elastic-cloud-logs-*"
+          ],
+          "query": "process.command_line:valueA",
+          "filters": [],
+          "actions": []
+        },
+        {
+          "id": "None",
+          "name": "SIGMA - Test Rule 2",
+          "tags": [],
+          "enabled": true,
+          "throttle": "no_actions",
+          "interval": "5m",
+          "author": [],
+          "description": "No description",
+          "rule_id": "None",
+          "false_positives": [],
+          "from": "now-5m",
+          "immutable": false,
+          "license": "DRL",
+          "output_index": "",
+          "meta": {
+            "from": "1m"
+          },
+          "max_signals": 100,
+          "risk_score": 21,
+          "risk_score_mapping": [],
+          "severity": "low",
+          "severity_mapping": [],
+          "threat": [],
+          "to": "now",
+          "references": [],
+          "version": 1,
+          "exceptions_list": [],
+          "related_integrations": [],
+          "required_fields": [],
+          "setup": "",
+          "type": "query",
+          "language": "lucene",
+          "index": [
+            "apm-*-transaction*",
+            "auditbeat-*",
+            "endgame-*",
+            "filebeat-*",
+            "logs-*",
+            "packetbeat-*",
+            "traces-apm*",
+            "winlogbeat-*",
+            "-*elastic-cloud-logs-*"
+          ],
+          "query": "process.command_line:valueB",
+          "filters": [],
+          "actions": []
+        }
+      ]
+    },
+    "ecs_windows_old": {
+      "default": [
+        "event_data.CommandLine:valueA",
+        "event_data.CommandLine:valueB"
+      ],
+      "kibana_ndjson": [
+        {
+          "id": "None",
+          "type": "search",
+          "attributes": {
+            "title": "SIGMA - Test Rule 1",
+            "description": null,
+            "hits": 0,
+            "columns": [],
+            "sort": [
+              "@timestamp",
+              "desc"
+            ],
+            "version": 1,
+            "kibanaSavedObjectMeta": {
+              "searchSourceJSON": "{\"index\": \"beats-*\", \"filter\": [], \"highlight\": {\"pre_tags\": [\"@kibana-highlighted-field@\"], \"post_tags\": [\"@/kibana-highlighted-field@\"], \"fields\": {\"*\": {}}, \"require_field_match\": false, \"fragment_size\": 2147483647}, \"query\": {\"query_string\": {\"query\": \"event_data.CommandLine:valueA\", \"analyze_wildcard\": true}}}"
+            }
+          },
+          "references": [
+            {
+              "id": "beats-*",
+              "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+              "type": "index-pattern"
+            }
+          ]
+        },
+        {
+          "id": "None",
+          "type": "search",
+          "attributes": {
+            "title": "SIGMA - Test Rule 2",
+            "description": null,
+            "hits": 0,
+            "columns": [],
+            "sort": [
+              "@timestamp",
+              "desc"
+            ],
+            "version": 1,
+            "kibanaSavedObjectMeta": {
+              "searchSourceJSON": "{\"index\": \"beats-*\", \"filter\": [], \"highlight\": {\"pre_tags\": [\"@kibana-highlighted-field@\"], \"post_tags\": [\"@/kibana-highlighted-field@\"], \"fields\": {\"*\": {}}, \"require_field_match\": false, \"fragment_size\": 2147483647}, \"query\": {\"query_string\": {\"query\": \"event_data.CommandLine:valueB\", \"analyze_wildcard\": true}}}"
+            }
+          },
+          "references": [
+            {
+              "id": "beats-*",
+              "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+              "type": "index-pattern"
+            }
+          ]
+        }
+      ],
+      "dsl_lucene": [
+        {
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "event_data.CommandLine:valueA",
+                    "analyze_wildcard": true
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "event_data.CommandLine:valueB",
+                    "analyze_wildcard": true
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "siem_rule": [
+        {
+          "name": "SIGMA - Test Rule 1",
+          "tags": [],
+          "consumer": "siem",
+          "enabled": true,
+          "throttle": null,
+          "schedule": {
+            "interval": "5m"
+          },
+          "params": {
+            "author": [],
+            "description": "No description",
+            "ruleId": "None",
+            "falsePositives": [],
+            "from": "now-5m",
+            "immutable": false,
+            "license": "DRL",
+            "outputIndex": "",
+            "meta": {
+              "from": "1m"
+            },
+            "maxSignals": 100,
+            "riskScore": 21,
+            "riskScoreMapping": [],
+            "severity": "low",
+            "severityMapping": [],
+            "threat": [],
+            "to": "now",
+            "references": [],
+            "version": 1,
+            "exceptionsList": [],
+            "relatedIntegrations": [],
+            "requiredFields": [],
+            "setup": "",
+            "type": "query",
+            "language": "lucene",
+            "index": [
+              "apm-*-transaction*",
+              "auditbeat-*",
+              "endgame-*",
+              "filebeat-*",
+              "logs-*",
+              "packetbeat-*",
+              "traces-apm*",
+              "winlogbeat-*",
+              "-*elastic-cloud-logs-*"
+            ],
+            "query": "event_data.CommandLine:valueA",
+            "filters": []
+          },
+          "rule_type_id": "siem.queryRule",
+          "notify_when": "onActiveAlert",
+          "actions": []
+        },
+        {
+          "name": "SIGMA - Test Rule 2",
+          "tags": [],
+          "consumer": "siem",
+          "enabled": true,
+          "throttle": null,
+          "schedule": {
+            "interval": "5m"
+          },
+          "params": {
+            "author": [],
+            "description": "No description",
+            "ruleId": "None",
+            "falsePositives": [],
+            "from": "now-5m",
+            "immutable": false,
+            "license": "DRL",
+            "outputIndex": "",
+            "meta": {
+              "from": "1m"
+            },
+            "maxSignals": 100,
+            "riskScore": 21,
+            "riskScoreMapping": [],
+            "severity": "low",
+            "severityMapping": [],
+            "threat": [],
+            "to": "now",
+            "references": [],
+            "version": 1,
+            "exceptionsList": [],
+            "relatedIntegrations": [],
+            "requiredFields": [],
+            "setup": "",
+            "type": "query",
+            "language": "lucene",
+            "index": [
+              "apm-*-transaction*",
+              "auditbeat-*",
+              "endgame-*",
+              "filebeat-*",
+              "logs-*",
+              "packetbeat-*",
+              "traces-apm*",
+              "winlogbeat-*",
+              "-*elastic-cloud-logs-*"
+            ],
+            "query": "event_data.CommandLine:valueB",
+            "filters": []
+          },
+          "rule_type_id": "siem.queryRule",
+          "notify_when": "onActiveAlert",
+          "actions": []
+        }
+      ],
+      "siem_rule_ndjson": [
+        {
+          "id": "None",
+          "name": "SIGMA - Test Rule 1",
+          "tags": [],
+          "enabled": true,
+          "throttle": "no_actions",
+          "interval": "5m",
+          "author": [],
+          "description": "No description",
+          "rule_id": "None",
+          "false_positives": [],
+          "from": "now-5m",
+          "immutable": false,
+          "license": "DRL",
+          "output_index": "",
+          "meta": {
+            "from": "1m"
+          },
+          "max_signals": 100,
+          "risk_score": 21,
+          "risk_score_mapping": [],
+          "severity": "low",
+          "severity_mapping": [],
+          "threat": [],
+          "to": "now",
+          "references": [],
+          "version": 1,
+          "exceptions_list": [],
+          "related_integrations": [],
+          "required_fields": [],
+          "setup": "",
+          "type": "query",
+          "language": "lucene",
+          "index": [
+            "apm-*-transaction*",
+            "auditbeat-*",
+            "endgame-*",
+            "filebeat-*",
+            "logs-*",
+            "packetbeat-*",
+            "traces-apm*",
+            "winlogbeat-*",
+            "-*elastic-cloud-logs-*"
+          ],
+          "query": "event_data.CommandLine:valueA",
+          "filters": [],
+          "actions": []
+        },
+        {
+          "id": "None",
+          "name": "SIGMA - Test Rule 2",
+          "tags": [],
+          "enabled": true,
+          "throttle": "no_actions",
+          "interval": "5m",
+          "author": [],
+          "description": "No description",
+          "rule_id": "None",
+          "false_positives": [],
+          "from": "now-5m",
+          "immutable": false,
+          "license": "DRL",
+          "output_index": "",
+          "meta": {
+            "from": "1m"
+          },
+          "max_signals": 100,
+          "risk_score": 21,
+          "risk_score_mapping": [],
+          "severity": "low",
+          "severity_mapping": [],
+          "threat": [],
+          "to": "now",
+          "references": [],
+          "version": 1,
+          "exceptions_list": [],
+          "related_integrations": [],
+          "required_fields": [],
+          "setup": "",
+          "type": "query",
+          "language": "lucene",
+          "index": [
+            "apm-*-transaction*",
+            "auditbeat-*",
+            "endgame-*",
+            "filebeat-*",
+            "logs-*",
+            "packetbeat-*",
+            "traces-apm*",
+            "winlogbeat-*",
+            "-*elastic-cloud-logs-*"
+          ],
+          "query": "event_data.CommandLine:valueB",
+          "filters": [],
+          "actions": []
+        }
+      ]
+    },
+    "ecs_zeek_beats": {
+      "default": [
+        "CommandLine:valueA",
+        "CommandLine:valueB"
+      ],
+      "kibana_ndjson": [
+        {
+          "id": "None",
+          "type": "search",
+          "attributes": {
+            "title": "SIGMA - Test Rule 1",
+            "description": null,
+            "hits": 0,
+            "columns": [],
+            "sort": [
+              "@timestamp",
+              "desc"
+            ],
+            "version": 1,
+            "kibanaSavedObjectMeta": {
+              "searchSourceJSON": "{\"index\": \"beats-*\", \"filter\": [], \"highlight\": {\"pre_tags\": [\"@kibana-highlighted-field@\"], \"post_tags\": [\"@/kibana-highlighted-field@\"], \"fields\": {\"*\": {}}, \"require_field_match\": false, \"fragment_size\": 2147483647}, \"query\": {\"query_string\": {\"query\": \"CommandLine:valueA\", \"analyze_wildcard\": true}}}"
+            }
+          },
+          "references": [
+            {
+              "id": "beats-*",
+              "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+              "type": "index-pattern"
+            }
+          ]
+        },
+        {
+          "id": "None",
+          "type": "search",
+          "attributes": {
+            "title": "SIGMA - Test Rule 2",
+            "description": null,
+            "hits": 0,
+            "columns": [],
+            "sort": [
+              "@timestamp",
+              "desc"
+            ],
+            "version": 1,
+            "kibanaSavedObjectMeta": {
+              "searchSourceJSON": "{\"index\": \"beats-*\", \"filter\": [], \"highlight\": {\"pre_tags\": [\"@kibana-highlighted-field@\"], \"post_tags\": [\"@/kibana-highlighted-field@\"], \"fields\": {\"*\": {}}, \"require_field_match\": false, \"fragment_size\": 2147483647}, \"query\": {\"query_string\": {\"query\": \"CommandLine:valueB\", \"analyze_wildcard\": true}}}"
+            }
+          },
+          "references": [
+            {
+              "id": "beats-*",
+              "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+              "type": "index-pattern"
+            }
+          ]
+        }
+      ],
+      "dsl_lucene": [
+        {
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "CommandLine:valueA",
+                    "analyze_wildcard": true
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "CommandLine:valueB",
+                    "analyze_wildcard": true
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "siem_rule": [
+        {
+          "name": "SIGMA - Test Rule 1",
+          "tags": [],
+          "consumer": "siem",
+          "enabled": true,
+          "throttle": null,
+          "schedule": {
+            "interval": "5m"
+          },
+          "params": {
+            "author": [],
+            "description": "No description",
+            "ruleId": "None",
+            "falsePositives": [],
+            "from": "now-5m",
+            "immutable": false,
+            "license": "DRL",
+            "outputIndex": "",
+            "meta": {
+              "from": "1m"
+            },
+            "maxSignals": 100,
+            "riskScore": 21,
+            "riskScoreMapping": [],
+            "severity": "low",
+            "severityMapping": [],
+            "threat": [],
+            "to": "now",
+            "references": [],
+            "version": 1,
+            "exceptionsList": [],
+            "relatedIntegrations": [],
+            "requiredFields": [],
+            "setup": "",
+            "type": "query",
+            "language": "lucene",
+            "index": [
+              "apm-*-transaction*",
+              "auditbeat-*",
+              "endgame-*",
+              "filebeat-*",
+              "logs-*",
+              "packetbeat-*",
+              "traces-apm*",
+              "winlogbeat-*",
+              "-*elastic-cloud-logs-*"
+            ],
+            "query": "CommandLine:valueA",
+            "filters": []
+          },
+          "rule_type_id": "siem.queryRule",
+          "notify_when": "onActiveAlert",
+          "actions": []
+        },
+        {
+          "name": "SIGMA - Test Rule 2",
+          "tags": [],
+          "consumer": "siem",
+          "enabled": true,
+          "throttle": null,
+          "schedule": {
+            "interval": "5m"
+          },
+          "params": {
+            "author": [],
+            "description": "No description",
+            "ruleId": "None",
+            "falsePositives": [],
+            "from": "now-5m",
+            "immutable": false,
+            "license": "DRL",
+            "outputIndex": "",
+            "meta": {
+              "from": "1m"
+            },
+            "maxSignals": 100,
+            "riskScore": 21,
+            "riskScoreMapping": [],
+            "severity": "low",
+            "severityMapping": [],
+            "threat": [],
+            "to": "now",
+            "references": [],
+            "version": 1,
+            "exceptionsList": [],
+            "relatedIntegrations": [],
+            "requiredFields": [],
+            "setup": "",
+            "type": "query",
+            "language": "lucene",
+            "index": [
+              "apm-*-transaction*",
+              "auditbeat-*",
+              "endgame-*",
+              "filebeat-*",
+              "logs-*",
+              "packetbeat-*",
+              "traces-apm*",
+              "winlogbeat-*",
+              "-*elastic-cloud-logs-*"
+            ],
+            "query": "CommandLine:valueB",
+            "filters": []
+          },
+          "rule_type_id": "siem.queryRule",
+          "notify_when": "onActiveAlert",
+          "actions": []
+        }
+      ],
+      "siem_rule_ndjson": [
+        {
+          "id": "None",
+          "name": "SIGMA - Test Rule 1",
+          "tags": [],
+          "enabled": true,
+          "throttle": "no_actions",
+          "interval": "5m",
+          "author": [],
+          "description": "No description",
+          "rule_id": "None",
+          "false_positives": [],
+          "from": "now-5m",
+          "immutable": false,
+          "license": "DRL",
+          "output_index": "",
+          "meta": {
+            "from": "1m"
+          },
+          "max_signals": 100,
+          "risk_score": 21,
+          "risk_score_mapping": [],
+          "severity": "low",
+          "severity_mapping": [],
+          "threat": [],
+          "to": "now",
+          "references": [],
+          "version": 1,
+          "exceptions_list": [],
+          "related_integrations": [],
+          "required_fields": [],
+          "setup": "",
+          "type": "query",
+          "language": "lucene",
+          "index": [
+            "apm-*-transaction*",
+            "auditbeat-*",
+            "endgame-*",
+            "filebeat-*",
+            "logs-*",
+            "packetbeat-*",
+            "traces-apm*",
+            "winlogbeat-*",
+            "-*elastic-cloud-logs-*"
+          ],
+          "query": "CommandLine:valueA",
+          "filters": [],
+          "actions": []
+        },
+        {
+          "id": "None",
+          "name": "SIGMA - Test Rule 2",
+          "tags": [],
+          "enabled": true,
+          "throttle": "no_actions",
+          "interval": "5m",
+          "author": [],
+          "description": "No description",
+          "rule_id": "None",
+          "false_positives": [],
+          "from": "now-5m",
+          "immutable": false,
+          "license": "DRL",
+          "output_index": "",
+          "meta": {
+            "from": "1m"
+          },
+          "max_signals": 100,
+          "risk_score": 21,
+          "risk_score_mapping": [],
+          "severity": "low",
+          "severity_mapping": [],
+          "threat": [],
+          "to": "now",
+          "references": [],
+          "version": 1,
+          "exceptions_list": [],
+          "related_integrations": [],
+          "required_fields": [],
+          "setup": "",
+          "type": "query",
+          "language": "lucene",
+          "index": [
+            "apm-*-transaction*",
+            "auditbeat-*",
+            "endgame-*",
+            "filebeat-*",
+            "logs-*",
+            "packetbeat-*",
+            "traces-apm*",
+            "winlogbeat-*",
+            "-*elastic-cloud-logs-*"
+          ],
+          "query": "CommandLine:valueB",
+          "filters": [],
+          "actions": []
+        }
+      ]
+    },
+    "ecs_zeek_corelight": {
+      "default": [
+        "CommandLine:valueA",
+        "CommandLine:valueB"
+      ],
+      "kibana_ndjson": [
+        {
+          "id": "None",
+          "type": "search",
+          "attributes": {
+            "title": "SIGMA - Test Rule 1",
+            "description": null,
+            "hits": 0,
+            "columns": [],
+            "sort": [
+              "@timestamp",
+              "desc"
+            ],
+            "version": 1,
+            "kibanaSavedObjectMeta": {
+              "searchSourceJSON": "{\"index\": \"beats-*\", \"filter\": [], \"highlight\": {\"pre_tags\": [\"@kibana-highlighted-field@\"], \"post_tags\": [\"@/kibana-highlighted-field@\"], \"fields\": {\"*\": {}}, \"require_field_match\": false, \"fragment_size\": 2147483647}, \"query\": {\"query_string\": {\"query\": \"CommandLine:valueA\", \"analyze_wildcard\": true}}}"
+            }
+          },
+          "references": [
+            {
+              "id": "beats-*",
+              "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+              "type": "index-pattern"
+            }
+          ]
+        },
+        {
+          "id": "None",
+          "type": "search",
+          "attributes": {
+            "title": "SIGMA - Test Rule 2",
+            "description": null,
+            "hits": 0,
+            "columns": [],
+            "sort": [
+              "@timestamp",
+              "desc"
+            ],
+            "version": 1,
+            "kibanaSavedObjectMeta": {
+              "searchSourceJSON": "{\"index\": \"beats-*\", \"filter\": [], \"highlight\": {\"pre_tags\": [\"@kibana-highlighted-field@\"], \"post_tags\": [\"@/kibana-highlighted-field@\"], \"fields\": {\"*\": {}}, \"require_field_match\": false, \"fragment_size\": 2147483647}, \"query\": {\"query_string\": {\"query\": \"CommandLine:valueB\", \"analyze_wildcard\": true}}}"
+            }
+          },
+          "references": [
+            {
+              "id": "beats-*",
+              "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+              "type": "index-pattern"
+            }
+          ]
+        }
+      ],
+      "dsl_lucene": [
+        {
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "CommandLine:valueA",
+                    "analyze_wildcard": true
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "CommandLine:valueB",
+                    "analyze_wildcard": true
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "siem_rule": [
+        {
+          "name": "SIGMA - Test Rule 1",
+          "tags": [],
+          "consumer": "siem",
+          "enabled": true,
+          "throttle": null,
+          "schedule": {
+            "interval": "5m"
+          },
+          "params": {
+            "author": [],
+            "description": "No description",
+            "ruleId": "None",
+            "falsePositives": [],
+            "from": "now-5m",
+            "immutable": false,
+            "license": "DRL",
+            "outputIndex": "",
+            "meta": {
+              "from": "1m"
+            },
+            "maxSignals": 100,
+            "riskScore": 21,
+            "riskScoreMapping": [],
+            "severity": "low",
+            "severityMapping": [],
+            "threat": [],
+            "to": "now",
+            "references": [],
+            "version": 1,
+            "exceptionsList": [],
+            "relatedIntegrations": [],
+            "requiredFields": [],
+            "setup": "",
+            "type": "query",
+            "language": "lucene",
+            "index": [
+              "apm-*-transaction*",
+              "auditbeat-*",
+              "endgame-*",
+              "filebeat-*",
+              "logs-*",
+              "packetbeat-*",
+              "traces-apm*",
+              "winlogbeat-*",
+              "-*elastic-cloud-logs-*"
+            ],
+            "query": "CommandLine:valueA",
+            "filters": []
+          },
+          "rule_type_id": "siem.queryRule",
+          "notify_when": "onActiveAlert",
+          "actions": []
+        },
+        {
+          "name": "SIGMA - Test Rule 2",
+          "tags": [],
+          "consumer": "siem",
+          "enabled": true,
+          "throttle": null,
+          "schedule": {
+            "interval": "5m"
+          },
+          "params": {
+            "author": [],
+            "description": "No description",
+            "ruleId": "None",
+            "falsePositives": [],
+            "from": "now-5m",
+            "immutable": false,
+            "license": "DRL",
+            "outputIndex": "",
+            "meta": {
+              "from": "1m"
+            },
+            "maxSignals": 100,
+            "riskScore": 21,
+            "riskScoreMapping": [],
+            "severity": "low",
+            "severityMapping": [],
+            "threat": [],
+            "to": "now",
+            "references": [],
+            "version": 1,
+            "exceptionsList": [],
+            "relatedIntegrations": [],
+            "requiredFields": [],
+            "setup": "",
+            "type": "query",
+            "language": "lucene",
+            "index": [
+              "apm-*-transaction*",
+              "auditbeat-*",
+              "endgame-*",
+              "filebeat-*",
+              "logs-*",
+              "packetbeat-*",
+              "traces-apm*",
+              "winlogbeat-*",
+              "-*elastic-cloud-logs-*"
+            ],
+            "query": "CommandLine:valueB",
+            "filters": []
+          },
+          "rule_type_id": "siem.queryRule",
+          "notify_when": "onActiveAlert",
+          "actions": []
+        }
+      ],
+      "siem_rule_ndjson": [
+        {
+          "id": "None",
+          "name": "SIGMA - Test Rule 1",
+          "tags": [],
+          "enabled": true,
+          "throttle": "no_actions",
+          "interval": "5m",
+          "author": [],
+          "description": "No description",
+          "rule_id": "None",
+          "false_positives": [],
+          "from": "now-5m",
+          "immutable": false,
+          "license": "DRL",
+          "output_index": "",
+          "meta": {
+            "from": "1m"
+          },
+          "max_signals": 100,
+          "risk_score": 21,
+          "risk_score_mapping": [],
+          "severity": "low",
+          "severity_mapping": [],
+          "threat": [],
+          "to": "now",
+          "references": [],
+          "version": 1,
+          "exceptions_list": [],
+          "related_integrations": [],
+          "required_fields": [],
+          "setup": "",
+          "type": "query",
+          "language": "lucene",
+          "index": [
+            "apm-*-transaction*",
+            "auditbeat-*",
+            "endgame-*",
+            "filebeat-*",
+            "logs-*",
+            "packetbeat-*",
+            "traces-apm*",
+            "winlogbeat-*",
+            "-*elastic-cloud-logs-*"
+          ],
+          "query": "CommandLine:valueA",
+          "filters": [],
+          "actions": []
+        },
+        {
+          "id": "None",
+          "name": "SIGMA - Test Rule 2",
+          "tags": [],
+          "enabled": true,
+          "throttle": "no_actions",
+          "interval": "5m",
+          "author": [],
+          "description": "No description",
+          "rule_id": "None",
+          "false_positives": [],
+          "from": "now-5m",
+          "immutable": false,
+          "license": "DRL",
+          "output_index": "",
+          "meta": {
+            "from": "1m"
+          },
+          "max_signals": 100,
+          "risk_score": 21,
+          "risk_score_mapping": [],
+          "severity": "low",
+          "severity_mapping": [],
+          "threat": [],
+          "to": "now",
+          "references": [],
+          "version": 1,
+          "exceptions_list": [],
+          "related_integrations": [],
+          "required_fields": [],
+          "setup": "",
+          "type": "query",
+          "language": "lucene",
+          "index": [
+            "apm-*-transaction*",
+            "auditbeat-*",
+            "endgame-*",
+            "filebeat-*",
+            "logs-*",
+            "packetbeat-*",
+            "traces-apm*",
+            "winlogbeat-*",
+            "-*elastic-cloud-logs-*"
+          ],
+          "query": "CommandLine:valueB",
+          "filters": [],
+          "actions": []
+        }
+      ]
+    },
+    "zeek_raw": {
+      "default": [
+        "CommandLine:valueA",
+        "CommandLine:valueB"
+      ],
+      "kibana_ndjson": [
+        {
+          "id": "None",
+          "type": "search",
+          "attributes": {
+            "title": "SIGMA - Test Rule 1",
+            "description": null,
+            "hits": 0,
+            "columns": [],
+            "sort": [
+              "@timestamp",
+              "desc"
+            ],
+            "version": 1,
+            "kibanaSavedObjectMeta": {
+              "searchSourceJSON": "{\"index\": \"beats-*\", \"filter\": [], \"highlight\": {\"pre_tags\": [\"@kibana-highlighted-field@\"], \"post_tags\": [\"@/kibana-highlighted-field@\"], \"fields\": {\"*\": {}}, \"require_field_match\": false, \"fragment_size\": 2147483647}, \"query\": {\"query_string\": {\"query\": \"CommandLine:valueA\", \"analyze_wildcard\": true}}}"
+            }
+          },
+          "references": [
+            {
+              "id": "beats-*",
+              "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+              "type": "index-pattern"
+            }
+          ]
+        },
+        {
+          "id": "None",
+          "type": "search",
+          "attributes": {
+            "title": "SIGMA - Test Rule 2",
+            "description": null,
+            "hits": 0,
+            "columns": [],
+            "sort": [
+              "@timestamp",
+              "desc"
+            ],
+            "version": 1,
+            "kibanaSavedObjectMeta": {
+              "searchSourceJSON": "{\"index\": \"beats-*\", \"filter\": [], \"highlight\": {\"pre_tags\": [\"@kibana-highlighted-field@\"], \"post_tags\": [\"@/kibana-highlighted-field@\"], \"fields\": {\"*\": {}}, \"require_field_match\": false, \"fragment_size\": 2147483647}, \"query\": {\"query_string\": {\"query\": \"CommandLine:valueB\", \"analyze_wildcard\": true}}}"
+            }
+          },
+          "references": [
+            {
+              "id": "beats-*",
+              "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+              "type": "index-pattern"
+            }
+          ]
+        }
+      ],
+      "dsl_lucene": [
+        {
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "CommandLine:valueA",
+                    "analyze_wildcard": true
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "CommandLine:valueB",
+                    "analyze_wildcard": true
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "siem_rule": [
+        {
+          "name": "SIGMA - Test Rule 1",
+          "tags": [],
+          "consumer": "siem",
+          "enabled": true,
+          "throttle": null,
+          "schedule": {
+            "interval": "5m"
+          },
+          "params": {
+            "author": [],
+            "description": "No description",
+            "ruleId": "None",
+            "falsePositives": [],
+            "from": "now-5m",
+            "immutable": false,
+            "license": "DRL",
+            "outputIndex": "",
+            "meta": {
+              "from": "1m"
+            },
+            "maxSignals": 100,
+            "riskScore": 21,
+            "riskScoreMapping": [],
+            "severity": "low",
+            "severityMapping": [],
+            "threat": [],
+            "to": "now",
+            "references": [],
+            "version": 1,
+            "exceptionsList": [],
+            "relatedIntegrations": [],
+            "requiredFields": [],
+            "setup": "",
+            "type": "query",
+            "language": "lucene",
+            "index": [
+              "apm-*-transaction*",
+              "auditbeat-*",
+              "endgame-*",
+              "filebeat-*",
+              "logs-*",
+              "packetbeat-*",
+              "traces-apm*",
+              "winlogbeat-*",
+              "-*elastic-cloud-logs-*"
+            ],
+            "query": "CommandLine:valueA",
+            "filters": []
+          },
+          "rule_type_id": "siem.queryRule",
+          "notify_when": "onActiveAlert",
+          "actions": []
+        },
+        {
+          "name": "SIGMA - Test Rule 2",
+          "tags": [],
+          "consumer": "siem",
+          "enabled": true,
+          "throttle": null,
+          "schedule": {
+            "interval": "5m"
+          },
+          "params": {
+            "author": [],
+            "description": "No description",
+            "ruleId": "None",
+            "falsePositives": [],
+            "from": "now-5m",
+            "immutable": false,
+            "license": "DRL",
+            "outputIndex": "",
+            "meta": {
+              "from": "1m"
+            },
+            "maxSignals": 100,
+            "riskScore": 21,
+            "riskScoreMapping": [],
+            "severity": "low",
+            "severityMapping": [],
+            "threat": [],
+            "to": "now",
+            "references": [],
+            "version": 1,
+            "exceptionsList": [],
+            "relatedIntegrations": [],
+            "requiredFields": [],
+            "setup": "",
+            "type": "query",
+            "language": "lucene",
+            "index": [
+              "apm-*-transaction*",
+              "auditbeat-*",
+              "endgame-*",
+              "filebeat-*",
+              "logs-*",
+              "packetbeat-*",
+              "traces-apm*",
+              "winlogbeat-*",
+              "-*elastic-cloud-logs-*"
+            ],
+            "query": "CommandLine:valueB",
+            "filters": []
+          },
+          "rule_type_id": "siem.queryRule",
+          "notify_when": "onActiveAlert",
+          "actions": []
+        }
+      ],
+      "siem_rule_ndjson": [
+        {
+          "id": "None",
+          "name": "SIGMA - Test Rule 1",
+          "tags": [],
+          "enabled": true,
+          "throttle": "no_actions",
+          "interval": "5m",
+          "author": [],
+          "description": "No description",
+          "rule_id": "None",
+          "false_positives": [],
+          "from": "now-5m",
+          "immutable": false,
+          "license": "DRL",
+          "output_index": "",
+          "meta": {
+            "from": "1m"
+          },
+          "max_signals": 100,
+          "risk_score": 21,
+          "risk_score_mapping": [],
+          "severity": "low",
+          "severity_mapping": [],
+          "threat": [],
+          "to": "now",
+          "references": [],
+          "version": 1,
+          "exceptions_list": [],
+          "related_integrations": [],
+          "required_fields": [],
+          "setup": "",
+          "type": "query",
+          "language": "lucene",
+          "index": [
+            "apm-*-transaction*",
+            "auditbeat-*",
+            "endgame-*",
+            "filebeat-*",
+            "logs-*",
+            "packetbeat-*",
+            "traces-apm*",
+            "winlogbeat-*",
+            "-*elastic-cloud-logs-*"
+          ],
+          "query": "CommandLine:valueA",
+          "filters": [],
+          "actions": []
+        },
+        {
+          "id": "None",
+          "name": "SIGMA - Test Rule 2",
+          "tags": [],
+          "enabled": true,
+          "throttle": "no_actions",
+          "interval": "5m",
+          "author": [],
+          "description": "No description",
+          "rule_id": "None",
+          "false_positives": [],
+          "from": "now-5m",
+          "immutable": false,
+          "license": "DRL",
+          "output_index": "",
+          "meta": {
+            "from": "1m"
+          },
+          "max_signals": 100,
+          "risk_score": 21,
+          "risk_score_mapping": [],
+          "severity": "low",
+          "severity_mapping": [],
+          "threat": [],
+          "to": "now",
+          "references": [],
+          "version": 1,
+          "exceptions_list": [],
+          "related_integrations": [],
+          "required_fields": [],
+          "setup": "",
+          "type": "query",
+          "language": "lucene",
+          "index": [
+            "apm-*-transaction*",
+            "auditbeat-*",
+            "endgame-*",
+            "filebeat-*",
+            "logs-*",
+            "packetbeat-*",
+            "traces-apm*",
+            "winlogbeat-*",
+            "-*elastic-cloud-logs-*"
+          ],
+          "query": "CommandLine:valueB",
+          "filters": [],
+          "actions": []
+        }
+      ]
+    }
+  },
+  "insightidr": {
+    "insightidr": {
+      "default": [
+        "process.cmd_line = NOCASE(\"valueA\")",
+        "process.cmd_line = NOCASE(\"valueB\")"
+      ],
+      "leql_advanced_search": [
+        "where(process.cmd_line = NOCASE(\"valueA\"))",
+        "where(process.cmd_line = NOCASE(\"valueB\"))"
+      ],
+      "leql_detection_definition": [
+        "from(\n  entry_type = \"process_start_event\"\n)\nwhere(\n  process.cmd_line = NOCASE(\"valueA\")\n)",
+        "from(\n  entry_type = \"process_start_event\"\n)\nwhere(\n  process.cmd_line = NOCASE(\"valueB\")\n)"
+      ]
+    }
+  },
+  "loki": {
+    "loki_grafana_logfmt": {
+      "default": [
+        "{job=~\"eventlog|winlog|windows|fluentbit.*\"} | json | CommandLine=~`(?i)valueA`",
+        "{job=~\"eventlog|winlog|windows|fluentbit.*\"} | json | CommandLine=~`(?i)valueB`"
+      ],
+      "ruler": [
+        "groups:\n- name: Sigma rules\n  rules:\n  - alert: Test_Rule_1\n    annotations:\n      description: null\n      summary: Test Rule 1\n    expr: sum(count_over_time({job=~\"eventlog|winlog|windows|fluentbit.*\"} | json\n      | CommandLine=~`(?i)valueA` [1m])) or vector(0) > 0\n    labels: {}\n  - alert: Test_Rule_2\n    annotations:\n      description: null\n      summary: Test Rule 2\n    expr: sum(count_over_time({job=~\"eventlog|winlog|windows|fluentbit.*\"} | json\n      | CommandLine=~`(?i)valueB` [1m])) or vector(0) > 0\n    labels: {}\n"
+      ]
+    },
+    "loki_promtail_sysmon": {
+      "default": [
+        "{job=~\"eventlog|winlog|windows|fluentbit.*\"} | json | CommandLine=~`(?i)valueA`",
+        "{job=~\"eventlog|winlog|windows|fluentbit.*\"} | json | CommandLine=~`(?i)valueB`"
+      ],
+      "ruler": [
+        "groups:\n- name: Sigma rules\n  rules:\n  - alert: Test_Rule_1\n    annotations:\n      description: null\n      summary: Test Rule 1\n    expr: sum(count_over_time({job=~\"eventlog|winlog|windows|fluentbit.*\"} | json\n      | CommandLine=~`(?i)valueA` [1m])) or vector(0) > 0\n    labels: {}\n  - alert: Test_Rule_2\n    annotations:\n      description: null\n      summary: Test Rule 2\n    expr: sum(count_over_time({job=~\"eventlog|winlog|windows|fluentbit.*\"} | json\n      | CommandLine=~`(?i)valueB` [1m])) or vector(0) > 0\n    labels: {}\n"
+      ]
+    },
+    "loki_okta_system_log": {
+      "default": [
+        "{job=~\"eventlog|winlog|windows|fluentbit.*\"} | json | CommandLine=~`(?i)valueA`",
+        "{job=~\"eventlog|winlog|windows|fluentbit.*\"} | json | CommandLine=~`(?i)valueB`"
+      ],
+      "ruler": [
+        "groups:\n- name: Sigma rules\n  rules:\n  - alert: Test_Rule_1\n    annotations:\n      description: null\n      summary: Test Rule 1\n    expr: sum(count_over_time({job=~\"eventlog|winlog|windows|fluentbit.*\"} | json\n      | CommandLine=~`(?i)valueA` [1m])) or vector(0) > 0\n    labels: {}\n  - alert: Test_Rule_2\n    annotations:\n      description: null\n      summary: Test Rule 2\n    expr: sum(count_over_time({job=~\"eventlog|winlog|windows|fluentbit.*\"} | json\n      | CommandLine=~`(?i)valueB` [1m])) or vector(0) > 0\n    labels: {}\n"
+      ]
+    }
+  },
+  "microsoft365defender": {
+    "microsoft365defender": {
+      "default": [
+        "DeviceProcessEvents\n| where ProcessCommandLine =~ \"valueA\"",
+        "DeviceProcessEvents\n| where ProcessCommandLine =~ \"valueB\""
+      ]
+    }
+  },
+  "opensearch": {
+    "ecs_windows": {
+      "default": [
+        "process.command_line:valueA",
+        "process.command_line:valueB"
+      ],
+      "dashboards_ndjson": [
+        {
+          "id": "None",
+          "type": "search",
+          "attributes": {
+            "title": "SIGMA - Test Rule 1",
+            "description": null,
+            "hits": 0,
+            "columns": [],
+            "sort": [
+              "@timestamp",
+              "desc"
+            ],
+            "version": 1,
+            "kibanaSavedObjectMeta": {
+              "searchSourceJSON": "{\"index\": \"beats-*\", \"filter\": [], \"highlight\": {\"pre_tags\": [\"@kibana-highlighted-field@\"], \"post_tags\": [\"@/kibana-highlighted-field@\"], \"fields\": {\"*\": {}}, \"require_field_match\": false, \"fragment_size\": 2147483647}, \"query\": {\"query_string\": {\"query\": \"process.command_line:valueA\", \"analyze_wildcard\": true}}}"
+            }
+          },
+          "references": [
+            {
+              "id": "beats-*",
+              "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+              "type": "index-pattern"
+            }
+          ]
+        },
+        {
+          "id": "None",
+          "type": "search",
+          "attributes": {
+            "title": "SIGMA - Test Rule 2",
+            "description": null,
+            "hits": 0,
+            "columns": [],
+            "sort": [
+              "@timestamp",
+              "desc"
+            ],
+            "version": 1,
+            "kibanaSavedObjectMeta": {
+              "searchSourceJSON": "{\"index\": \"beats-*\", \"filter\": [], \"highlight\": {\"pre_tags\": [\"@kibana-highlighted-field@\"], \"post_tags\": [\"@/kibana-highlighted-field@\"], \"fields\": {\"*\": {}}, \"require_field_match\": false, \"fragment_size\": 2147483647}, \"query\": {\"query_string\": {\"query\": \"process.command_line:valueB\", \"analyze_wildcard\": true}}}"
+            }
+          },
+          "references": [
+            {
+              "id": "beats-*",
+              "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+              "type": "index-pattern"
+            }
+          ]
+        }
+      ],
+      "monitor_rule": [
+        {
+          "type": "monitor",
+          "name": "SIGMA - Test Rule 1",
+          "description": null,
+          "enabled": true,
+          "schedule": {
+            "period": {
+              "interval": 5,
+              "unit": "MINUTES"
+            }
+          },
+          "inputs": [
+            {
+              "search": {
+                "indices": [
+                  "beats-*"
+                ],
+                "query": {
+                  "size": 1,
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "query_string": {
+                            "query": "process.command_line:valueA",
+                            "analyze_wildcard": true
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "tags": [],
+          "triggers": [
+            {
+              "name": "generated-trigger",
+              "severity": 1,
+              "condition": {
+                "script": {
+                  "source": "ctx.results[0].hits.total.value > 0",
+                  "lang": "painless"
+                }
+              },
+              "actions": []
+            }
+          ],
+          "sigma_meta_data": {
+            "rule_id": "None",
+            "threat": []
+          },
+          "references": []
+        },
+        {
+          "type": "monitor",
+          "name": "SIGMA - Test Rule 2",
+          "description": null,
+          "enabled": true,
+          "schedule": {
+            "period": {
+              "interval": 5,
+              "unit": "MINUTES"
+            }
+          },
+          "inputs": [
+            {
+              "search": {
+                "indices": [
+                  "beats-*"
+                ],
+                "query": {
+                  "size": 1,
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "query_string": {
+                            "query": "process.command_line:valueB",
+                            "analyze_wildcard": true
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "tags": [],
+          "triggers": [
+            {
+              "name": "generated-trigger",
+              "severity": 1,
+              "condition": {
+                "script": {
+                  "source": "ctx.results[0].hits.total.value > 0",
+                  "lang": "painless"
+                }
+              },
+              "actions": []
+            }
+          ],
+          "sigma_meta_data": {
+            "rule_id": "None",
+            "threat": []
+          },
+          "references": []
+        }
+      ],
+      "dsl_lucene": [
+        {
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "process.command_line:valueA",
+                    "analyze_wildcard": true
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "process.command_line:valueB",
+                    "analyze_wildcard": true
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "ecs_windows_old": {
+      "default": [
+        "event_data.CommandLine:valueA",
+        "event_data.CommandLine:valueB"
+      ],
+      "dashboards_ndjson": [
+        {
+          "id": "None",
+          "type": "search",
+          "attributes": {
+            "title": "SIGMA - Test Rule 1",
+            "description": null,
+            "hits": 0,
+            "columns": [],
+            "sort": [
+              "@timestamp",
+              "desc"
+            ],
+            "version": 1,
+            "kibanaSavedObjectMeta": {
+              "searchSourceJSON": "{\"index\": \"beats-*\", \"filter\": [], \"highlight\": {\"pre_tags\": [\"@kibana-highlighted-field@\"], \"post_tags\": [\"@/kibana-highlighted-field@\"], \"fields\": {\"*\": {}}, \"require_field_match\": false, \"fragment_size\": 2147483647}, \"query\": {\"query_string\": {\"query\": \"event_data.CommandLine:valueA\", \"analyze_wildcard\": true}}}"
+            }
+          },
+          "references": [
+            {
+              "id": "beats-*",
+              "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+              "type": "index-pattern"
+            }
+          ]
+        },
+        {
+          "id": "None",
+          "type": "search",
+          "attributes": {
+            "title": "SIGMA - Test Rule 2",
+            "description": null,
+            "hits": 0,
+            "columns": [],
+            "sort": [
+              "@timestamp",
+              "desc"
+            ],
+            "version": 1,
+            "kibanaSavedObjectMeta": {
+              "searchSourceJSON": "{\"index\": \"beats-*\", \"filter\": [], \"highlight\": {\"pre_tags\": [\"@kibana-highlighted-field@\"], \"post_tags\": [\"@/kibana-highlighted-field@\"], \"fields\": {\"*\": {}}, \"require_field_match\": false, \"fragment_size\": 2147483647}, \"query\": {\"query_string\": {\"query\": \"event_data.CommandLine:valueB\", \"analyze_wildcard\": true}}}"
+            }
+          },
+          "references": [
+            {
+              "id": "beats-*",
+              "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+              "type": "index-pattern"
+            }
+          ]
+        }
+      ],
+      "monitor_rule": [
+        {
+          "type": "monitor",
+          "name": "SIGMA - Test Rule 1",
+          "description": null,
+          "enabled": true,
+          "schedule": {
+            "period": {
+              "interval": 5,
+              "unit": "MINUTES"
+            }
+          },
+          "inputs": [
+            {
+              "search": {
+                "indices": [
+                  "beats-*"
+                ],
+                "query": {
+                  "size": 1,
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "query_string": {
+                            "query": "event_data.CommandLine:valueA",
+                            "analyze_wildcard": true
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "tags": [],
+          "triggers": [
+            {
+              "name": "generated-trigger",
+              "severity": 1,
+              "condition": {
+                "script": {
+                  "source": "ctx.results[0].hits.total.value > 0",
+                  "lang": "painless"
+                }
+              },
+              "actions": []
+            }
+          ],
+          "sigma_meta_data": {
+            "rule_id": "None",
+            "threat": []
+          },
+          "references": []
+        },
+        {
+          "type": "monitor",
+          "name": "SIGMA - Test Rule 2",
+          "description": null,
+          "enabled": true,
+          "schedule": {
+            "period": {
+              "interval": 5,
+              "unit": "MINUTES"
+            }
+          },
+          "inputs": [
+            {
+              "search": {
+                "indices": [
+                  "beats-*"
+                ],
+                "query": {
+                  "size": 1,
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "query_string": {
+                            "query": "event_data.CommandLine:valueB",
+                            "analyze_wildcard": true
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "tags": [],
+          "triggers": [
+            {
+              "name": "generated-trigger",
+              "severity": 1,
+              "condition": {
+                "script": {
+                  "source": "ctx.results[0].hits.total.value > 0",
+                  "lang": "painless"
+                }
+              },
+              "actions": []
+            }
+          ],
+          "sigma_meta_data": {
+            "rule_id": "None",
+            "threat": []
+          },
+          "references": []
+        }
+      ],
+      "dsl_lucene": [
+        {
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "event_data.CommandLine:valueA",
+                    "analyze_wildcard": true
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "event_data.CommandLine:valueB",
+                    "analyze_wildcard": true
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "ecs_zeek_beats": {
+      "default": [
+        "CommandLine:valueA",
+        "CommandLine:valueB"
+      ],
+      "dashboards_ndjson": [
+        {
+          "id": "None",
+          "type": "search",
+          "attributes": {
+            "title": "SIGMA - Test Rule 1",
+            "description": null,
+            "hits": 0,
+            "columns": [],
+            "sort": [
+              "@timestamp",
+              "desc"
+            ],
+            "version": 1,
+            "kibanaSavedObjectMeta": {
+              "searchSourceJSON": "{\"index\": \"beats-*\", \"filter\": [], \"highlight\": {\"pre_tags\": [\"@kibana-highlighted-field@\"], \"post_tags\": [\"@/kibana-highlighted-field@\"], \"fields\": {\"*\": {}}, \"require_field_match\": false, \"fragment_size\": 2147483647}, \"query\": {\"query_string\": {\"query\": \"CommandLine:valueA\", \"analyze_wildcard\": true}}}"
+            }
+          },
+          "references": [
+            {
+              "id": "beats-*",
+              "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+              "type": "index-pattern"
+            }
+          ]
+        },
+        {
+          "id": "None",
+          "type": "search",
+          "attributes": {
+            "title": "SIGMA - Test Rule 2",
+            "description": null,
+            "hits": 0,
+            "columns": [],
+            "sort": [
+              "@timestamp",
+              "desc"
+            ],
+            "version": 1,
+            "kibanaSavedObjectMeta": {
+              "searchSourceJSON": "{\"index\": \"beats-*\", \"filter\": [], \"highlight\": {\"pre_tags\": [\"@kibana-highlighted-field@\"], \"post_tags\": [\"@/kibana-highlighted-field@\"], \"fields\": {\"*\": {}}, \"require_field_match\": false, \"fragment_size\": 2147483647}, \"query\": {\"query_string\": {\"query\": \"CommandLine:valueB\", \"analyze_wildcard\": true}}}"
+            }
+          },
+          "references": [
+            {
+              "id": "beats-*",
+              "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+              "type": "index-pattern"
+            }
+          ]
+        }
+      ],
+      "monitor_rule": [
+        {
+          "type": "monitor",
+          "name": "SIGMA - Test Rule 1",
+          "description": null,
+          "enabled": true,
+          "schedule": {
+            "period": {
+              "interval": 5,
+              "unit": "MINUTES"
+            }
+          },
+          "inputs": [
+            {
+              "search": {
+                "indices": [
+                  "beats-*"
+                ],
+                "query": {
+                  "size": 1,
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "query_string": {
+                            "query": "CommandLine:valueA",
+                            "analyze_wildcard": true
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "tags": [],
+          "triggers": [
+            {
+              "name": "generated-trigger",
+              "severity": 1,
+              "condition": {
+                "script": {
+                  "source": "ctx.results[0].hits.total.value > 0",
+                  "lang": "painless"
+                }
+              },
+              "actions": []
+            }
+          ],
+          "sigma_meta_data": {
+            "rule_id": "None",
+            "threat": []
+          },
+          "references": []
+        },
+        {
+          "type": "monitor",
+          "name": "SIGMA - Test Rule 2",
+          "description": null,
+          "enabled": true,
+          "schedule": {
+            "period": {
+              "interval": 5,
+              "unit": "MINUTES"
+            }
+          },
+          "inputs": [
+            {
+              "search": {
+                "indices": [
+                  "beats-*"
+                ],
+                "query": {
+                  "size": 1,
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "query_string": {
+                            "query": "CommandLine:valueB",
+                            "analyze_wildcard": true
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "tags": [],
+          "triggers": [
+            {
+              "name": "generated-trigger",
+              "severity": 1,
+              "condition": {
+                "script": {
+                  "source": "ctx.results[0].hits.total.value > 0",
+                  "lang": "painless"
+                }
+              },
+              "actions": []
+            }
+          ],
+          "sigma_meta_data": {
+            "rule_id": "None",
+            "threat": []
+          },
+          "references": []
+        }
+      ],
+      "dsl_lucene": [
+        {
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "CommandLine:valueA",
+                    "analyze_wildcard": true
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "CommandLine:valueB",
+                    "analyze_wildcard": true
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "ecs_zeek_corelight": {
+      "default": [
+        "CommandLine:valueA",
+        "CommandLine:valueB"
+      ],
+      "dashboards_ndjson": [
+        {
+          "id": "None",
+          "type": "search",
+          "attributes": {
+            "title": "SIGMA - Test Rule 1",
+            "description": null,
+            "hits": 0,
+            "columns": [],
+            "sort": [
+              "@timestamp",
+              "desc"
+            ],
+            "version": 1,
+            "kibanaSavedObjectMeta": {
+              "searchSourceJSON": "{\"index\": \"beats-*\", \"filter\": [], \"highlight\": {\"pre_tags\": [\"@kibana-highlighted-field@\"], \"post_tags\": [\"@/kibana-highlighted-field@\"], \"fields\": {\"*\": {}}, \"require_field_match\": false, \"fragment_size\": 2147483647}, \"query\": {\"query_string\": {\"query\": \"CommandLine:valueA\", \"analyze_wildcard\": true}}}"
+            }
+          },
+          "references": [
+            {
+              "id": "beats-*",
+              "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+              "type": "index-pattern"
+            }
+          ]
+        },
+        {
+          "id": "None",
+          "type": "search",
+          "attributes": {
+            "title": "SIGMA - Test Rule 2",
+            "description": null,
+            "hits": 0,
+            "columns": [],
+            "sort": [
+              "@timestamp",
+              "desc"
+            ],
+            "version": 1,
+            "kibanaSavedObjectMeta": {
+              "searchSourceJSON": "{\"index\": \"beats-*\", \"filter\": [], \"highlight\": {\"pre_tags\": [\"@kibana-highlighted-field@\"], \"post_tags\": [\"@/kibana-highlighted-field@\"], \"fields\": {\"*\": {}}, \"require_field_match\": false, \"fragment_size\": 2147483647}, \"query\": {\"query_string\": {\"query\": \"CommandLine:valueB\", \"analyze_wildcard\": true}}}"
+            }
+          },
+          "references": [
+            {
+              "id": "beats-*",
+              "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+              "type": "index-pattern"
+            }
+          ]
+        }
+      ],
+      "monitor_rule": [
+        {
+          "type": "monitor",
+          "name": "SIGMA - Test Rule 1",
+          "description": null,
+          "enabled": true,
+          "schedule": {
+            "period": {
+              "interval": 5,
+              "unit": "MINUTES"
+            }
+          },
+          "inputs": [
+            {
+              "search": {
+                "indices": [
+                  "beats-*"
+                ],
+                "query": {
+                  "size": 1,
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "query_string": {
+                            "query": "CommandLine:valueA",
+                            "analyze_wildcard": true
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "tags": [],
+          "triggers": [
+            {
+              "name": "generated-trigger",
+              "severity": 1,
+              "condition": {
+                "script": {
+                  "source": "ctx.results[0].hits.total.value > 0",
+                  "lang": "painless"
+                }
+              },
+              "actions": []
+            }
+          ],
+          "sigma_meta_data": {
+            "rule_id": "None",
+            "threat": []
+          },
+          "references": []
+        },
+        {
+          "type": "monitor",
+          "name": "SIGMA - Test Rule 2",
+          "description": null,
+          "enabled": true,
+          "schedule": {
+            "period": {
+              "interval": 5,
+              "unit": "MINUTES"
+            }
+          },
+          "inputs": [
+            {
+              "search": {
+                "indices": [
+                  "beats-*"
+                ],
+                "query": {
+                  "size": 1,
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "query_string": {
+                            "query": "CommandLine:valueB",
+                            "analyze_wildcard": true
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "tags": [],
+          "triggers": [
+            {
+              "name": "generated-trigger",
+              "severity": 1,
+              "condition": {
+                "script": {
+                  "source": "ctx.results[0].hits.total.value > 0",
+                  "lang": "painless"
+                }
+              },
+              "actions": []
+            }
+          ],
+          "sigma_meta_data": {
+            "rule_id": "None",
+            "threat": []
+          },
+          "references": []
+        }
+      ],
+      "dsl_lucene": [
+        {
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "CommandLine:valueA",
+                    "analyze_wildcard": true
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "CommandLine:valueB",
+                    "analyze_wildcard": true
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "zeek_raw": {
+      "default": [
+        "CommandLine:valueA",
+        "CommandLine:valueB"
+      ],
+      "dashboards_ndjson": [
+        {
+          "id": "None",
+          "type": "search",
+          "attributes": {
+            "title": "SIGMA - Test Rule 1",
+            "description": null,
+            "hits": 0,
+            "columns": [],
+            "sort": [
+              "@timestamp",
+              "desc"
+            ],
+            "version": 1,
+            "kibanaSavedObjectMeta": {
+              "searchSourceJSON": "{\"index\": \"beats-*\", \"filter\": [], \"highlight\": {\"pre_tags\": [\"@kibana-highlighted-field@\"], \"post_tags\": [\"@/kibana-highlighted-field@\"], \"fields\": {\"*\": {}}, \"require_field_match\": false, \"fragment_size\": 2147483647}, \"query\": {\"query_string\": {\"query\": \"CommandLine:valueA\", \"analyze_wildcard\": true}}}"
+            }
+          },
+          "references": [
+            {
+              "id": "beats-*",
+              "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+              "type": "index-pattern"
+            }
+          ]
+        },
+        {
+          "id": "None",
+          "type": "search",
+          "attributes": {
+            "title": "SIGMA - Test Rule 2",
+            "description": null,
+            "hits": 0,
+            "columns": [],
+            "sort": [
+              "@timestamp",
+              "desc"
+            ],
+            "version": 1,
+            "kibanaSavedObjectMeta": {
+              "searchSourceJSON": "{\"index\": \"beats-*\", \"filter\": [], \"highlight\": {\"pre_tags\": [\"@kibana-highlighted-field@\"], \"post_tags\": [\"@/kibana-highlighted-field@\"], \"fields\": {\"*\": {}}, \"require_field_match\": false, \"fragment_size\": 2147483647}, \"query\": {\"query_string\": {\"query\": \"CommandLine:valueB\", \"analyze_wildcard\": true}}}"
+            }
+          },
+          "references": [
+            {
+              "id": "beats-*",
+              "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
+              "type": "index-pattern"
+            }
+          ]
+        }
+      ],
+      "monitor_rule": [
+        {
+          "type": "monitor",
+          "name": "SIGMA - Test Rule 1",
+          "description": null,
+          "enabled": true,
+          "schedule": {
+            "period": {
+              "interval": 5,
+              "unit": "MINUTES"
+            }
+          },
+          "inputs": [
+            {
+              "search": {
+                "indices": [
+                  "beats-*"
+                ],
+                "query": {
+                  "size": 1,
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "query_string": {
+                            "query": "CommandLine:valueA",
+                            "analyze_wildcard": true
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "tags": [],
+          "triggers": [
+            {
+              "name": "generated-trigger",
+              "severity": 1,
+              "condition": {
+                "script": {
+                  "source": "ctx.results[0].hits.total.value > 0",
+                  "lang": "painless"
+                }
+              },
+              "actions": []
+            }
+          ],
+          "sigma_meta_data": {
+            "rule_id": "None",
+            "threat": []
+          },
+          "references": []
+        },
+        {
+          "type": "monitor",
+          "name": "SIGMA - Test Rule 2",
+          "description": null,
+          "enabled": true,
+          "schedule": {
+            "period": {
+              "interval": 5,
+              "unit": "MINUTES"
+            }
+          },
+          "inputs": [
+            {
+              "search": {
+                "indices": [
+                  "beats-*"
+                ],
+                "query": {
+                  "size": 1,
+                  "query": {
+                    "bool": {
+                      "must": [
+                        {
+                          "query_string": {
+                            "query": "CommandLine:valueB",
+                            "analyze_wildcard": true
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "tags": [],
+          "triggers": [
+            {
+              "name": "generated-trigger",
+              "severity": 1,
+              "condition": {
+                "script": {
+                  "source": "ctx.results[0].hits.total.value > 0",
+                  "lang": "painless"
+                }
+              },
+              "actions": []
+            }
+          ],
+          "sigma_meta_data": {
+            "rule_id": "None",
+            "threat": []
+          },
+          "references": []
+        }
+      ],
+      "dsl_lucene": [
+        {
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "CommandLine:valueA",
+                    "analyze_wildcard": true
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "CommandLine:valueB",
+                    "analyze_wildcard": true
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "qradar": {
+    "qradar_fields": {
+      "default": [
+        "SELECT * FROM events WHERE devicetype=12 AND Command='valueA'",
+        "SELECT * FROM events WHERE devicetype=12 AND Command='valueB'"
+      ]
+    },
+    "qradar_payload": {
+      "default": [
+        "SELECT * FROM events WHERE devicetype=12 AND Command='valueA'",
+        "SELECT * FROM events WHERE devicetype=12 AND Command='valueB'"
+      ]
+    }
+  },
+  "sentinelone": {
+    "sentinelone": {
+      "default": [
+        "EventType = \"Process Creation\" AND (EndpointOS = \"windows\" AND TgtProcCmdLine = \"valueA\")",
+        "EventType = \"Process Creation\" AND (EndpointOS = \"windows\" AND TgtProcCmdLine = \"valueB\")"
+      ],
+      "json": [
+        {
+          "queries": [
+            {
+              "query": "EventType = \"Process Creation\" AND (EndpointOS = \"windows\" AND TgtProcCmdLine = \"valueA\")",
+              "title": "Test Rule 1",
+              "id": "None",
+              "description": null
+            },
+            {
+              "query": "EventType = \"Process Creation\" AND (EndpointOS = \"windows\" AND TgtProcCmdLine = \"valueB\")",
+              "title": "Test Rule 2",
+              "id": "None",
+              "description": null
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "splunk": {
+    "splunk_windows": {
+      "default": [
+        "CommandLine=\"valueA\"",
+        "CommandLine=\"valueB\""
+      ],
+      "savedsearches": [
+        "\n[default]\ndispatch.earliest_time = -30d\ndispatch.latest_time = now\n\n[Test Rule 1]\ndescription = \nsearch = CommandLine=\"valueA\"\n\n[Test Rule 2]\ndescription = \nsearch = CommandLine=\"valueB\""
+      ],
+      "data_model": [
+        "| tstats summariesonly=false allow_old_summaries=true fillnull_value=\"null\" count min(_time) as firstTime max(_time) as lastTime from datamodel=Endpoint.Processes where Processes.process=\"valueA\" by Processes.process Processes.dest Processes.process_current_directory Processes.process_path Processes.process_integrity_level Processes.parent_process Processes.parent_process_path Processes.parent_process_guid Processes.parent_process_id Processes.process_guid Processes.process_id Processes.user | `drop_dm_object_name(Processes)` | convert timeformat=\"%Y-%m-%dT%H:%M:%S\" ctime(firstTime) | convert timeformat=\"%Y-%m-%dT%H:%M:%S\" ctime(lastTime) ",
+        "| tstats summariesonly=false allow_old_summaries=true fillnull_value=\"null\" count min(_time) as firstTime max(_time) as lastTime from datamodel=Endpoint.Processes where Processes.process=\"valueB\" by Processes.process Processes.dest Processes.process_current_directory Processes.process_path Processes.process_integrity_level Processes.parent_process Processes.parent_process_path Processes.parent_process_guid Processes.parent_process_id Processes.process_guid Processes.process_id Processes.user | `drop_dm_object_name(Processes)` | convert timeformat=\"%Y-%m-%dT%H:%M:%S\" ctime(firstTime) | convert timeformat=\"%Y-%m-%dT%H:%M:%S\" ctime(lastTime) "
+      ],
+      "stanza": [
+        "[Threat - Test Rule 1 - Rule]\naction.correlationsearch.annotations = {'mitre_attack': []}\naction.correlationsearch.enabled = 1\naction.correlationsearch.label = Test Rule 1\naction.customsearchbuilder.enabled = false\naction.makestreams.param.verbose = 0\naction.nbtstat.param.verbose = 0\naction.notable = 1\naction.notable.param.drilldown_name = Test Rule 1\naction.notable.param.drilldown_search = CommandLine=\"valueA\"\naction.notable.param.rule_description = Generated from AttackIQ Sigma Rule for Scenario 'Test Rule 1'\naction.notable.param.rule_title = Test Rule 1\naction.notable.param.security_domain = threat\naction.notable.param.severity = high\naction.notable.param.verbose = 0\naction.nslookup.param.verbose = 0\naction.ping.param.verbose = 0\naction.risk.forceCsvResults = 1\naction.risk.param._risk = [{\"risk_object_field\":\"\",\"risk_object_type\":\"\",\"risk_score\":1}]\naction.risk.param._risk_score = 0\naction.risk.param.verbose = 0\naction.send2uba.param.verbose = 0\naction.threat_add.param.verbose = 0\nalert.suppress = 0\nalert.track = 1\ncounttype = number of events\ncron_schedule = */10 * * * *\ndescription = This rule was automatically generated by AttackIQ Sigma Rules for scenario 'Test Rule 1'. Please edit the settings for your own environment's needs.\ndispatch.earliest_time = -10m\ndispatch.latest_time = now\ndispatch.rt_backfill = 1\nenableSched = 1\nquantity = 0\nrelation = greater than\nrequest.ui_dispatch_app = SplunkEnterpriseSecuritySuite\nsearch = CommandLine=\"valueA\"",
+        "[Threat - Test Rule 2 - Rule]\naction.correlationsearch.annotations = {'mitre_attack': []}\naction.correlationsearch.enabled = 1\naction.correlationsearch.label = Test Rule 2\naction.customsearchbuilder.enabled = false\naction.makestreams.param.verbose = 0\naction.nbtstat.param.verbose = 0\naction.notable = 1\naction.notable.param.drilldown_name = Test Rule 2\naction.notable.param.drilldown_search = CommandLine=\"valueB\"\naction.notable.param.rule_description = Generated from AttackIQ Sigma Rule for Scenario 'Test Rule 2'\naction.notable.param.rule_title = Test Rule 2\naction.notable.param.security_domain = threat\naction.notable.param.severity = high\naction.notable.param.verbose = 0\naction.nslookup.param.verbose = 0\naction.ping.param.verbose = 0\naction.risk.forceCsvResults = 1\naction.risk.param._risk = [{\"risk_object_field\":\"\",\"risk_object_type\":\"\",\"risk_score\":1}]\naction.risk.param._risk_score = 0\naction.risk.param.verbose = 0\naction.send2uba.param.verbose = 0\naction.threat_add.param.verbose = 0\nalert.suppress = 0\nalert.track = 1\ncounttype = number of events\ncron_schedule = */10 * * * *\ndescription = This rule was automatically generated by AttackIQ Sigma Rules for scenario 'Test Rule 2'. Please edit the settings for your own environment's needs.\ndispatch.earliest_time = -10m\ndispatch.latest_time = now\ndispatch.rt_backfill = 1\nenableSched = 1\nquantity = 0\nrelation = greater than\nrequest.ui_dispatch_app = SplunkEnterpriseSecuritySuite\nsearch = CommandLine=\"valueB\""
+      ]
+    },
+    "splunk_wineventlog": {
+      "default": [
+        "source=\"WinEventLog:Security\" EventCode=4688 CommandLine=\"valueA\"",
+        "source=\"WinEventLog:Security\" EventCode=4688 CommandLine=\"valueB\""
+      ],
+      "savedsearches": [
+        "\n[default]\ndispatch.earliest_time = -30d\ndispatch.latest_time = now\n\n[Test Rule 1]\ndescription = \nsearch = source=\"WinEventLog:Security\" EventCode=4688 CommandLine=\"valueA\"\n\n[Test Rule 2]\ndescription = \nsearch = source=\"WinEventLog:Security\" EventCode=4688 CommandLine=\"valueB\""
+      ],
+      "stanza": [
+        "[Threat - Test Rule 1 - Rule]\naction.correlationsearch.annotations = {'mitre_attack': []}\naction.correlationsearch.enabled = 1\naction.correlationsearch.label = Test Rule 1\naction.customsearchbuilder.enabled = false\naction.makestreams.param.verbose = 0\naction.nbtstat.param.verbose = 0\naction.notable = 1\naction.notable.param.drilldown_name = Test Rule 1\naction.notable.param.drilldown_search = source=\"WinEventLog:Security\" EventCode=4688 CommandLine=\"valueA\"\naction.notable.param.rule_description = Generated from AttackIQ Sigma Rule for Scenario 'Test Rule 1'\naction.notable.param.rule_title = Test Rule 1\naction.notable.param.security_domain = threat\naction.notable.param.severity = high\naction.notable.param.verbose = 0\naction.nslookup.param.verbose = 0\naction.ping.param.verbose = 0\naction.risk.forceCsvResults = 1\naction.risk.param._risk = [{\"risk_object_field\":\"\",\"risk_object_type\":\"\",\"risk_score\":1}]\naction.risk.param._risk_score = 0\naction.risk.param.verbose = 0\naction.send2uba.param.verbose = 0\naction.threat_add.param.verbose = 0\nalert.suppress = 0\nalert.track = 1\ncounttype = number of events\ncron_schedule = */10 * * * *\ndescription = This rule was automatically generated by AttackIQ Sigma Rules for scenario 'Test Rule 1'. Please edit the settings for your own environment's needs.\ndispatch.earliest_time = -10m\ndispatch.latest_time = now\ndispatch.rt_backfill = 1\nenableSched = 1\nquantity = 0\nrelation = greater than\nrequest.ui_dispatch_app = SplunkEnterpriseSecuritySuite\nsearch = source=\"WinEventLog:Security\" EventCode=4688 CommandLine=\"valueA\"",
+        "[Threat - Test Rule 2 - Rule]\naction.correlationsearch.annotations = {'mitre_attack': []}\naction.correlationsearch.enabled = 1\naction.correlationsearch.label = Test Rule 2\naction.customsearchbuilder.enabled = false\naction.makestreams.param.verbose = 0\naction.nbtstat.param.verbose = 0\naction.notable = 1\naction.notable.param.drilldown_name = Test Rule 2\naction.notable.param.drilldown_search = source=\"WinEventLog:Security\" EventCode=4688 CommandLine=\"valueB\"\naction.notable.param.rule_description = Generated from AttackIQ Sigma Rule for Scenario 'Test Rule 2'\naction.notable.param.rule_title = Test Rule 2\naction.notable.param.security_domain = threat\naction.notable.param.severity = high\naction.notable.param.verbose = 0\naction.nslookup.param.verbose = 0\naction.ping.param.verbose = 0\naction.risk.forceCsvResults = 1\naction.risk.param._risk = [{\"risk_object_field\":\"\",\"risk_object_type\":\"\",\"risk_score\":1}]\naction.risk.param._risk_score = 0\naction.risk.param.verbose = 0\naction.send2uba.param.verbose = 0\naction.threat_add.param.verbose = 0\nalert.suppress = 0\nalert.track = 1\ncounttype = number of events\ncron_schedule = */10 * * * *\ndescription = This rule was automatically generated by AttackIQ Sigma Rules for scenario 'Test Rule 2'. Please edit the settings for your own environment's needs.\ndispatch.earliest_time = -10m\ndispatch.latest_time = now\ndispatch.rt_backfill = 1\nenableSched = 1\nquantity = 0\nrelation = greater than\nrequest.ui_dispatch_app = SplunkEnterpriseSecuritySuite\nsearch = source=\"WinEventLog:Security\" EventCode=4688 CommandLine=\"valueB\""
+      ]
+    },
+    "splunk_windows_sysmon_acc": {
+      "default": [
+        "CommandLine=\"valueA\"",
+        "CommandLine=\"valueB\""
+      ],
+      "savedsearches": [
+        "\n[default]\ndispatch.earliest_time = -30d\ndispatch.latest_time = now\n\n[Test Rule 1]\ndescription = \nsearch = CommandLine=\"valueA\"\n\n[Test Rule 2]\ndescription = \nsearch = CommandLine=\"valueB\""
+      ],
+      "data_model": [
+        "| tstats summariesonly=false allow_old_summaries=true fillnull_value=\"null\" count min(_time) as firstTime max(_time) as lastTime from datamodel=Endpoint.Processes where Processes.process=\"valueA\" by Processes.process Processes.dest Processes.process_current_directory Processes.process_path Processes.process_integrity_level Processes.parent_process Processes.parent_process_path Processes.parent_process_guid Processes.parent_process_id Processes.process_guid Processes.process_id Processes.user | `drop_dm_object_name(Processes)` | convert timeformat=\"%Y-%m-%dT%H:%M:%S\" ctime(firstTime) | convert timeformat=\"%Y-%m-%dT%H:%M:%S\" ctime(lastTime) ",
+        "| tstats summariesonly=false allow_old_summaries=true fillnull_value=\"null\" count min(_time) as firstTime max(_time) as lastTime from datamodel=Endpoint.Processes where Processes.process=\"valueB\" by Processes.process Processes.dest Processes.process_current_directory Processes.process_path Processes.process_integrity_level Processes.parent_process Processes.parent_process_path Processes.parent_process_guid Processes.parent_process_id Processes.process_guid Processes.process_id Processes.user | `drop_dm_object_name(Processes)` | convert timeformat=\"%Y-%m-%dT%H:%M:%S\" ctime(firstTime) | convert timeformat=\"%Y-%m-%dT%H:%M:%S\" ctime(lastTime) "
+      ],
+      "stanza": [
+        "[Threat - Test Rule 1 - Rule]\naction.correlationsearch.annotations = {'mitre_attack': []}\naction.correlationsearch.enabled = 1\naction.correlationsearch.label = Test Rule 1\naction.customsearchbuilder.enabled = false\naction.makestreams.param.verbose = 0\naction.nbtstat.param.verbose = 0\naction.notable = 1\naction.notable.param.drilldown_name = Test Rule 1\naction.notable.param.drilldown_search = CommandLine=\"valueA\"\naction.notable.param.rule_description = Generated from AttackIQ Sigma Rule for Scenario 'Test Rule 1'\naction.notable.param.rule_title = Test Rule 1\naction.notable.param.security_domain = threat\naction.notable.param.severity = high\naction.notable.param.verbose = 0\naction.nslookup.param.verbose = 0\naction.ping.param.verbose = 0\naction.risk.forceCsvResults = 1\naction.risk.param._risk = [{\"risk_object_field\":\"\",\"risk_object_type\":\"\",\"risk_score\":1}]\naction.risk.param._risk_score = 0\naction.risk.param.verbose = 0\naction.send2uba.param.verbose = 0\naction.threat_add.param.verbose = 0\nalert.suppress = 0\nalert.track = 1\ncounttype = number of events\ncron_schedule = */10 * * * *\ndescription = This rule was automatically generated by AttackIQ Sigma Rules for scenario 'Test Rule 1'. Please edit the settings for your own environment's needs.\ndispatch.earliest_time = -10m\ndispatch.latest_time = now\ndispatch.rt_backfill = 1\nenableSched = 1\nquantity = 0\nrelation = greater than\nrequest.ui_dispatch_app = SplunkEnterpriseSecuritySuite\nsearch = CommandLine=\"valueA\"",
+        "[Threat - Test Rule 2 - Rule]\naction.correlationsearch.annotations = {'mitre_attack': []}\naction.correlationsearch.enabled = 1\naction.correlationsearch.label = Test Rule 2\naction.customsearchbuilder.enabled = false\naction.makestreams.param.verbose = 0\naction.nbtstat.param.verbose = 0\naction.notable = 1\naction.notable.param.drilldown_name = Test Rule 2\naction.notable.param.drilldown_search = CommandLine=\"valueB\"\naction.notable.param.rule_description = Generated from AttackIQ Sigma Rule for Scenario 'Test Rule 2'\naction.notable.param.rule_title = Test Rule 2\naction.notable.param.security_domain = threat\naction.notable.param.severity = high\naction.notable.param.verbose = 0\naction.nslookup.param.verbose = 0\naction.ping.param.verbose = 0\naction.risk.forceCsvResults = 1\naction.risk.param._risk = [{\"risk_object_field\":\"\",\"risk_object_type\":\"\",\"risk_score\":1}]\naction.risk.param._risk_score = 0\naction.risk.param.verbose = 0\naction.send2uba.param.verbose = 0\naction.threat_add.param.verbose = 0\nalert.suppress = 0\nalert.track = 1\ncounttype = number of events\ncron_schedule = */10 * * * *\ndescription = This rule was automatically generated by AttackIQ Sigma Rules for scenario 'Test Rule 2'. Please edit the settings for your own environment's needs.\ndispatch.earliest_time = -10m\ndispatch.latest_time = now\ndispatch.rt_backfill = 1\nenableSched = 1\nquantity = 0\nrelation = greater than\nrequest.ui_dispatch_app = SplunkEnterpriseSecuritySuite\nsearch = CommandLine=\"valueB\""
+      ]
+    },
+    "splunk_cim_dm": {
+      "default": [
+        "Processes.process=\"valueA\"",
+        "Processes.process=\"valueB\""
+      ],
+      "savedsearches": [
+        "\n[default]\ndispatch.earliest_time = -30d\ndispatch.latest_time = now\n\n[Test Rule 1]\ndescription = \nsearch = Processes.process=\"valueA\"\n\n[Test Rule 2]\ndescription = \nsearch = Processes.process=\"valueB\""
+      ],
+      "data_model": [
+        "| tstats summariesonly=false allow_old_summaries=true fillnull_value=\"null\" count min(_time) as firstTime max(_time) as lastTime from datamodel=Endpoint.Processes where Processes.process=\"valueA\" by Processes.process Processes.dest Processes.process_current_directory Processes.process_path Processes.process_integrity_level Processes.parent_process Processes.parent_process_path Processes.parent_process_guid Processes.parent_process_id Processes.process_guid Processes.process_id Processes.user | `drop_dm_object_name(Processes)` | convert timeformat=\"%Y-%m-%dT%H:%M:%S\" ctime(firstTime) | convert timeformat=\"%Y-%m-%dT%H:%M:%S\" ctime(lastTime) ",
+        "| tstats summariesonly=false allow_old_summaries=true fillnull_value=\"null\" count min(_time) as firstTime max(_time) as lastTime from datamodel=Endpoint.Processes where Processes.process=\"valueB\" by Processes.process Processes.dest Processes.process_current_directory Processes.process_path Processes.process_integrity_level Processes.parent_process Processes.parent_process_path Processes.parent_process_guid Processes.parent_process_id Processes.process_guid Processes.process_id Processes.user | `drop_dm_object_name(Processes)` | convert timeformat=\"%Y-%m-%dT%H:%M:%S\" ctime(firstTime) | convert timeformat=\"%Y-%m-%dT%H:%M:%S\" ctime(lastTime) "
+      ],
+      "stanza": [
+        "[Threat - Test Rule 1 - Rule]\naction.correlationsearch.annotations = {'mitre_attack': []}\naction.correlationsearch.enabled = 1\naction.correlationsearch.label = Test Rule 1\naction.customsearchbuilder.enabled = false\naction.makestreams.param.verbose = 0\naction.nbtstat.param.verbose = 0\naction.notable = 1\naction.notable.param.drilldown_name = Test Rule 1\naction.notable.param.drilldown_search = Processes.process=\"valueA\"\naction.notable.param.rule_description = Generated from AttackIQ Sigma Rule for Scenario 'Test Rule 1'\naction.notable.param.rule_title = Test Rule 1\naction.notable.param.security_domain = threat\naction.notable.param.severity = high\naction.notable.param.verbose = 0\naction.nslookup.param.verbose = 0\naction.ping.param.verbose = 0\naction.risk.forceCsvResults = 1\naction.risk.param._risk = [{\"risk_object_field\":\"\",\"risk_object_type\":\"\",\"risk_score\":1}]\naction.risk.param._risk_score = 0\naction.risk.param.verbose = 0\naction.send2uba.param.verbose = 0\naction.threat_add.param.verbose = 0\nalert.suppress = 0\nalert.track = 1\ncounttype = number of events\ncron_schedule = */10 * * * *\ndescription = This rule was automatically generated by AttackIQ Sigma Rules for scenario 'Test Rule 1'. Please edit the settings for your own environment's needs.\ndispatch.earliest_time = -10m\ndispatch.latest_time = now\ndispatch.rt_backfill = 1\nenableSched = 1\nquantity = 0\nrelation = greater than\nrequest.ui_dispatch_app = SplunkEnterpriseSecuritySuite\nsearch = Processes.process=\"valueA\"",
+        "[Threat - Test Rule 2 - Rule]\naction.correlationsearch.annotations = {'mitre_attack': []}\naction.correlationsearch.enabled = 1\naction.correlationsearch.label = Test Rule 2\naction.customsearchbuilder.enabled = false\naction.makestreams.param.verbose = 0\naction.nbtstat.param.verbose = 0\naction.notable = 1\naction.notable.param.drilldown_name = Test Rule 2\naction.notable.param.drilldown_search = Processes.process=\"valueB\"\naction.notable.param.rule_description = Generated from AttackIQ Sigma Rule for Scenario 'Test Rule 2'\naction.notable.param.rule_title = Test Rule 2\naction.notable.param.security_domain = threat\naction.notable.param.severity = high\naction.notable.param.verbose = 0\naction.nslookup.param.verbose = 0\naction.ping.param.verbose = 0\naction.risk.forceCsvResults = 1\naction.risk.param._risk = [{\"risk_object_field\":\"\",\"risk_object_type\":\"\",\"risk_score\":1}]\naction.risk.param._risk_score = 0\naction.risk.param.verbose = 0\naction.send2uba.param.verbose = 0\naction.threat_add.param.verbose = 0\nalert.suppress = 0\nalert.track = 1\ncounttype = number of events\ncron_schedule = */10 * * * *\ndescription = This rule was automatically generated by AttackIQ Sigma Rules for scenario 'Test Rule 2'. Please edit the settings for your own environment's needs.\ndispatch.earliest_time = -10m\ndispatch.latest_time = now\ndispatch.rt_backfill = 1\nenableSched = 1\nquantity = 0\nrelation = greater than\nrequest.ui_dispatch_app = SplunkEnterpriseSecuritySuite\nsearch = Processes.process=\"valueB\""
+      ]
+    }
+  },
+  "sigma": {
+    "sigma_default": {
+      "default": [
+        "title: Test Rule 1\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  sel:\n    CommandLine: valueA\n  condition: sel\nstatus: test\n",
+        "title: Test Rule 2\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  sel:\n    CommandLine: valueB\n  condition: sel\nstatus: test\n"
+      ],
+      "yaml": [
+        "title: Test Rule 1\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  sel:\n    CommandLine: valueA\n  condition: sel\nstatus: test\n",
+        "title: Test Rule 2\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  sel:\n    CommandLine: valueB\n  condition: sel\nstatus: test\n"
+      ],
+      "json": [
+        "{\n  \"title\": \"Test Rule 1\",\n  \"logsource\": {\n    \"category\": \"process_creation\",\n    \"product\": \"windows\"\n  },\n  \"detection\": {\n    \"sel\": {\n      \"CommandLine\": \"valueA\"\n    },\n    \"condition\": \"sel\"\n  },\n  \"status\": \"test\"\n}",
+        "{\n  \"title\": \"Test Rule 2\",\n  \"logsource\": {\n    \"category\": \"process_creation\",\n    \"product\": \"windows\"\n  },\n  \"detection\": {\n    \"sel\": {\n      \"CommandLine\": \"valueB\"\n    },\n    \"condition\": \"sel\"\n  },\n  \"status\": \"test\"\n}"
+      ]
+    }
+  },
+  "stix": {
+    "stix_2_0": {
+      "default": [
+        "[process:command_line = 'valueA']",
+        "[process:command_line = 'valueB']"
+      ]
+    }
+  }
+}
