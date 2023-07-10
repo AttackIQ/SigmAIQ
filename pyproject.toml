@@ -35,6 +35,7 @@ pysigma-backend-stix = "^0.1.8"
 pysigma-pipeline-crowdstrike = "^1.0.0"
 pysigma-pipeline-sysmon = "^1.0.2"
 pysigma-pipeline-windows = "^1.1.0"
+importlib-resources = "^5.12.0"
 
 
 [tool.poetry.dev-dependencies]

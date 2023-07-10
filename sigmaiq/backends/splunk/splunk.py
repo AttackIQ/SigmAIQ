@@ -2,8 +2,11 @@ from sigma.backends.splunk import SplunkBackend
 from sigma.rule import SigmaRule
 from sigma.collection import SigmaCollection
 from sigmaiq.backends.sigmaiq_abstract_backend import AbstractGenericSigmAIQBackendClass
-from copy import copy
+from copy import copy, deepcopy
 import re
+from importlib_resources import files
+
+SAVEDSEARCHES_TEMPLATE = files('sigmaiq.backends.splunk').joinpath('savedsearches_template.txt').read_text()
 
 
 class SigmAIQSplunkBackend(AbstractGenericSigmAIQBackendClass, SplunkBackend):
@@ -48,8 +51,7 @@ class SigmAIQSplunkBackend(AbstractGenericSigmAIQBackendClass, SplunkBackend):
                             '%DRILLDOWN_SEARCH_PLACEHOLDER%': search,
                             '%SEARCH_PLACEHOLDER%': search}
 
-            with open('./sigmaiq/backends/splunk/savedsearches_template.txt', 'r') as fh:
-                stanza = fh.read()
+            stanza = deepcopy(SAVEDSEARCHES_TEMPLATE)
             for k, v in replacements.items():
                 stanza = stanza.replace(k, v)
             stanzas.append(stanza)
