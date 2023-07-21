@@ -17,6 +17,9 @@ from sigmaiq.pipelines.splunk_windows_audit import splunk_wineventlog_pipeline
 ## Carbon Black
 from sigma.pipelines.carbonblack import CarbonBlack_pipeline, CarbonBlackResponse_pipeline
 
+## Cortex XDR
+from sigma.pipelines.cortexxdr import CortexXDR_pipeline
+
 ## Crowdstrike
 from sigma.pipelines.crowdstrike import crowdstrike_fdr_pipeline
 
@@ -72,6 +75,12 @@ AVAILABLE_PIPELINES = {
         'description': 'Uses Carbon Black EDR field mappings',
         'pipeline': CarbonBlackResponse_pipeline(),
         'display_name': 'CB'
+    },
+    # Cortex XDR, Palo Alto
+    'cortexxdr': {
+        'description': 'Uses Palo Alto Cortex XDR field mappings',
+        'pipeline': CortexXDR_pipeline(),
+        'display_name': 'Palo Alto Cortex XDR',
     },
     'carbonblack_enterprise': {
         'description': 'Uses Carbon Black Enterprise EDR field mappings',
