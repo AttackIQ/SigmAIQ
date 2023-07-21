@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "SigmAIQ"
-version = "0.1.1"
+version = "0.2.0"
 description = "Wrapper and tools for pySigma and Sigma rules"
 authors = ["Stephen Lincoln <stephen.lincoln@attackiq.com>", "AttackIQ <support@attackiq.com>"]
 readme = "README.md"
@@ -36,6 +36,7 @@ pysigma-pipeline-crowdstrike = "^1.0.0"
 pysigma-pipeline-sysmon = "^1.0.2"
 pysigma-pipeline-windows = "^1.1.0"
 importlib-resources = "^5.12.0"
+pysigma-backend-cortexxdr = "^0.1.0"
 
 
 [tool.poetry.dev-dependencies]

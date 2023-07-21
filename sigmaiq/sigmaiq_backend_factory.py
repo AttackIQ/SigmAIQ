@@ -12,6 +12,7 @@ from sigmaiq.sigmaiq_pipeline_factory import SigmAIQPipelineResolver, SigmAIQPip
 # Backends
 from sigmaiq.backends.carbonblack import SigmAIQCarbonBlackBackend
 from sigmaiq.backends.crowdstrike import SigmAIQCrowdstrikeSplunkBackend
+from sigmaiq.backends.cortexxdr import SigmAIQCortexXDRBackend
 from sigmaiq.backends.elasticsearch import SigmAIQElasticsearchBackend
 from sigmaiq.backends.insightidr import SigmAIQInsightIDRBackend
 from sigmaiq.backends.loki import SigmAIQLokiBackend
@@ -29,6 +30,7 @@ from sigmaiq.backends.sigmaiq_abstract_backend import AbstractGenericSigmAIQBack
 
 AVAILABLE_BACKENDS = {
         'carbonblack': 'Carbon Black EDR',
+        'cortexxdr': 'Palo Alto Cortex XDR',
         'crowdstrike_splunk': 'Crowdstrike Splunk Query',
         'elasticsearch': 'Elastic Elasticsearch SIEM',
         'insightidr': 'Rapid7 InsightIDR SIEM',
@@ -85,6 +87,9 @@ class SigmAIQBackend:
         # Carbon Black EDR (standard & enterprise)
         if self.backend == 'carbonblack':
             return SigmAIQCarbonBlackBackend(**kwargs)
+        # Cortex XDR, Palo Alto
+        if self.backend == "cortexxdr":
+            return SigmAIQCortexXDRBackend(**kwargs)
         # Crowdstrike Splunk Query
         if self.backend == "crowdstrike_splunk":
             pipelines = ["crowdstrike", kwargs['processing_pipeline']]
