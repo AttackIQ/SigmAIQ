@@ -1,6 +1,6 @@
 import logging
 from copy import deepcopy
-from typing import Union, Dict, Any
+from typing import Union, Dict, Any, Optional, List
 
 from sigma.collection import SigmaCollection
 from sigma.processing.pipeline import ProcessingPipeline
@@ -8,6 +8,7 @@ from sigma.rule import SigmaRule
 
 from sigmaiq.exceptions import InvalidSigmAIQBackend
 from sigmaiq.sigmaiq_pipeline_factory import SigmAIQPipelineResolver, SigmAIQPipeline
+from sigmaiq.utils.sigmaiq.sigmaiq_utils import create_sigma_rule_obj
 
 # Backends
 from sigmaiq.backends.carbonblack import SigmAIQCarbonBlackBackend
@@ -155,8 +156,9 @@ class SigmAIQBackend:
 
     @classmethod
     def create_all_and_translate(cls,
-                                 sigma_rule: Union[SigmaRule, SigmaCollection],
-                                 show_errors=False) -> Dict[Any, Any]:
+                                 sigma_rule: Union[SigmaRule, SigmaCollection, str, dict],
+                                 show_errors: Optional[bool] = False,
+                                 excluded_backends: Optional[List[str]] = None) -> Dict[Any, Any]:
         """Iterates through all combinations of backends, associated pipelines with each backend, and output formats
         for each backend, and creates a dict of outputs.
 
@@ -165,19 +167,24 @@ class SigmAIQBackend:
         :param show_errors: If True, errors will be included in the list of outputs. Errors can include errors from a
         backend when specific fields cannot be converted to a query. Defaults to False
         :type show_errors: bool
+        :param excluded_backends: List of backends to exclude from translations. Defaults to None
         :return: Dict of output results in the following format:
             {backend: {pipeline: {output_format: [queries]}
         :rtype: Dict[Any, Any]
         """
         backends_pipelines = cls.display_all_associated_pipelines()
         backends_output_formats = cls.display_backends_and_outputs()
+        excluded_backends = [x.lower() for x in excluded_backends] if excluded_backends else []
         results = {}
+        sigma_rule = create_sigma_rule_obj(sigma_rule)
         for backend, pipelines in backends_pipelines.items():
+            if backend.lower() in excluded_backends:
+                continue
+            backend_obj = cls(backend=backend).create_backend()
             for pipeline in pipelines:
+                backend_obj.processing_pipeline = cls._setup_processing_pipeline(pipeline)
                 for output_format in backends_output_formats[backend].get('output_formats'):
-                    backend_obj = cls(backend=backend,
-                                      processing_pipeline=pipeline,
-                                      output_format=output_format).create_backend()
+                    backend_obj.set_output_format(output_format)
                     output = []
                     try:
                         output = backend_obj.translate(deepcopy(sigma_rule))
