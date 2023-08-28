@@ -2,6 +2,7 @@ from abc import ABC
 from sigma.processing.pipeline import ProcessingPipeline
 from sigmaiq.sigmaiq_pipeline_factory import SigmAIQPipeline, SigmAIQPipelineResolver
 from sigma.rule import SigmaRule
+from sigmaiq.utils.sigmaiq.sigmaiq_utils import create_sigma_rule_obj
 from sigma.conversion.base import Backend, TextQueryBackend
 from sigma.collection import SigmaCollection
 from typing import Union, Dict, List
@@ -53,7 +54,7 @@ class AbstractGenericSigmAIQBackendClass(TextQueryBackend, ABC):
         self.output_format = None
         self.custom_output_format = None
         self.processing_pipeline = self._validate_processing_pipeline(processing_pipeline or self.default_pipeline)
-        self._validate_output_format(output_format)
+        self.set_output_format(output_format)
         super().__init__(processing_pipeline=self.processing_pipeline)
         # Ensure we aren't applying a pipeline automatically applied by the backend
         if self.backend_processing_pipeline and self.processing_pipeline:
@@ -71,7 +72,7 @@ class AbstractGenericSigmAIQBackendClass(TextQueryBackend, ABC):
         :rtype: list
         """
         # Ensure the sigma_rule is a SigmaRule or SigmaCollection object. If it's not, try to make one.
-        sigma_rule = self._check_sigma_rule(sigma_rule)
+        sigma_rule = create_sigma_rule_obj(sigma_rule)
         # Ensure the required pipelines have been applied to the rule, or are present in the instances
         # processing pipeline attribute. Otherwise, the conversion will most likely throw errors
         if self.associated_pipelines and self.default_pipeline:
@@ -102,48 +103,25 @@ class AbstractGenericSigmAIQBackendClass(TextQueryBackend, ABC):
             output = [output]
         return output
 
-    def _check_sigma_rule(self, sigma_rule: Union[SigmaRule, SigmaCollection, List, Dict, str]) -> \
-            Union[SigmaRule, SigmaCollection]:
-        """Checks sigma_rule to ensure it's a SigmaRule or SigmaCollection object. It can also be a valid Sigma rule
-        representation in a dict or yaml str (or list of valid dicts/yaml strs) that can be used with SigmaRule class methods to
-        create a valid SigmaRule object. The following checks are performed:
-            - If the object is a SigmaRule or SigmaCollection object, return the object.
-            - If the object is a list, we will recursively check each element in the list and return a SigmaCollection
-            of the returned objects
-            - If the object is a dict, use SigmaRule.from_dict(sigma_rule) to create a new SigmaRule object.
-            - If the object is a str, use SigmaRule.from_yaml(sigma_rule) to create a new SigmaRule object.
-
-        :param sigma_rule: A list of, or single SigmaRule, SigmaCollection, or valid dict/yaml str that will be
-        returned as a SigmaRule or SigmaCollection object.
-        :return: SigmaRule or SigmaCollection object as-is or created using SigmaRule classmethods.
-        """
-        if isinstance(sigma_rule, SigmaRule) or isinstance(sigma_rule, SigmaCollection):  # We're good
-            return sigma_rule
-        if isinstance(sigma_rule, list):  # Try to make collection from list of objects, recursively
-            return SigmaCollection([self._check_sigma_rule(s) for s in sigma_rule])
-        if isinstance(sigma_rule, dict):  # Create one from dict
-            return SigmaRule.from_dict(sigma_rule)
-        if isinstance(sigma_rule, str):  # from YAML str
-            return SigmaRule.from_yaml(sigma_rule)
-        raise TypeError(f"Invalid type '{type(sigma_rule)}' for `sigma_rule`. "
-                        f"Use a SigmaRule, SigmaCollection, dict, str, or list of these types instead.")
-
     @staticmethod
     def _validate_processing_pipeline(processing_pipeline):
         if processing_pipeline and not isinstance(processing_pipeline, ProcessingPipeline):
             processing_pipeline = SigmAIQPipeline(processing_pipeline).create_pipeline()
         return processing_pipeline
 
-    def _validate_output_format(self, output_format):
-        if output_format:
+    def set_output_format(self, output_format):
+        if not output_format:
+            self.output_format = "default"
+            self.custom_output_format = None
+        else:
+            self.output_format = None
+            self.custom_output_format = None
             if output_format in self.custom_formats.keys():
                 self.custom_output_format = output_format
-            if output_format in self.formats.keys():
+            elif output_format in self.formats.keys():
                 self.output_format = output_format
-            if not self.output_format and not self.custom_output_format:
-                raise InvalidOutputFormat(f"Invalid output_format {output_format} for Backend {type(self).__name__}")
-            if not self.output_format:
-                self.output_format = "default"
+        if not self.output_format and not self.custom_output_format:
+            raise InvalidOutputFormat(f"Invalid output_format {output_format} for Backend {type(self).__name__}")
 
     def get_backend_output_formats(self) -> Dict[str, str]:
         output_formats = {**self.formats, **self.custom_formats}
