@@ -326,6 +326,7 @@ Output:
 | Backend Option       | Description                                         | Associated Pipelines                                                               | Default Pipeline     |
 |----------------------|-----------------------------------------------------|------------------------------------------------------------------------------------|----------------------|
 | carbonblack          | Carbon Black EDR                                    | carbonblack<br>carbonblack_enterprise                                              | carbonblack          |
+| cortexxdr            | Palo Alto Cortex XDR                                | cortexxdr                                                                          | cortexxdr            |
 | crowdstrike_splunk   | Crowdstrike Splunk Query                            | crowdstrike                                                                        | crowdstrike          |
 | elasticsearch        | Elastic Elasticsearch SIEM                          | ecs_windows<br>ecs_windows_old<br>ecs_zeek_beats<br>ecs_zeek_corelight<br>zeek_raw | ecs_windows          |
 | insightidr           | Rapid7 InsightIDR SIEM                              | insightidr                                                                         | insightidr           |
@@ -344,6 +345,8 @@ Output:
 |----------------------|---------------------------|------------------------------------------------------------------------------------|
 | carbonblack          | default                   | Plain CarbonBlack queries                                                          |
 |                      | json                      | CarbonBlack JSON query                                                             |
+| cortexxdr            | default                   | Plain CortexXDR XQL queries                                                        |
+|                      | json                      | JSON Formatted CortexXDR XQL query                                                 |
 | crowdstrike_splunk   | default                   | Plain SPL queries                                                                  |
 | elasticsearch        | default                   | Plain Elasticsearch Lucene queries                                                 |
 |                      | kibana_ndjson             | Kibana NDJSON import file with Lucene queries                                      |
@@ -381,6 +384,7 @@ Output:
 | splunk_wineventlog        | SigmAIQ Custom, combined windows_audit and splunk_windows pipelines to convert Sysmon fields to Windows Event Log fields for Splunk searches |
 | carbonblack               | Uses Carbon Black EDR field mappings                                                                                                         |
 | carbonblack_enterprise    | Uses Carbon Black Enterprise EDR field mappings                                                                                              |
+| cortexxdr                 | Cortex XDR field mappings                                                                                                                    |
 | crowdstrike               | Crowdstrike FDR Splunk Mappings                                                                                                              |
 | ecs_windows               | ECS mapping for Windows event logs ingested with Winlogbeat                                                                                  |
 | ecs_windows_old           | ECS mapping for Windows event logs ingested with Winlogbeat <= 6.x                                                                           |
