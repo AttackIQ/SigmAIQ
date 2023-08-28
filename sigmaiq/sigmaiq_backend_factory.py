@@ -30,20 +30,20 @@ from sigmaiq.backends.sigmaiq_abstract_backend import AbstractGenericSigmAIQBack
 
 
 AVAILABLE_BACKENDS = {
-        'carbonblack': 'Carbon Black EDR',
-        'cortexxdr': 'Palo Alto Cortex XDR',
-        'crowdstrike_splunk': 'Crowdstrike Splunk Query',
-        'elasticsearch': 'Elastic Elasticsearch SIEM',
-        'insightidr': 'Rapid7 InsightIDR SIEM',
-        'loki': 'Grafana Loki LogQL SIEM',
-        'microsoft365defender': 'Microsoft 365 Defender Advanced Hunting Query (KQL)',
-        'opensearch': 'OpenSearch Lucene',
-        'qradar': 'IBM QRadar',
-        'sentinelone': 'SentinelOne EDR',
-        'splunk': "Splunk SIEM",
-        'sigma': "Original YAML/JSON Sigma Rule Output",
-        'stix': 'STIX 2.0 & STIX Shifter Queries'
-    }
+    "carbonblack": "Carbon Black EDR",
+    "cortexxdr": "Palo Alto Cortex XDR",
+    "crowdstrike_splunk": "Crowdstrike Splunk Query",
+    "elasticsearch": "Elastic Elasticsearch SIEM",
+    "insightidr": "Rapid7 InsightIDR SIEM",
+    "loki": "Grafana Loki LogQL SIEM",
+    "microsoft365defender": "Microsoft 365 Defender Advanced Hunting Query (KQL)",
+    "opensearch": "OpenSearch Lucene",
+    "qradar": "IBM QRadar",
+    "sentinelone": "SentinelOne EDR",
+    "splunk": "Splunk SIEM",
+    "sigma": "Original YAML/JSON Sigma Rule Output",
+    "stix": "STIX 2.0 & STIX Shifter Queries",
+}
 
 
 class SigmAIQBackend:
@@ -52,10 +52,9 @@ class SigmAIQBackend:
     to SIEM/Security Tool queries.
     """
 
-    def __init__(self,
-                 backend: str,
-                 processing_pipeline: Union[str, list, ProcessingPipeline] = None,
-                 output_format: str = None):
+    def __init__(
+        self, backend: str, processing_pipeline: Union[str, list, ProcessingPipeline] = None, output_format: str = None
+    ):
         """Initialize instance attributes.
 
         :param backend: Specifies the desired backend.
@@ -68,7 +67,7 @@ class SigmAIQBackend:
         'yaml' or 'json' for the raw Sigma Backend, defaults to None
         :type output_format: str, optional
         """
-        logging.debug(f'Executing SigmAIQBackend constructor. backend: {backend}')
+        logging.debug(f"Executing SigmAIQBackend constructor. backend: {backend}")
         self.backend = backend
         self.processing_pipeline = self._setup_processing_pipeline(processing_pipeline)
         self.output_format = output_format
@@ -82,60 +81,61 @@ class SigmAIQBackend:
         backend classes attributes and methods.
         :rtype: AbstractGenericSigmAIQBackendClass
         """
-        kwargs = {'processing_pipeline': self.processing_pipeline,
-                  'output_format': self.output_format}
+        kwargs = {"processing_pipeline": self.processing_pipeline, "output_format": self.output_format}
 
         # Carbon Black EDR (standard & enterprise)
-        if self.backend == 'carbonblack':
+        if self.backend == "carbonblack":
             return SigmAIQCarbonBlackBackend(**kwargs)
         # Cortex XDR, Palo Alto
         if self.backend == "cortexxdr":
             return SigmAIQCortexXDRBackend(**kwargs)
         # Crowdstrike Splunk Query
         if self.backend == "crowdstrike_splunk":
-            pipelines = ["crowdstrike", kwargs['processing_pipeline']]
-            kwargs['processing_pipeline'] = SigmAIQPipelineResolver(pipelines).process_pipelines()
+            pipelines = ["crowdstrike", kwargs["processing_pipeline"]]
+            kwargs["processing_pipeline"] = SigmAIQPipelineResolver(pipelines).process_pipelines()
             return SigmAIQCrowdstrikeSplunkBackend(**kwargs)
         # Elasticsearch
-        if self.backend == 'elasticsearch':
+        if self.backend == "elasticsearch":
             return SigmAIQElasticsearchBackend(**kwargs)
         # InsightIDR
-        if self.backend == 'insightidr':
+        if self.backend == "insightidr":
             return SigmAIQInsightIDRBackend(**kwargs)
         # Loki (Grafana)
-        if self.backend == 'loki':
+        if self.backend == "loki":
             return SigmAIQLokiBackend(**kwargs)
         # Microsoft 365 Defender
         if self.backend == "microsoft365defender":
             return SigmAIQMicrosoft365DefenderBackend(**kwargs)
         # Opensearch
-        if self.backend == 'opensearch':
+        if self.backend == "opensearch":
             return SigmAIQOpensearchBackend(**kwargs)
         #
         # QRadar Backend
-        if self.backend == 'qradar':
+        if self.backend == "qradar":
             return SigmAIQQRadarBackend(**kwargs)
         # SentinelOne
-        if self.backend == 'sentinelone':
+        if self.backend == "sentinelone":
             return SigmAIQSentinelOneBackend(**kwargs)
         # Splunk Backend
-        if self.backend == 'splunk':
-            if kwargs['output_format'] == 'data_model':
-                kwargs['processing_pipeline'] = SigmAIQPipelineResolver(['splunk_cim_dm',
-                                                                         kwargs.get(
-                                                                             'processing_pipeline')]).process_pipelines()
+        if self.backend == "splunk":
+            if kwargs["output_format"] == "data_model":
+                kwargs["processing_pipeline"] = SigmAIQPipelineResolver(
+                    ["splunk_cim_dm", kwargs.get("processing_pipeline")]
+                ).process_pipelines()
             return SigmAIQSplunkBackend(**kwargs)
         # Raw sigma output
-        if self.backend == 'sigma':
-            if not kwargs.get('output_format'):
-                kwargs['output_format'] = 'yaml'
+        if self.backend == "sigma":
+            if not kwargs.get("output_format"):
+                kwargs["output_format"] = "yaml"
             return SigmAIQSigmaBackend(**kwargs)
         # STIX
-        if self.backend == 'stix':
+        if self.backend == "stix":
             return SigmAIQStixBackend(**kwargs)
 
-        raise InvalidSigmAIQBackend('Backend not supported: "{}". Available backends:\n{}'.format(
-            self.backend, '\n'.join([f'{k}: {v}' for k, v in AVAILABLE_BACKENDS.items()]))
+        raise InvalidSigmAIQBackend(
+            'Backend not supported: "{}". Available backends:\n{}'.format(
+                self.backend, "\n".join([f"{k}: {v}" for k, v in AVAILABLE_BACKENDS.items()])
+            )
         )
 
     @staticmethod
@@ -155,10 +155,12 @@ class SigmAIQBackend:
         return None
 
     @classmethod
-    def create_all_and_translate(cls,
-                                 sigma_rule: Union[SigmaRule, SigmaCollection, str, dict],
-                                 show_errors: Optional[bool] = False,
-                                 excluded_backends: Optional[List[str]] = None) -> Dict[Any, Any]:
+    def create_all_and_translate(
+        cls,
+        sigma_rule: Union[SigmaRule, SigmaCollection, str, dict],
+        show_errors: Optional[bool] = False,
+        excluded_backends: Optional[List[str]] = None,
+    ) -> Dict[Any, Any]:
         """Iterates through all combinations of backends, associated pipelines with each backend, and output formats
         for each backend, and creates a dict of outputs.
 
@@ -183,7 +185,7 @@ class SigmAIQBackend:
             backend_obj = cls(backend=backend).create_backend()
             for pipeline in pipelines:
                 backend_obj.processing_pipeline = cls._setup_processing_pipeline(pipeline)
-                for output_format in backends_output_formats[backend].get('output_formats'):
+                for output_format in backends_output_formats[backend].get("output_formats"):
                     backend_obj.set_output_format(output_format)
                     output = []
                     try:
@@ -218,12 +220,12 @@ class SigmAIQBackend:
         backend_formats = {}
         for backend, description in AVAILABLE_BACKENDS.items():
             backend_instance = cls(backend=backend).create_backend()
-            output_formats = backend_instance.formats or {'default': "Default output format"}
+            output_formats = backend_instance.formats or {"default": "Default output format"}
             custom_output_formats = backend_instance.custom_formats or {}
             output_formats = {**output_formats, **custom_output_formats} if custom_output_formats else output_formats
             backend_formats[backend] = {}
-            backend_formats[backend]['description'] = description
-            backend_formats[backend]['output_formats'] = output_formats
+            backend_formats[backend]["description"] = description
+            backend_formats[backend]["output_formats"] = output_formats
         return backend_formats
 
     @classmethod

@@ -4,10 +4,5 @@ from sigmaiq.backends.sigmaiq_abstract_backend import AbstractGenericSigmAIQBack
 
 class SigmAIQElasticsearchBackend(AbstractGenericSigmAIQBackendClass, LuceneBackend):
     custom_formats = {}
-    associated_pipelines = ['ecs_windows',
-                            'ecs_windows_old',
-                            'ecs_zeek_beats',
-                            'ecs_zeek_corelight',
-                            'zeek_raw']
+    associated_pipelines = ["ecs_windows", "ecs_windows_old", "ecs_zeek_beats", "ecs_zeek_corelight", "zeek_raw"]
     default_pipeline = "ecs_windows"
-

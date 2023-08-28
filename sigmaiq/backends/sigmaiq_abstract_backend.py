@@ -126,7 +126,7 @@ class AbstractGenericSigmAIQBackendClass(TextQueryBackend, ABC):
     def get_backend_output_formats(self) -> Dict[str, str]:
         output_formats = {**self.formats, **self.custom_formats}
         if not output_formats:
-            output_formats = {'default': 'Default query string output'}
+            output_formats = {"default": "Default query string output"}
         return output_formats
 
     def _ensure_proper_pipelines(self, sigma_obj: Union[SigmaRule, SigmaCollection]):
@@ -144,8 +144,9 @@ class AbstractGenericSigmAIQBackendClass(TextQueryBackend, ABC):
         associated_pipelines = [
             SigmAIQPipeline(processing_pipeline=p).create_pipeline() for p in self.associated_pipelines
         ]
-        set_processing_pipeline_item_ids = [x.identifier for x in
-                                            self.processing_pipeline.items] if self.processing_pipeline else []
+        set_processing_pipeline_item_ids = (
+            [x.identifier for x in self.processing_pipeline.items] if self.processing_pipeline else []
+        )
 
         # Check if self.processing_pipeline has the same name as any associated pipelines
         if self.processing_pipeline:
@@ -160,20 +161,22 @@ class AbstractGenericSigmAIQBackendClass(TextQueryBackend, ABC):
             if associated_pipeline.name == self.backend_processing_pipeline.name:
                 return True
             if isinstance(sigma_obj, SigmaRule):
-                if any(proc_item.identifier in sigma_obj.applied_processing_items for proc_item in
-                       associated_pipeline.items):
+                if any(
+                    proc_item.identifier in sigma_obj.applied_processing_items
+                    for proc_item in associated_pipeline.items
+                ):
                     return True
             else:
                 for sigma_rule in sigma_obj:
-                    if any(proc_item.identifier in sigma_rule.applied_processing_items for proc_item in
-                           associated_pipeline.items):
+                    if any(
+                        proc_item.identifier in sigma_rule.applied_processing_items
+                        for proc_item in associated_pipeline.items
+                    ):
                         return True
 
         if not self.processing_pipeline:  # No pipeline currently
-            self.processing_pipeline = SigmAIQPipeline(
-                processing_pipeline=self.default_pipeline).create_pipeline()
+            self.processing_pipeline = SigmAIQPipeline(processing_pipeline=self.default_pipeline).create_pipeline()
         else:  # We have a pipeline, add the default to the beginning of it
-            self.processing_pipeline = SigmAIQPipelineResolver(processing_pipelines=[
-                self.default_pipeline,
-                self.processing_pipeline
-            ]).process_pipelines()
+            self.processing_pipeline = SigmAIQPipelineResolver(
+                processing_pipelines=[self.default_pipeline, self.processing_pipeline]
+            ).process_pipelines()

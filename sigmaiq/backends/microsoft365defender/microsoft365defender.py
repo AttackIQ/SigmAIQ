@@ -4,6 +4,5 @@ from sigmaiq.backends.sigmaiq_abstract_backend import AbstractGenericSigmAIQBack
 
 class SigmAIQMicrosoft365DefenderBackend(AbstractGenericSigmAIQBackendClass, Microsoft365DefenderBackend):
     custom_formats = {}
-    associated_pipelines = ['microsoft365defender']
-    default_pipeline = 'microsoft365defender'
-
+    associated_pipelines = ["microsoft365defender"]
+    default_pipeline = "microsoft365defender"

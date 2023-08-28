@@ -4,7 +4,6 @@ from sigmaiq.backends.sigmaiq_abstract_backend import AbstractGenericSigmAIQBack
 
 class SigmAIQCrowdstrikeSplunkBackend(AbstractGenericSigmAIQBackendClass, SplunkBackend):
     custom_formats = {}
-    associated_pipelines = ['crowdstrike']
+    associated_pipelines = ["crowdstrike"]
     default_pipeline = "crowdstrike"
     formats = {"default": SplunkBackend.formats["default"]}
-

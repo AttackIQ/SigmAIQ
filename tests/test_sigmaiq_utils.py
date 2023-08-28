@@ -1,5 +1,6 @@
 import pytest
 from sigmaiq.utils.sigmaiq.sigmaiq_utils import create_sigma_rule_obj
+
 # Fixtures
 from tests.test_backend_factory import sigma_rule, sigma_rule_yaml_str, sigma_rule_dict, sigma_collection
 from sigma.rule import SigmaRule

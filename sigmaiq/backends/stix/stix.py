@@ -3,10 +3,7 @@ from sigmaiq.backends.sigmaiq_abstract_backend import AbstractGenericSigmAIQBack
 
 
 class SigmAIQStixBackend(AbstractGenericSigmAIQBackendClass, stixBackend):
-    associated_pipelines = [
-        "stix_2_0",
-        "stix_shifter"
-    ]
+    associated_pipelines = ["stix_2_0", "stix_shifter"]
     default_pipeline = "stix_2_0"
 
     # Remove "stix" format until its not broken :(

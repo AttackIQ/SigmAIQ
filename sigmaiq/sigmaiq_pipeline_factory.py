@@ -24,19 +24,13 @@ from sigma.pipelines.cortexxdr import CortexXDR_pipeline
 from sigma.pipelines.crowdstrike import crowdstrike_fdr_pipeline
 
 ## Elasticsearch
-from sigma.pipelines.elasticsearch import (ecs_windows,
-                                           ecs_windows_old,
-                                           ecs_zeek_beats,
-                                           ecs_zeek_corelight,
-                                           zeek_raw)
+from sigma.pipelines.elasticsearch import ecs_windows, ecs_windows_old, ecs_zeek_beats, ecs_zeek_corelight, zeek_raw
 
 ## InsightIDR
 from sigma.pipelines.insight_idr import insight_idr_pipeline
 
 ## Loki
-from sigma.pipelines.loki import (loki_grafana_logfmt,
-                                  loki_promtail_sysmon,
-                                  loki_okta_system_log)
+from sigma.pipelines.loki import loki_grafana_logfmt, loki_promtail_sysmon, loki_okta_system_log
 
 ## Microsoft 365 Defender
 from sigma.pipelines.microsoft365defender import microsoft_365_defender_pipeline
@@ -48,9 +42,11 @@ from sigma.pipelines.QRadarAQL import QRadarAQL_fields_pipeline, QRadarAQL_paylo
 from sigma.pipelines.sentinelone import sentinelone_pipeline
 
 ## Splunk
-from sigma.pipelines.splunk import (splunk_cim_data_model,
-                                    splunk_windows_pipeline,
-                                    splunk_windows_sysmon_acceleration_keywords)
+from sigma.pipelines.splunk import (
+    splunk_cim_data_model,
+    splunk_windows_pipeline,
+    splunk_windows_sysmon_acceleration_keywords,
+)
 
 ## STIX
 from sigma.pipelines.stix import stix_2_0, stix_shifter
@@ -64,153 +60,147 @@ from sigma.pipelines.windows import windows_audit_pipeline, windows_logsource_pi
 
 AVAILABLE_PIPELINES = {
     # AIQ Custom
-    'splunk_wineventlog': {
-        'description': 'SigmAIQ Custom combined windows_audit and splunk_windows pipelines to convert Sysmon fields to '
-                       'Windows Event Log fields for Splunk searches',
-        'pipeline': splunk_wineventlog_pipeline(),
-        'display_name': 'Splunk WinEventLog'
+    "splunk_wineventlog": {
+        "description": "SigmAIQ Custom combined windows_audit and splunk_windows pipelines to convert Sysmon fields to "
+        "Windows Event Log fields for Splunk searches",
+        "pipeline": splunk_wineventlog_pipeline(),
+        "display_name": "Splunk WinEventLog",
     },
     # CarbonBlack
-    'carbonblack': {
-        'description': 'Uses Carbon Black EDR field mappings',
-        'pipeline': CarbonBlackResponse_pipeline(),
-        'display_name': 'CB'
+    "carbonblack": {
+        "description": "Uses Carbon Black EDR field mappings",
+        "pipeline": CarbonBlackResponse_pipeline(),
+        "display_name": "CB",
     },
     # Cortex XDR, Palo Alto
-    'cortexxdr': {
-        'description': 'Uses Palo Alto Cortex XDR field mappings',
-        'pipeline': CortexXDR_pipeline(),
-        'display_name': 'Palo Alto Cortex XDR',
+    "cortexxdr": {
+        "description": "Uses Palo Alto Cortex XDR field mappings",
+        "pipeline": CortexXDR_pipeline(),
+        "display_name": "Palo Alto Cortex XDR",
     },
-    'carbonblack_enterprise': {
-        'description': 'Uses Carbon Black Enterprise EDR field mappings',
-        'pipeline': CarbonBlack_pipeline(),
-        'display_name': 'CB'
+    "carbonblack_enterprise": {
+        "description": "Uses Carbon Black Enterprise EDR field mappings",
+        "pipeline": CarbonBlack_pipeline(),
+        "display_name": "CB",
     },
     # Crowdstrike
-    'crowdstrike': {
-        'description': 'Crowdstrike FDR Splunk Mappings',
-        'pipeline': crowdstrike_fdr_pipeline(),
-        'display_name': 'CrowdStrike SPL'
+    "crowdstrike": {
+        "description": "Crowdstrike FDR Splunk Mappings",
+        "pipeline": crowdstrike_fdr_pipeline(),
+        "display_name": "CrowdStrike SPL",
     },
     # Elastic
-    'ecs_windows': {
-        'description': 'ECS mapping for Windows event logs ingested with Winlogbeat',
-        'pipeline': ecs_windows(),
-        'display_name': 'ECS Winlogbeat'
+    "ecs_windows": {
+        "description": "ECS mapping for Windows event logs ingested with Winlogbeat",
+        "pipeline": ecs_windows(),
+        "display_name": "ECS Winlogbeat",
     },
-    'ecs_windows_old': {
-        'description': 'ECS mapping for Windows event logs ingested with Winlogbeat <= 6.x',
-        'pipeline': ecs_windows_old(),
-        'display_name': 'ESC Winlogbeat (<= v6.x)'
+    "ecs_windows_old": {
+        "description": "ECS mapping for Windows event logs ingested with Winlogbeat <= 6.x",
+        "pipeline": ecs_windows_old(),
+        "display_name": "ESC Winlogbeat (<= v6.x)",
     },
-    'ecs_zeek_beats': {
-        'description': 'Zeek ECS mapping from Elastic',
-        'pipeline': ecs_zeek_beats(),
-        'display_name': 'ECS Zeek (Elastic)'},
-    'ecs_zeek_corelight': {
-        'description': 'Zeek ECS mapping from Corelight',
-        'pipeline': ecs_zeek_corelight(),
-        'display_name': 'ESC Zeek (Corelight)'
+    "ecs_zeek_beats": {
+        "description": "Zeek ECS mapping from Elastic",
+        "pipeline": ecs_zeek_beats(),
+        "display_name": "ECS Zeek (Elastic)",
     },
-    'zeek_raw': {
-        'description': 'Zeek raw JSON log field naming',
-        'pipeline': zeek_raw(),
-        'display_name': 'Zeek Raw JSON'
+    "ecs_zeek_corelight": {
+        "description": "Zeek ECS mapping from Corelight",
+        "pipeline": ecs_zeek_corelight(),
+        "display_name": "ESC Zeek (Corelight)",
+    },
+    "zeek_raw": {
+        "description": "Zeek raw JSON log field naming",
+        "pipeline": zeek_raw(),
+        "display_name": "Zeek Raw JSON",
     },
     # InsightIDR
-    'insightidr': {
-        'description': 'InsightIDR Log Entry Query Language (LEQL) Transformations',
-        'pipeline': insight_idr_pipeline(),
-        'display_name': 'InsightIDR LEQL'
+    "insightidr": {
+        "description": "InsightIDR Log Entry Query Language (LEQL) Transformations",
+        "pipeline": insight_idr_pipeline(),
+        "display_name": "InsightIDR LEQL",
     },
     # Loki
-    'loki_grafana_logfmt': {
-        'description': 'Converts field names to logfmt labels used by Grafana',
-        'pipeline': loki_grafana_logfmt(),
-        'display_name': 'Logfmt Labels'
+    "loki_grafana_logfmt": {
+        "description": "Converts field names to logfmt labels used by Grafana",
+        "pipeline": loki_grafana_logfmt(),
+        "display_name": "Logfmt Labels",
     },
-    'loki_promtail_sysmon': {
-        'description': 'Parse and adjust field names for Windows sysmon data produced by promtail',
-        'pipeline': loki_promtail_sysmon(),
-        'display_name': 'WinSysmon Promtail'
+    "loki_promtail_sysmon": {
+        "description": "Parse and adjust field names for Windows sysmon data produced by promtail",
+        "pipeline": loki_promtail_sysmon(),
+        "display_name": "WinSysmon Promtail",
     },
-    'loki_okta_system_log': {
-        'description': 'Parse the Okta System Log event json, adjusting field-names appropriately',
-        'pipeline': loki_okta_system_log(),
-        'display_name': 'Okta System Event'
+    "loki_okta_system_log": {
+        "description": "Parse the Okta System Log event json, adjusting field-names appropriately",
+        "pipeline": loki_okta_system_log(),
+        "display_name": "Okta System Event",
     },
     # Microsoft 365 Defender
-    'microsoft365defender': {
-        'description': 'Mappings for Sysmon -> Advanced Hunting Query Table Schema',
-        'pipeline': microsoft_365_defender_pipeline(),
-        'display_name': 'KustoQL'
+    "microsoft365defender": {
+        "description": "Mappings for Sysmon -> Advanced Hunting Query Table Schema",
+        "pipeline": microsoft_365_defender_pipeline(),
+        "display_name": "KustoQL",
     },
     # QRadar
-    'qradar_fields': {
-        'description': 'Supports only the Sigma fields in the Field Mapping',
-        'pipeline': QRadarAQL_fields_pipeline(),
-        'display_name': 'Sigma Fields'
+    "qradar_fields": {
+        "description": "Supports only the Sigma fields in the Field Mapping",
+        "pipeline": QRadarAQL_fields_pipeline(),
+        "display_name": "Sigma Fields",
     },
-    'qradar_payload': {
-        'description': 'Uses UTF8(payload) instead of fields unsupported by the Field Mapping.',
-        'pipeline': QRadarAQL_payload_pipeline(),
-        'display_name': 'UTF8(payload) (Non-Sigma Fields)'
+    "qradar_payload": {
+        "description": "Uses UTF8(payload) instead of fields unsupported by the Field Mapping.",
+        "pipeline": QRadarAQL_payload_pipeline(),
+        "display_name": "UTF8(payload) (Non-Sigma Fields)",
     },
     # Sigma Pipeline Placeholder
-    'sigma_default': {
-        'description': 'Empty ProcessingPipeline placeholder',
-        'pipeline': ProcessingPipeline(name="Sigma Placeholder"),
-        'display_name': 'Sigma'
+    "sigma_default": {
+        "description": "Empty ProcessingPipeline placeholder",
+        "pipeline": ProcessingPipeline(name="Sigma Placeholder"),
+        "display_name": "Sigma",
     },
     # SentinelOne
-    'sentinelone': {
-        'description': 'Mappings for SentinelOne Deep Visibility Queries',
-        'pipeline': sentinelone_pipeline(),
-        'display_name': 'SentinelOne Deep Visibility'
+    "sentinelone": {
+        "description": "Mappings for SentinelOne Deep Visibility Queries",
+        "pipeline": sentinelone_pipeline(),
+        "display_name": "SentinelOne Deep Visibility",
     },
     # Splunk
-    'splunk_windows': {
-        'description': 'Splunk Query, Windows Mappings',
-        'pipeline': splunk_windows_pipeline(),
-        'display_name': 'Splunk Query (Windows)'
+    "splunk_windows": {
+        "description": "Splunk Query, Windows Mappings",
+        "pipeline": splunk_windows_pipeline(),
+        "display_name": "Splunk Query (Windows)",
     },
-    'splunk_windows_sysmon_acc': {
-        'description': 'Splunk Query, Sysmon Mappings',
-        'pipeline': splunk_windows_sysmon_acceleration_keywords(),
-        'display_name': 'Splunk Query (Sysmon)'},
-    'splunk_cim_dm': {
-        'description': 'Splunk Datamodel Field Mappings',
-        'pipeline': splunk_cim_data_model(),
-        'display_name': 'Splunk Datamodel Query'
+    "splunk_windows_sysmon_acc": {
+        "description": "Splunk Query, Sysmon Mappings",
+        "pipeline": splunk_windows_sysmon_acceleration_keywords(),
+        "display_name": "Splunk Query (Sysmon)",
+    },
+    "splunk_cim_dm": {
+        "description": "Splunk Datamodel Field Mappings",
+        "pipeline": splunk_cim_data_model(),
+        "display_name": "Splunk Datamodel Query",
     },
     # STIX
-    'stix_2_0': {
-        'description': 'STIX 2.0 Mappings',
-        'pipeline': stix_2_0(),
-        'display_name': 'STIX 2.0'
-    },
-    'stix_shifter': {
-        'description': 'STIX Shifter Mappings',
-        'pipeline': stix_shifter(),
-        'display_name': 'STIX Shifter'
+    "stix_2_0": {"description": "STIX 2.0 Mappings", "pipeline": stix_2_0(), "display_name": "STIX 2.0"},
+    "stix_shifter": {
+        "description": "STIX Shifter Mappings",
+        "pipeline": stix_shifter(),
+        "display_name": "STIX Shifter",
     },
     # Windows
-    'windows_sysmon': {
-        'description': 'Sysmon for Windows',
-        'pipeline': sysmon_pipeline(),
-        'display_name': 'Sysmon'
+    "windows_sysmon": {"description": "Sysmon for Windows", "pipeline": sysmon_pipeline(), "display_name": "Sysmon"},
+    "windows_audit": {
+        "description": "Windows Event Logs",
+        "pipeline": windows_audit_pipeline(),
+        "display_name": "Windows Event Logs",
     },
-    'windows_audit': {
-        'description': 'Windows Event Logs',
-        'pipeline': windows_audit_pipeline(),
-        'display_name': 'Windows Event Logs'
+    "windows_logsource": {
+        "description": "Windows Logs, General",
+        "pipeline": windows_logsource_pipeline(),
+        "display_name": "Windows Logs, General",
     },
-    'windows_logsource': {
-        'description': 'Windows Logs, General',
-        'pipeline': windows_logsource_pipeline(),
-        'display_name': 'Windows Logs, General'
-    }
 }
 
 
@@ -229,16 +219,16 @@ class SigmAIQPipeline:
     def __init__(self, processing_pipeline: Union[str, ProcessingPipeline, Callable] = None):
         """Initialize the class to create a ProcessingPipeline
 
-        :param processing_pipeline: Specifies the desired pipeline to create. This can be one of three types:
-        1. A str based on the keys in PIPELINES that will load predefined pipelines according to this factory
-        2. A function (or callable) that return a pySigma ProcessingPipeline object
-        3. A ProcessingPipeline object
-        If providing a callable or ProcessingPipeline, the ProcessingPipeline must have the 'name' attribute set
-    :type processing_pipeline: str or function or ProcessingPipeline
+            :param processing_pipeline: Specifies the desired pipeline to create. This can be one of three types:
+            1. A str based on the keys in PIPELINES that will load predefined pipelines according to this factory
+            2. A function (or callable) that return a pySigma ProcessingPipeline object
+            3. A ProcessingPipeline object
+            If providing a callable or ProcessingPipeline, the ProcessingPipeline must have the 'name' attribute set
+        :type processing_pipeline: str or function or ProcessingPipeline
         """
 
         if not processing_pipeline:  # _validate_pipeline should catch this but just to be sure
-            raise ValueError('Please provide a valid processing pipeline value to processing_pipeline')
+            raise ValueError("Please provide a valid processing pipeline value to processing_pipeline")
         self.pipeline = processing_pipeline
 
     def create_pipeline(self):
@@ -246,10 +236,7 @@ class SigmAIQPipeline:
         return self._validate_pipeline(self.pipeline)
 
     @classmethod
-    def from_fieldmap(cls,
-                      fieldmapping: Dict[str, Union[str, List[str]]],
-                      name=None,
-                      priority: int = 10):
+    def from_fieldmap(cls, fieldmapping: Dict[str, Union[str, List[str]]], name=None, priority: int = 10):
         """Creates a ProcessingPipeline object from custom field renaming dict
         :param fieldmapping: Dictionary containing field mappings in format {'original_field': 'new_field'}
         Values can be a string of the new field name, or list of strings for new field names.
@@ -265,19 +252,25 @@ class SigmAIQPipeline:
         # Helper methods
         def _validate_field_mappings(field_mappings):
             if not field_mappings:
-                raise InvalidCustomFieldMapping("The provided field_mappings is empty or None. "
-                                                "Please provide a valid dictionary for field mappings.")
+                raise InvalidCustomFieldMapping(
+                    "The provided field_mappings is empty or None. "
+                    "Please provide a valid dictionary for field mappings."
+                )
             if isinstance(field_mappings, dict):
                 if all(isinstance(k, str) and isinstance(v, str) for k, v in field_mappings.items()):
                     return field_mappings
-            raise TypeError(f'fieldmappings must be of type \'dict\' with str keys and values or None, '
-                            f'but is {type(field_mappings)}')
+            raise TypeError(
+                f"fieldmappings must be of type 'dict' with str keys and values or None, "
+                f"but is {type(field_mappings)}"
+            )
 
         def _validate_name(pname):
             if pname is not None:
                 if not isinstance(pname, str):
-                    raise TypeError(f"'name' given for new fieldmapping pipeline must be of type str, "
-                                    f"got {type(pname)} instead.")
+                    raise TypeError(
+                        f"'name' given for new fieldmapping pipeline must be of type str, "
+                        f"got {type(pname)} instead."
+                    )
             return pname
 
         def _validate_priority(priority_num):
@@ -286,7 +279,8 @@ class SigmAIQPipeline:
                 return 0
             if not isinstance(priority_num, int):
                 raise TypeError(
-                    f'custom_field_mappings_priority must be of type `int`, but {type(priority_num)} was provided')
+                    f"custom_field_mappings_priority must be of type `int`, but {type(priority_num)} was provided"
+                )
             if priority_num < 0:
                 return 0
             if priority_num > 100:
@@ -297,26 +291,19 @@ class SigmAIQPipeline:
         pipeline_name = _validate_name(name) or f"Custom Field Renames Pipeline {uid}"
         pipeline_priority = _validate_priority(priority)
         fieldmapping = _validate_field_mappings(fieldmapping)
-        pipeline_item = ProcessingItem(
-            identifier=uid,
-            transformation=FieldMappingTransformation(fieldmapping)
-        )
-        pipeline = ProcessingPipeline(
-            name=pipeline_name,
-            priority=pipeline_priority,
-            items=[pipeline_item]
-        )
+        pipeline_item = ProcessingItem(identifier=uid, transformation=FieldMappingTransformation(fieldmapping))
+        pipeline = ProcessingPipeline(name=pipeline_name, priority=pipeline_priority, items=[pipeline_item])
         return cls(processing_pipeline=pipeline)
 
     @classmethod
     def display_available_pipelines(cls) -> Dict:
         """Simple class method for returning dict of available pipelines and descriptions"""
-        return {k: v.get('description') for k, v in AVAILABLE_PIPELINES.items()}
+        return {k: v.get("description") for k, v in AVAILABLE_PIPELINES.items()}
 
     @classmethod
     def display_available_pipelines_display_names(cls) -> Dict:
         """Simple class method for returning dict of available pipelines and display names"""
-        return {k: v.get('display_name') for k, v in AVAILABLE_PIPELINES.items()}
+        return {k: v.get("display_name") for k, v in AVAILABLE_PIPELINES.items()}
 
     @staticmethod
     def _get_pipeline(pipeline_name: str) -> ProcessingPipeline:
@@ -326,7 +313,7 @@ class SigmAIQPipeline:
         :return: pySigma ProcessingPipeline object
         :rtype: ProcessingPipeline
         """
-        return AVAILABLE_PIPELINES.get(pipeline_name, {}).get('pipeline', None)
+        return AVAILABLE_PIPELINES.get(pipeline_name, {}).get("pipeline", None)
 
     def _validate_pipeline(self, processing_pipeline):
         """Validates if the pipeline is in the dict of available_pipelines, or is a valid ProcessingPipeline obj"""
@@ -335,8 +322,10 @@ class SigmAIQPipeline:
             if new_processing_pipeline := self._get_pipeline(processing_pipeline):
                 return self._validate_pipeline(new_processing_pipeline)
             else:
-                raise InvalidSigmAIQPipeline(f"Provided processing_pipeline str {processing_pipeline} not in list of "
-                                             f"available pipelines: {', '.join(AVAILABLE_PIPELINES.keys())}")
+                raise InvalidSigmAIQPipeline(
+                    f"Provided processing_pipeline str {processing_pipeline} not in list of "
+                    f"available pipelines: {', '.join(AVAILABLE_PIPELINES.keys())}"
+                )
 
         # If it's a callable, call it and re-check it to ensure it is of type ProcessingPipeline
         if callable(processing_pipeline):
@@ -352,7 +341,8 @@ class SigmAIQPipeline:
             return processing_pipeline
 
         raise TypeError(
-            "Invalid processing_pipeline, or invalid object returned from callable passed as processing_pipeline")
+            "Invalid processing_pipeline, or invalid object returned from callable passed as processing_pipeline"
+        )
 
 
 class SigmAIQPipelineResolver:
@@ -396,8 +386,7 @@ class SigmAIQPipelineResolver:
         """
 
         for pipeline in self.processing_pipelines:
-            self.resolver.add_pipeline_class(
-                SigmAIQPipeline(processing_pipeline=pipeline).create_pipeline())
+            self.resolver.add_pipeline_class(SigmAIQPipeline(processing_pipeline=pipeline).create_pipeline())
         processing_pipeline = self.resolver.resolve(list(self.resolver.pipelines.keys()))
         list_resolver_pipelines = list(self.resolver.list_pipelines())
         num_pipelines = len(list_resolver_pipelines)  # [(name (str), ProcessingPipeline),]

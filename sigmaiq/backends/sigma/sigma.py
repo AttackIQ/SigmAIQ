@@ -10,12 +10,10 @@ from sigma.conversion.base import TextQueryBackend
 
 class SigmAIQSigmaBackend(AbstractGenericSigmAIQBackendClass, TextQueryBackend):
     """SigmAIQ backend interface to output raw Sigma rule in various formats"""
+
     associated_pipelines = ["sigma_default"]
     default_pipeline = "sigma_default"
-    custom_formats = {
-        'yaml': 'Default Sigma Rule output format',
-        'json': 'JSON style Sigma Rule Output'
-    }
+    custom_formats = {"yaml": "Default Sigma Rule output format", "json": "JSON style Sigma Rule Output"}
     # Override pySigma convert and convert_rule, since we are just outputting it as-is
     # in yaml or json format
 
@@ -65,7 +63,7 @@ class SigmAIQSigmaBackend(AbstractGenericSigmAIQBackendClass, TextQueryBackend):
     def handle_output_format(self, sigma_rule, output) -> List[str]:
         if self.custom_output_format == "json":
             output = [self.__to_json(sigma_rule)]
-        elif self.custom_output_format == "yaml" or self.output_format == 'default':
+        elif self.custom_output_format == "yaml" or self.output_format == "default":
             output = [self.__to_yaml(sigma_rule)]
         return output
 

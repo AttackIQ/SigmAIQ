@@ -4,5 +4,5 @@ from sigmaiq.backends.sigmaiq_abstract_backend import AbstractGenericSigmAIQBack
 
 class SigmAIQInsightIDRBackend(AbstractGenericSigmAIQBackendClass, InsightIDRBackend):
     custom_formats = {}
-    associated_pipelines = ['insightidr']
-    default_pipeline = 'insightidr'
+    associated_pipelines = ["insightidr"]
+    default_pipeline = "insightidr"

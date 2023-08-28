@@ -7,7 +7,7 @@ from sigma.conversion.state import ConversionState
 class SigmAIQCortexXDRBackend(AbstractGenericSigmAIQBackendClass, CortexXDRBackend):
     custom_formats = {}
     associated_pipelines = [
-        'cortexxdr',
+        "cortexxdr",
     ]
     default_pipeline = "cortexxdr"
 
