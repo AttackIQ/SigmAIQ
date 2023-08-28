@@ -21,29 +21,31 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.8"
-pysigma = "^0.9.11"
+pysigma = "0.9.11"
 certifi = "^2023.07.22"
-pysigma-backend-carbonblack = "^0.1.4"
-pysigma-backend-cortexxdr = "^0.1.0"
-pysigma-backend-elasticsearch = "^1.0.5"
-pysigma-backend-insightidr = "^0.2.1"
-pysigma-backend-loki = "^0.9.1"
-pysigma-backend-microsoft365defender = "^0.2.0"
-pysigma-backend-opensearch = "^1.0.0"
-pysigma-backend-qradar-aql = "^0.2.2"
-pysigma-backend-sentinelone = "^0.1.2"
-pysigma-backend-splunk = "^1.0.2"
-pysigma-backend-stix = "^0.1.8"
-pysigma-pipeline-crowdstrike = "^1.0.0"
-pysigma-pipeline-sysmon = "^1.0.2"
-pysigma-pipeline-windows = "^1.1.0"
+pysigma-backend-carbonblack = "0.1.4"
+pysigma-backend-cortexxdr = "0.1.1"
+pysigma-backend-elasticsearch = "1.0.5"
+pysigma-backend-insightidr = "0.2.1"
+pysigma-backend-loki = "0.9.1"
+pysigma-backend-microsoft365defender = "0.2.1"
+pysigma-backend-opensearch = "1.0.0"
+pysigma-backend-qradar-aql = "0.2.3"
+pysigma-backend-sentinelone = "0.1.2"
+pysigma-backend-splunk = "1.0.2"
+pysigma-backend-stix = "0.1.8"
+pysigma-pipeline-crowdstrike = "1.0.0"
+pysigma-pipeline-sysmon = "1.0.2"
+pysigma-pipeline-windows = "1.1.0"
 importlib-resources = "^5.13.0"
+
 
 
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.4.0"
 pytest-cov = "^4.1.0"
+black = "^23.7.0"
 
 
 [build-system]
