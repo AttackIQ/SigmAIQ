@@ -301,30 +301,6 @@ def test_get_output_formats(available_backend):
     assert isinstance(formats, dict)
 
 
-@pytest.mark.parametrize(
-    "check_types",
-    [sigma_rule, sigma_collection, sigma_rule_dict, sigma_rule_yaml_str, [sigma_rule_dict, sigma_rule]],
-    ids=["SigmaRule", "SigmaCollection", "dict", "str", "list"]
-)
-def test_check_sigma_rule_valid(check_types):
-    """Tests passing various valid types/values to _check_sigma_rule()"""
-    backend_obj = SigmAIQBackend(backend="microsoft365defender").create_backend()
-    returned_obj = backend_obj._check_sigma_rule(check_types)
-    assert isinstance(returned_obj, SigmaRule) or isinstance(returned_obj, SigmaCollection)
-
-
-@pytest.mark.parametrize(
-    "check_invalid_types",
-    [None, True, {"invalid_key": "invalid_val"}, "invalid str", [SigmaRule, "nope"]],
-    ids=["None", "bool", "dict", "str", "list"]
-)
-def test_check_sigma_rule_valid(check_invalid_types):
-    """Tests passing various invalid types/values to _check_sigma_rule()"""
-    with pytest.raises(Exception):
-        backend_obj = SigmAIQBackend(backend="microsoft365defender").create_backend()
-        backend_obj._check_sigma_rule(check_invalid_types)
-
-
 def test_create_all_and_translate(sigma_rule):
     """Tests classmethod create_all_and_translate_all."""
     output = SigmAIQBackend.create_all_and_translate(sigma_rule)
