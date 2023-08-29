@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "SigmAIQ"
-version = "0.2.3"
+version = "0.2.4"
 description = "Wrapper and tools for pySigma and Sigma rules"
 authors = ["Stephen Lincoln <stephen.lincoln@attackiq.com>", "AttackIQ <support@attackiq.com>"]
 readme = "README.md"
