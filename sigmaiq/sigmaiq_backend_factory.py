@@ -184,7 +184,7 @@ class SigmAIQBackend:
                 continue
             backend_obj = cls(backend=backend).create_backend()
             for pipeline in pipelines:
-                backend_obj.processing_pipeline = cls._setup_processing_pipeline(pipeline)
+                backend_obj.set_pipeline(pipeline)
                 for output_format in backends_output_formats[backend].get("output_formats"):
                     backend_obj.set_output_format(output_format)
                     output = []

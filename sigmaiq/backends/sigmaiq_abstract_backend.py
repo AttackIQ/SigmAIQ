@@ -53,13 +53,31 @@ class AbstractGenericSigmAIQBackendClass(TextQueryBackend, ABC):
         """
         self.output_format = None
         self.custom_output_format = None
-        self.processing_pipeline = self._validate_processing_pipeline(processing_pipeline or self.default_pipeline)
+        self.set_pipeline(processing_pipeline)
         self.set_output_format(output_format)
         super().__init__(processing_pipeline=self.processing_pipeline)
+
+    def set_pipeline(self, processing_pipeline):
+        # Validate the pipeline
+        self.processing_pipeline = self._validate_processing_pipeline(processing_pipeline or self.default_pipeline)
         # Ensure we aren't applying a pipeline automatically applied by the backend
         if self.backend_processing_pipeline and self.processing_pipeline:
             if self.processing_pipeline.name == self.backend_processing_pipeline.name:
                 self.processing_pipeline = None
+
+    def set_output_format(self, output_format):
+        if not output_format:
+            self.output_format = "default"
+            self.custom_output_format = None
+        else:
+            self.output_format = None
+            self.custom_output_format = None
+            if output_format in self.custom_formats.keys():
+                self.custom_output_format = output_format
+            elif output_format in self.formats.keys():
+                self.output_format = output_format
+        if not self.output_format and not self.custom_output_format:
+            raise InvalidOutputFormat(f"Invalid output_format {output_format} for Backend {type(self).__name__}")
 
     def translate(self, sigma_rule: Union[SigmaRule, SigmaCollection, List, Dict, str]):
         """Default implementation to translate a SigmaRule or SigmaCollection object into a Splunk query
@@ -108,20 +126,6 @@ class AbstractGenericSigmAIQBackendClass(TextQueryBackend, ABC):
         if processing_pipeline and not isinstance(processing_pipeline, ProcessingPipeline):
             processing_pipeline = SigmAIQPipeline(processing_pipeline).create_pipeline()
         return processing_pipeline
-
-    def set_output_format(self, output_format):
-        if not output_format:
-            self.output_format = "default"
-            self.custom_output_format = None
-        else:
-            self.output_format = None
-            self.custom_output_format = None
-            if output_format in self.custom_formats.keys():
-                self.custom_output_format = output_format
-            elif output_format in self.formats.keys():
-                self.output_format = output_format
-        if not self.output_format and not self.custom_output_format:
-            raise InvalidOutputFormat(f"Invalid output_format {output_format} for Backend {type(self).__name__}")
 
     def get_backend_output_formats(self) -> Dict[str, str]:
         output_formats = {**self.formats, **self.custom_formats}
