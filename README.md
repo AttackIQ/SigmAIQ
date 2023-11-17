@@ -33,6 +33,9 @@ encountered. Please report any issues [here](https://github.com/AttackIQ/SigmAIQ
 Feature requests are also always welcome! pySigma tools/utils are currently not in the pre-release version,
 and will be added in future releases.
 
+# LLM Support
+For LLM usage, see the [LLM README](sigmaiq/llm/README.md)
+
 # Installation & Usage
 
 ## Installation
