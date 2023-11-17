@@ -1,6 +1,7 @@
 import os
 
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-SIGMA_RULE_DIR = os.path.join(ROOT_DIR, "llm/data/sigma")
 
-print(SIGMA_RULE_DIR)
+class DEFAULT_DIRS:
+    ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+    SIGMA_RULE_DIR = os.path.join(ROOT_DIR, "llm/data/sigma")
+    VECTOR_STORE_DIR = os.path.join(ROOT_DIR, "llm/data/vectordb")

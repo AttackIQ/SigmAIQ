@@ -2,7 +2,7 @@ import os
 import shutil
 
 import requests
-from sigmaiq.globals import SIGMA_RULE_DIR
+from sigmaiq.globals import DEFAULT_DIRS
 from pathlib import Path
 import zipfile
 import io
@@ -150,7 +150,7 @@ def setup_rule_dir(rule_dir: str) -> str:
         str: The path to the SIGMA_RULE_DIR directory.
     """
     if not rule_dir:
-        rule_dir = SIGMA_RULE_DIR
+        rule_dir = DEFAULT_DIRS.SIGMA_RULE_DIR
     if not os.path.exists(rule_dir):
         os.makedirs(rule_dir)
     return rule_dir
