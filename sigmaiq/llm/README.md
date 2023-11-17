@@ -90,13 +90,15 @@ with your favorite Python package manager, such as pip or poetry.
 
 ### pip
 ```bash
-pip install -r requirements/common.txt -r requirements/llm.txt
+pip install -e .
+pip install -r requirements/llm.txt
 ```
 
 ### poetry
 ```bash
 poetry install --with llm
 ```
+
 
 ## Usage
 For usage examples, please see the `examples` directory. By default, OpenAI embeddings and LLM models are used, which 
