@@ -60,3 +60,13 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 120
+
+[tool.coverage.run]
+omit = [
+    # omit anything in a tests directory
+    "tests/*",
+    # omit everything in LLM
+    "sigmaiq/llm/*",
+    # omit globals
+    "sigmaiq/globals.py",
+    ]
