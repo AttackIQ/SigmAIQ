@@ -23,7 +23,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: poetry
       - name: Install dependencies
-        run: pip install .
+        run: poetry install --no-root
       - name: Run tests
         run: poetry run pytest --cov=sigmaiq --cov-report term --cov-report xml:cov.xml -vv
       - name: Store coverage for badge
