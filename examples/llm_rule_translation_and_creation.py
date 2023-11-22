@@ -36,11 +36,11 @@ detection:
 user_input = ("Translate the following Sigma rule to a Splunk query using the 'splunk_cim_dm' pipeline: \n\n" +
               sigma_rule)
 
-# answer = sigma_agent_executor.invoke({"input": user_input})
-# print("\nRULE TRANSLATION:", end="\n\n")
-#print(f"Question:\n {user_input}", end="\n\n")
-#print(f"Answer: \n")
-#print(answer.get('output'), end="\n\n")
+answer = sigma_agent_executor.invoke({"input": user_input})
+print("\nRULE TRANSLATION:", end="\n\n")
+print(f"Question:\n {user_input}", end="\n\n")
+print(f"Answer: \n")
+print(answer.get('output'), end="\n\n")
 
 # %% RULE CREATION
 # %% The agent will take the user input, look up similar Sigma Rules in the Sigma vector store, then create a brand
