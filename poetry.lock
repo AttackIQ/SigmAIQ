@@ -223,13 +223,13 @@ uvloop = ["uvloop (>=0.15.2)"]
 
 [[package]]
 name = "certifi"
-version = "2023.11.17"
+version = "2024.2.2"
 description = "Python package for providing Mozilla's CA Bundle."
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "certifi-2023.11.17-py3-none-any.whl", hash = "sha256:e036ab49d5b79556f99cfc2d9320b34cfbe5be05c5871b51de9329f0603b0474"},
-    {file = "certifi-2023.11.17.tar.gz", hash = "sha256:9b469f3a900bf28dc19b8cfbf8019bf47f7fdd1a65a1d4ffb98fc14166beb4d1"},
+    {file = "certifi-2024.2.2-py3-none-any.whl", hash = "sha256:dc383c07b76109f368f6106eee2b593b04a011ea4d55f652c6ca24a754d1cdd1"},
+    {file = "certifi-2024.2.2.tar.gz", hash = "sha256:0569859f95fc761b18b45ef421b1290a0f65f147e92a1e5eb3e635f9a5e4e66f"},
 ]
 
 [[package]]
@@ -727,21 +727,21 @@ files = [
 
 [[package]]
 name = "importlib-resources"
-version = "5.13.0"
+version = "6.4.0"
 description = "Read resources from Python packages"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "importlib_resources-5.13.0-py3-none-any.whl", hash = "sha256:9f7bd0c97b79972a6cce36a366356d16d5e13b09679c11a58f1014bfdf8e64b2"},
-    {file = "importlib_resources-5.13.0.tar.gz", hash = "sha256:82d5c6cca930697dbbd86c93333bb2c2e72861d4789a11c2662b933e5ad2b528"},
+    {file = "importlib_resources-6.4.0-py3-none-any.whl", hash = "sha256:50d10f043df931902d4194ea07ec57960f66a80449ff867bfe782b4c486ba78c"},
+    {file = "importlib_resources-6.4.0.tar.gz", hash = "sha256:cdb2b453b8046ca4e3798eb1d84f3cce1446a0e8e7b5ef4efb600f19fc398145"},
 ]
 
 [package.dependencies]
 zipp = {version = ">=3.1.0", markers = "python_version < \"3.10\""}
 
 [package.extras]
-docs = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-lint"]
-testing = ["pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=2.2)", "pytest-mypy (>=0.9.1)", "pytest-ruff"]
+docs = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (<7.2.5)", "sphinx (>=3.5)", "sphinx-lint"]
+testing = ["jaraco.test (>=5.4)", "pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=2.2)", "pytest-mypy", "pytest-ruff (>=0.2.1)", "zipp (>=3.17)"]
 
 [[package]]
 name = "iniconfig"
@@ -1236,31 +1236,31 @@ requests = ">=2.28.1,<3.0.0"
 
 [[package]]
 name = "pysigma-backend-carbonblack"
-version = "0.1.4"
+version = "0.1.6"
 description = "pySigma carbonblack backend"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "pysigma_backend_carbonblack-0.1.4-py3-none-any.whl", hash = "sha256:58e3c4735da7a6db70e8cbca020fa96fbaaf4b03ecfe23aea16357a2ebda6dae"},
-    {file = "pysigma_backend_carbonblack-0.1.4.tar.gz", hash = "sha256:2b9db6b87bd2f338686b355801279a50aaeacca1bb0e03fd80e9197f3bddffb1"},
+    {file = "pysigma_backend_carbonblack-0.1.6-py3-none-any.whl", hash = "sha256:8e6a5beec59c71db93abdf126eb42c2bc3f2833a71f2ef9ba9698732274cee4e"},
+    {file = "pysigma_backend_carbonblack-0.1.6.tar.gz", hash = "sha256:c1ccb5ea5d046fa39bef76e2f7d95283aef4f65340de2e6e0b23f54a0ea9fc11"},
 ]
 
 [package.dependencies]
-pysigma = ">=0.9.6,<0.10.0"
+pysigma = ">=0.9.6"
 
 [[package]]
 name = "pysigma-backend-cortexxdr"
-version = "0.1.1"
+version = "0.1.2"
 description = "pySigma CortexXDR backend"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "pysigma_backend_cortexxdr-0.1.1-py3-none-any.whl", hash = "sha256:1665abc1f60472956d972a791f4931fb356cbcf8014ffb1f5684d765e8a6f850"},
-    {file = "pysigma_backend_cortexxdr-0.1.1.tar.gz", hash = "sha256:827c9e0f4a61d5c9526aa0f576754de87b58787cc6c1665129aadeffebc017fd"},
+    {file = "pysigma_backend_cortexxdr-0.1.2-py3-none-any.whl", hash = "sha256:f853c1ee145b5da6a73386d872aa3804fbdeadc19b18558c54c2b75aa6f8a800"},
+    {file = "pysigma_backend_cortexxdr-0.1.2.tar.gz", hash = "sha256:bd7ff50499d80fad4b42026f1d05411b7066e9140d367a1d76aa60d7a6f1ebd7"},
 ]
 
 [package.dependencies]
-pysigma = ">=0.9.8,<0.10.0"
+pysigma = ">=0.9.8"
 
 [[package]]
 name = "pysigma-backend-elasticsearch"
@@ -1307,17 +1307,16 @@ pysigma-pipeline-sysmon = ">=1.0.1,<2.0.0"
 
 [[package]]
 name = "pysigma-backend-microsoft365defender"
-version = "0.2.1"
+version = "0.2.0"
 description = "pySigma Microsoft 365 Defender backend"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "pysigma_backend_microsoft365defender-0.2.1-py3-none-any.whl", hash = "sha256:c95cc09ff7fb89349840afa6926e43b817e4d858e6e40a1fec1a0d7a4202107d"},
-    {file = "pysigma_backend_microsoft365defender-0.2.1.tar.gz", hash = "sha256:9ccf41b2e368ad2779e803dce3b174cfcc4308502c1929e267c6c7b21645ee29"},
+    {file = "pysigma_backend_microsoft365defender-0.2.0-py3-none-any.whl", hash = "sha256:f88cdb032064374907db9edc2a2baae24a21cc5272af0b0f654ed939720bcafc"},
+    {file = "pysigma_backend_microsoft365defender-0.2.0.tar.gz", hash = "sha256:e6be66622dcebf83010d7817b810ddef2a0c5303b26fd11c73d116dcab714098"},
 ]
 
 [package.dependencies]
-certifi = ">=2023.07.22,<2024.0.0"
 pysigma = ">=0.9.0,<0.10.0"
 
 [[package]]
@@ -1337,31 +1336,32 @@ pysigma-backend-elasticsearch = ">=1.0.0,<2.0.0"
 
 [[package]]
 name = "pysigma-backend-qradar-aql"
-version = "0.2.3"
+version = "0.3.1"
 description = "pySigma QRadarAQL backend"
 optional = false
-python-versions = ">=3.8,<4.0"
+python-versions = "<4.0,>=3.8"
 files = [
-    {file = "pysigma_backend_qradar_aql-0.2.3-py3-none-any.whl", hash = "sha256:c57bf03f3cca6ef1a3b57d099cd06ec96ebd4144d515a0c6d36359fb3dc6134b"},
-    {file = "pysigma_backend_qradar_aql-0.2.3.tar.gz", hash = "sha256:f46e31cdb2b98b7f9e445511da7a0bc843f8ff4e2865c91401a4fc053af97246"},
+    {file = "pysigma_backend_qradar_aql-0.3.1-py3-none-any.whl", hash = "sha256:6a8f597543b761b8edc9be021b71c288eecb40cbde61bf1ef7a7ed3fee4f8aa1"},
+    {file = "pysigma_backend_qradar_aql-0.3.1.tar.gz", hash = "sha256:6338ed06a989670fdbdbe42414957159cefc46586939ee56914f073b4f61b9b3"},
 ]
 
 [package.dependencies]
-pysigma = ">=0.9.8,<0.10.0"
+pysigma = ">=0.9.8,<0.12.0"
+regex = ">=2023.12.25,<2024.0.0"
 
 [[package]]
 name = "pysigma-backend-sentinelone"
-version = "0.1.2"
+version = "0.1.3"
 description = "pySigma SentinelOne backend"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "pysigma_backend_sentinelone-0.1.2-py3-none-any.whl", hash = "sha256:6fd866819d4b816e5a4fc633c51e1f06ad8cec563852d6f5b104f58e9fb1d800"},
-    {file = "pysigma_backend_sentinelone-0.1.2.tar.gz", hash = "sha256:e2c58d73d6f23d8ddb5e31861cd249b038a0990738e9d945ffb1551a330092ac"},
+    {file = "pysigma_backend_sentinelone-0.1.3-py3-none-any.whl", hash = "sha256:308556bdc0af5e74868f93d64784db2b0e29f8c75c98b4b348be751351cfc35f"},
+    {file = "pysigma_backend_sentinelone-0.1.3.tar.gz", hash = "sha256:06f72af3eba3bede57f795f98cf35be9efd498553535feb7f2ec0de061d40dda"},
 ]
 
 [package.dependencies]
-pysigma = ">=0.9.5,<0.10.0"
+pysigma = ">=0.9.5"
 
 [[package]]
 name = "pysigma-backend-splunk"
@@ -2041,4 +2041,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8.1, <=3.11.6"
-content-hash = "033871302f09de7f8b90a44e27c0a8cae81753bb9737a06381526a8386a8a3f8"
+content-hash = "a15393840146a4c6ea8208294aff26ddf95c7f0a94790c7d41967055df9cff77"
