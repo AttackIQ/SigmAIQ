@@ -37,21 +37,16 @@ pysigma-pipeline-crowdstrike = "*"
 pysigma-pipeline-sysmon = "*"
 pysigma-pipeline-windows = "*"
 importlib-resources = "*"
+langchain = "*"
+openai = "*"
+tiktoken = "*"
+faiss-cpu = "*"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
 pytest-cov = "*"
 black = "*"
 ruff = "*"
-
-[tool.poetry.group.llm]
-optional = false
-
-[tool.poetry.group.llm.dependencies]
-langchain = "*"
-openai = "*"
-tiktoken = "*"
-faiss-cpu = "*"
 
 [build-system]
 requires = ["poetry-core"]
