@@ -34,7 +34,8 @@ class SigmaLLM(SigmaRuleUpdater):
         self,
         rule_dir: str = None,
         vector_store_dir: str = None,
-        embedding_function: Type[Embeddings] = OpenAIEmbeddings,
+        embedding_model: OpenAIEmbeddings = None,
+        embedding_function: Type[Embeddings] = OpenAIEmbeddings, #TODO RS : Consolidate this with embedding_model
         vector_store: Type[VectorStore] = FAISS,
         rule_loader: Type[BaseLoader] = DirectoryLoader,
         rule_splitter: Type[BaseDocumentTransformer] = CharacterTextSplitter,
@@ -60,7 +61,10 @@ class SigmaLLM(SigmaRuleUpdater):
 
         # Setup rest of class
         self.vector_store_dir = self._setup_vector_store_dir(vector_store_dir)
-        self.embedding_function = embedding_function()
+        if embedding_model:
+            self.embedding_function = embedding_model
+        else:
+            self.embedding_function = embedding_function()
         self.vector_store = vector_store
         self.sigmadb = None
         self.rule_loader = rule_loader
