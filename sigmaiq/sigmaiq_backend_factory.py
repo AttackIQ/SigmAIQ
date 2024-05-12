@@ -15,7 +15,8 @@ from sigmaiq.backends.carbonblack import SigmAIQCarbonBlackBackend
 from sigmaiq.backends.crowdstrike import SigmAIQCrowdstrikeSplunkBackend
 from sigmaiq.backends.cortexxdr import SigmAIQCortexXDRBackend
 from sigmaiq.backends.elasticsearch import SigmAIQElasticsearchBackend
-from sigmaiq.backends.insightidr import SigmAIQInsightIDRBackend
+# RS until Stephen uncomments this in pyproject.toml
+# from sigmaiq.backends.insightidr import SigmAIQInsightIDRBackend
 from sigmaiq.backends.loki import SigmAIQLokiBackend
 from sigmaiq.backends.microsoft365defender import SigmAIQMicrosoft365DefenderBackend
 from sigmaiq.backends.opensearch import SigmAIQOpensearchBackend
@@ -98,8 +99,9 @@ class SigmAIQBackend:
         if self.backend == "elasticsearch":
             return SigmAIQElasticsearchBackend(**kwargs)
         # InsightIDR
-        if self.backend == "insightidr":
-            return SigmAIQInsightIDRBackend(**kwargs)
+        # RS until Stephen uncomments this in pyproject.toml
+        # if self.backend == "insightidr":
+        #     return SigmAIQInsightIDRBackend(**kwargs)
         # Loki (Grafana)
         if self.backend == "loki":
             return SigmAIQLokiBackend(**kwargs)
