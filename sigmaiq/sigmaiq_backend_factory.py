@@ -39,7 +39,8 @@ AVAILABLE_BACKENDS = {
     "crowdstrike_splunk": "Crowdstrike FDR Splunk Query",
     "crowdstrike_logscale": "Crowdstrike Logscale Query",
     "elasticsearch": "Elastic Elasticsearch SIEM",
-    "insightidr": "Rapid7 InsightIDR SIEM",
+    # RS uncommented this line after Stephen uncomment corresponding line in pyproject.toml
+    # "insightidr": "Rapid7 InsightIDR SIEM",
     "loki": "Grafana Loki LogQL SIEM",
     "microsoft_xdr": "Microsoft XDR Advanced Hunting Query (KQL) (Defender, Office365, etc)",
     "microsoft_sentinel_asim": "Microsoft Sentinel ASIM Query (KQL)",
