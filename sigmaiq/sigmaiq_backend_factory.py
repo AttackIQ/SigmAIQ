@@ -35,7 +35,8 @@ AVAILABLE_BACKENDS = {
     "cortexxdr": "Palo Alto Cortex XDR",
     "crowdstrike_splunk": "Crowdstrike Splunk Query",
     "elasticsearch": "Elastic Elasticsearch SIEM",
-    "insightidr": "Rapid7 InsightIDR SIEM",
+    # RS uncommented this line after Stephen uncomment corresponding line in pyproject.toml
+    # "insightidr": "Rapid7 InsightIDR SIEM",
     "loki": "Grafana Loki LogQL SIEM",
     "microsoft365defender": "Microsoft 365 Defender Advanced Hunting Query (KQL)",
     "opensearch": "OpenSearch Lucene",
