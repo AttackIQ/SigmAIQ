@@ -27,8 +27,7 @@ from sigma.pipelines.crowdstrike import crowdstrike_fdr_pipeline
 from sigma.pipelines.elasticsearch import ecs_windows, ecs_windows_old, ecs_zeek_beats, ecs_zeek_corelight, zeek_raw
 
 ## InsightIDR
-# RS until Stephen uncomments this in pyproject.toml
-# from sigma.pipelines.insight_idr import insight_idr_pipeline
+from sigma.pipelines.insight_idr import insight_idr_pipeline
 
 ## Loki
 from sigma.pipelines.loki import loki_grafana_logfmt, loki_promtail_sysmon, loki_okta_system_log
@@ -117,12 +116,11 @@ AVAILABLE_PIPELINES = {
         "display_name": "Zeek Raw JSON",
     },
     # InsightIDR
-    # RS until Stephen uncomments this in pyproject.toml
-    # "insightidr": {
-    #     "description": "InsightIDR Log Entry Query Language (LEQL) Transformations",
-    #     "pipeline": insight_idr_pipeline(),
-    #     "display_name": "InsightIDR LEQL",
-    # },
+    "insightidr": {
+        "description": "InsightIDR Log Entry Query Language (LEQL) Transformations",
+        "pipeline": insight_idr_pipeline(),
+        "display_name": "InsightIDR LEQL",
+    },
     # Loki
     "loki_grafana_logfmt": {
         "description": "Converts field names to logfmt labels used by Grafana",
