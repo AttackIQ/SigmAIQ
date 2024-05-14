@@ -15,7 +15,8 @@ from sigmaiq.backends.carbonblack import SigmAIQCarbonBlackBackend
 from sigmaiq.backends.crowdstrike import SigmAIQCrowdstrikeSplunkBackend
 from sigmaiq.backends.cortexxdr import SigmAIQCortexXDRBackend
 from sigmaiq.backends.elasticsearch import SigmAIQElasticsearchBackend
-from sigmaiq.backends.insightidr import SigmAIQInsightIDRBackend
+# RS uncommented this line after Stephen uncomment corresponding line in pyproject.toml
+# from sigmaiq.backends.insightidr import SigmAIQInsightIDRBackend
 from sigmaiq.backends.loki import SigmAIQLokiBackend
 from sigmaiq.backends.microsoft365defender import SigmAIQMicrosoft365DefenderBackend
 from sigmaiq.backends.opensearch import SigmAIQOpensearchBackend
@@ -34,7 +35,8 @@ AVAILABLE_BACKENDS = {
     "cortexxdr": "Palo Alto Cortex XDR",
     "crowdstrike_splunk": "Crowdstrike Splunk Query",
     "elasticsearch": "Elastic Elasticsearch SIEM",
-    "insightidr": "Rapid7 InsightIDR SIEM",
+    # RS uncommented this line after Stephen uncomment corresponding line in pyproject.toml
+    # "insightidr": "Rapid7 InsightIDR SIEM",
     "loki": "Grafana Loki LogQL SIEM",
     "microsoft365defender": "Microsoft 365 Defender Advanced Hunting Query (KQL)",
     "opensearch": "OpenSearch Lucene",
@@ -98,8 +100,9 @@ class SigmAIQBackend:
         if self.backend == "elasticsearch":
             return SigmAIQElasticsearchBackend(**kwargs)
         # InsightIDR
-        if self.backend == "insightidr":
-            return SigmAIQInsightIDRBackend(**kwargs)
+        # RS uncommented this line after Stephen uncomment corresponding line in pyproject.toml
+        # if self.backend == "insightidr":
+        #     return SigmAIQInsightIDRBackend(**kwargs)
         # Loki (Grafana)
         if self.backend == "loki":
             return SigmAIQLokiBackend(**kwargs)
