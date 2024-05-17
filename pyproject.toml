@@ -40,6 +40,7 @@ pysigma-pipeline-windows = "1.1.1"
 importlib-resources = "^5.13.0"
 
 
+
 [tool.poetry.dev-dependencies]
 pytest = "^7.4.0"
 pytest-cov = "^4.1.0"
@@ -50,6 +51,7 @@ ruff = "^0.0.286"
 optional = true
 
 [tool.poetry.group.llm.dependencies]
+aiohttp = "^3.9.4"
 langchain = "^0.0.335"
 openai = "^1.2.4"
 tiktoken = "^0.5.1"
