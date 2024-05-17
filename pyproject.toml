@@ -57,6 +57,10 @@ openai = "^1.2.4"
 tiktoken = "^0.5.1"
 faiss-cpu = "^1.7.4"
 
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.4.2"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
