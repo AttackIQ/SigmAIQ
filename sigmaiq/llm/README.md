@@ -18,6 +18,7 @@ Currently, the use cases of this feature include:
 - Embedding creation and storage of Sigma Rules
 - Sigma Rule similarity searching
 - Agent/Bot for Sigma Rule translation and creation
+- Converting backend queries to Sigma Rules
 
 Please see the `examples` folder for use case examples.
 
