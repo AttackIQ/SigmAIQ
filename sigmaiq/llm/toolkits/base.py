@@ -31,8 +31,8 @@ from sigmaiq.llm.toolkits.prompts import SIGMA_AGENT_PROMPT
 
 
 def create_sigma_agent(
-    agent_llm: BaseLanguageModel = ChatOpenAI(model="gpt-3.5-turbo"),
-    rule_creation_llm: BaseLanguageModel = ChatOpenAI(model="gpt-3.5-turbo"),
+    agent_llm: BaseLanguageModel = ChatOpenAI(model="gpt-4o"),
+    rule_creation_llm: BaseLanguageModel = ChatOpenAI(model="gpt-4o"),
     sigma_vectorstore: VectorStore = None,
     toolkit: Type[SigmaToolkit] = SigmaToolkit,
     prompt: Optional[ChatPromptTemplate] = SIGMA_AGENT_PROMPT,
@@ -43,8 +43,8 @@ def create_sigma_agent(
     """Construct a Sigma agent from an LLM and tools.
 
     Args:
-        agent_llm (BaseLanguageModel, optional): The LLM to use for the agent. Defaults to ChatOpenAI(model="gpt-3.5-turbo").
-        rule_creation_llm (BaseLanguageModel, optional): The LLM to use for the rule creation tool. Defaults to ChatOpenAI(model="gpt-3.5-turbo").
+        agent_llm (BaseLanguageModel, optional): The LLM to use for the agent. Defaults to ChatOpenAI(model="gpt-4o").
+        rule_creation_llm (BaseLanguageModel, optional): The LLM to use for the rule creation tool. Defaults to ChatOpenAI(model="gpt-4o").
         sigma_vectorstore (VectorStore, optional): The vectorstore containing Sigma rules to use for the agent. Defaults to None.
         toolkit (Type[SigmaToolkit], optional): The toolkit to use for the agent. Defaults to SigmaToolkit.
         prompt (Optional[ChatPromptTemplate], optional): The prompt to use for the agent. Defaults to SIGMA_AGENT_PROMPT.
