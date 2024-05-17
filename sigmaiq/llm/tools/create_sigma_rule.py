@@ -38,7 +38,7 @@ class CreateSigmaRuleVectorStoreTool(BaseTool):
     sigmadb: VectorStore
     llm: BaseLanguageModel
     k: int = 3
-    verbose = True
+    verbose = False
 
     def _run(
         self,
@@ -48,62 +48,73 @@ class CreateSigmaRuleVectorStoreTool(BaseTool):
         """Run the tool"""
 
         template = """You are a cybersecurity detection engineering assistant bot specializing in Sigma Rule creation.
-You are assisting a user in creating a new Sigma Rule based on the users question.  
-The users question is first used to find similar Sigma Rules from the a vectorstore containing official 
-Sigma Rules. The official Sigma Rules should be used as context as needed in conjunction with the detection specified
-in the users question to create a new Sigma Rule.  If the context is not relevant, the detection specifics can be ignored.
-But the returned rules can still be used for the Sigma rule schema and rule structure. 
-Set the 'author' to 'SigmAIQ (AttackIQ)', 
-the date to today's date, and the reference to 'https://github.com/AttackIQ/SigmAIQ'.  
-The created Sigma Rule should be in YAML format and use the official Sigma schema.  The detection field
-can contain multiple 'selection' identifiers and multiple 'filter' identifiers as needed, 
-which can be used in the condition field to select criteria and filter out criteria respectively.  If 
-any threat groups, malware, etc are mentioned in the users question, look up specific IOCs for these
-entities and use them as needed.  The Sigma Rule should be as specific as possible, but also include
-any filters so the detection is not overly specific and can be used in a variety of environments.  
-You may return multiple Sigma rules if needed to detect different aspects of the users question, 
-or different IOCs mentioned or derived from the users question. Use the Sigma Rule schema below to
-create the Sigma Rule.
+                You are assisting a user in creating a new Sigma Rule based on the users question.  
+                The users question is first used to find similar Sigma Rules from the a vectorstore containing official 
+                Sigma Rules. The official Sigma Rules can be used as context as needed in conjunction with the detection specified
+                in the users question to create a new Sigma Rule.  
+                The created Sigma Rule should be in YAML format and use the official Sigma schema.  The detection field
+                can contain multiple 'selection' identifiers and multiple 'filter' identifiers as needed, 
+                which can be used in the condition field to select criteria and filter out criteria respectively.
+                Set the 'author' to 'SigmAIQ (AttackIQ)', the date to today's date, and the reference to 'https://github.com/AttackIQ/SigmAIQ'.
+                If you use other rules as context and derive the created Sigma Rules from the context rules, you must
+                include the original authors under the 'author' field in the new rule in addition to "SigmAIQ (AttackIQ),
+                and add the original rule IDs under the 'related' field. The valid 'types' under 'related' are the following:
+                
+                    derived: The rule was derived from the referred rule or rules, which may remain active.
+                    obsoletes: The rule obsoletes the referred rule or rules, which aren't used anymore.
+                    merged: The rule was merged from the referred rules. The rules may be still existing and in use.
+                    renamed: The rule had previously the referred identifier or identifiers but was renamed for whatever reason, e.g. from a private naming scheme to UUIDs, to resolve collisions etc. It's not expected that a rule with this id exists anymore.
+                    similar: Use to relate similar rules to each other (e.g. same detection content applied to different log sources, rule that is a modified version of another rule with a different level)
+ 
+                If you are unsure about the Sigma rule schema, you can get the information from the official
+                Sigma specification here first: https://raw.githubusercontent.com/SigmaHQ/sigma-specification/main/Sigma_specification.md
 
---------
-Sigma Rule Schema:
+                ------------
+                
+                Sigma Rule Schema:
+                
+                title
+                id [optional]
+                related [optional]
+                   - id {{rule-id}}
+                     type {{type-identifier}}
+                status [optional]
+                description [optional]
+                references [optional]
+                author [optional]
+                date [optional]
+                modified [optional]
+                tags [optional]
+                logsource
+                   category [optional]
+                   product [optional]
+                   service [optional]
+                   definition [optional]
+                   ...
+                detection
+                   {{search-identifier}} [optional]
+                      {{string-list}} [optional]
+                      {{map-list}} [optional]
+                      {{field: value}}> [optional]
+                   ... # Multiple search identifiers can be specified as needed and used in the condition
+                   condition
+                fields [optional]
+                falsepositives [optional]
+                level [optional]:
+                
+                
+                ------------
+                
+                Vectorstore Search Results:
 
-title
-id [optional]
-related [optional]
-   - id {{rule-id}}
-     type {{type-identifier}}
-status [optional]
-description [optional]
-references [optional]
-author [optional]
-date [optional]
-modified [optional]
-tags [optional]
-logsource
-   category [optional]
-   product [optional]
-   service [optional]
-   definition [optional]
-   ...
-detection
-   {{search-identifier}} [optional]
-      {{string-list}} [optional]
-      {{map-list}} [optional]
-      {{field: valu}}> [optional]
-   ... # Multiple search identifiers can be specified as needed and used in the condition as selections and filters
-   condition
-fields [optional]
-falsepositives [optional]
-level [optional]:
--------
-Vectorstore Search Results:
+                {context}
+                
+                ------------
+                
+                User's Question: 
+                {question}
+                """
 
-{context}
-------
-User's Question: 
-{question}
-"""
         prompt = ChatPromptTemplate.from_template(template)
         retriever = self.sigmadb.as_retriever(search_kwargs={"k": self.k})
         chain = {"context": retriever, "question": RunnablePassthrough()} | prompt | self.llm | StrOutputParser()
