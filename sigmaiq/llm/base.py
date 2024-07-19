@@ -7,15 +7,16 @@ from sigmaiq.utils.sigma.rule_updater import SigmaRuleUpdater
 from sigmaiq.globals import DEFAULT_DIRS
 
 # langchain
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import FAISS
-from langchain.document_loaders import DirectoryLoader, TextLoader
+from langchain_openai import OpenAIEmbeddings
+from langchain_community.vectorstores import FAISS
+from langchain_community.document_loaders import DirectoryLoader, TextLoader
 from langchain.text_splitter import CharacterTextSplitter
 
 # langchain typing
 from langchain.schema.embeddings import Embeddings
 from langchain.schema.vectorstore import VectorStore
-from langchain.document_loaders.base import BaseLoader, Document
+from langchain.docstore.document import Document
+from langchain.document_loaders.base import BaseLoader
 from langchain.schema.document import BaseDocumentTransformer
 
 
@@ -79,6 +80,7 @@ class SigmaLLM(SigmaRuleUpdater):
             self.sigmadb = self.vector_store.load_local(  # CHANGE ME IF NEEDED
                 folder_path=self.vector_store_dir,
                 embeddings=self.embedding_function,
+                allow_dangerous_deserialization=True,
             )
         except Exception as e:
             raise e

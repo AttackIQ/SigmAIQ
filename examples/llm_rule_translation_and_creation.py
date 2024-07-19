@@ -4,7 +4,7 @@
 # %% Import required SigmAIQ classes and functions
 from sigmaiq.llm.toolkits.base import create_sigma_agent
 from sigmaiq.llm.base import SigmaLLM
-from langchain.embeddings import OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings
 
 # %% Ensure we have our Sigma vector store setup with our base LLM class
 sigma_llm = SigmaLLM(embedding_model=OpenAIEmbeddings(model="text-embedding-3-large"))
