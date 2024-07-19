@@ -16,7 +16,7 @@ from pprint import pprint
 from sigmaiq.llm.base import SigmaLLM
 
 # %% Create a SigmaLLM object with default settings. See the class docstring for more information
-from langchain.embeddings import OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings
 sigma_llm = SigmaLLM(embedding_model=OpenAIEmbeddings(model="text-embedding-3-large"))
 
 # %% The `create_sigma_vectordb()` method will automatically do all the work for you :) (only run this once)

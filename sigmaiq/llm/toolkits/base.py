@@ -7,9 +7,9 @@ from json import JSONDecodeError
 from langchain.agents.agent import AgentExecutor
 from langchain.agents.format_scratchpad import format_to_openai_function_messages
 from langchain.agents.output_parsers import OpenAIFunctionsAgentOutputParser
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
-from langchain.tools.render import format_tool_to_openai_function
+from langchain_core.utils.function_calling import convert_to_openai_function
 
 # langchain typing
 from langchain.schema import (
@@ -60,7 +60,7 @@ def create_sigma_agent(
     tools = toolkit(sigmadb=sigma_vectorstore, rule_creation_llm=rule_creation_llm).get_tools()
 
     # Create OpenAI Function for each tool for the agent LLM, so we can create an OpenAI Function AgentExecutor
-    llm_with_tools = agent_llm.bind(functions=[format_tool_to_openai_function(t) for t in tools])
+    llm_with_tools = agent_llm.bind(functions=[convert_to_openai_function(t) for t in tools])
 
     # Create the agent
     agent = (
