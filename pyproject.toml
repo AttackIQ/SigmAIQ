@@ -38,13 +38,13 @@ pysigma-pipeline-crowdstrike = "^1.0.3"
 pysigma-pipeline-sysmon = "^1.0.4"
 pysigma-pipeline-windows = "^1.2.0"
 importlib-resources = "*"
-langchain = "0.2.9"
 openai = "*"
 tiktoken = "*"
 faiss-cpu = "*"
+langchain = "0.2.9"
 langchain-community = "^0.2.7"
 langchain-openai = "^0.1.17"
-pydantic = "<2.0.0"
+langchain-core = "0.2.20"
 
 
 [tool.poetry.dev-dependencies]
