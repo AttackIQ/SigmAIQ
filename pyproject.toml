@@ -41,10 +41,10 @@ importlib-resources = "*"
 openai = "*"
 tiktoken = "*"
 faiss-cpu = "*"
-langchain = "0.2.9"
+langchain = "^0.2.9"
 langchain-community = "^0.2.7"
 langchain-openai = "^0.1.17"
-langchain-core = "0.2.20"
+langchain-core = "^0.2.20"
 
 
 [tool.poetry.dev-dependencies]
