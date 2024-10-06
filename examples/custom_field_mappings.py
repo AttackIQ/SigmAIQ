@@ -37,13 +37,10 @@ custom_field_mappings = {"CommandLine": "CustomCommandLine"}
 my_custom_pipeline = SigmAIQPipeline.from_fieldmap(custom_field_mappings, priority=0).create_pipeline()
 
 # %% Create SigmAIQ backend translate the rule to a Microsoft 365 Defender query with our custom field mappings
-sigmaiq_backend = SigmAIQBackend(
-    backend="splunk",
-    processing_pipeline=my_custom_pipeline).create_backend()
+sigmaiq_backend = SigmAIQBackend(backend="splunk", processing_pipeline=my_custom_pipeline).create_backend()
 
 query = sigmaiq_backend.translate(copy(sigma_rule))  # Returns List of queries
 
 print("\nM365Defender Query with Custom Fieldmappings: ", end="\n\n")
 pprint(query[0])
 print("\n-------------------")
-
