@@ -33,26 +33,27 @@ detection:
     condition: selection1
 """
 
-user_input = ("Translate the following Sigma rule to a Splunk query using the 'splunk_cim_dm' pipeline: \n\n" +
-              sigma_rule)
+user_input = (
+    "Translate the following Sigma rule to a Splunk query using the 'splunk_cim_dm' pipeline: \n\n" + sigma_rule
+)
 
 answer = sigma_agent_executor.invoke({"input": user_input})
 print("\nRULE TRANSLATION:", end="\n\n")
 print(f"Question:\n {user_input}", end="\n\n")
 print(f"Answer: \n")
-print(answer.get('output'), end="\n\n")
+print(answer.get("output"), end="\n\n")
 
 # %% RULE CREATION
 # %% The agent will take the user input, look up similar Sigma Rules in the Sigma vector store, then create a brand
 # %% new rule based on the context of the users input and the similar Sigma Rules.
 
-user_input = ("Create a Windows process creation Sigma Rule for certutil downloading a file "
-              "from definitely-not-malware.com, then translate it to a Microsoft 365 Defender query.")
+user_input = (
+    "Create a Windows process creation Sigma Rule for certutil downloading a file "
+    "from definitely-not-malware.com, then translate it to a Microsoft 365 Defender query."
+)
 
 answer = sigma_agent_executor.invoke({"input": user_input})
 print("\nRULE CREATION:", end="\n\n")
 print(f"Question:\n {user_input}", end="\n\n")
 print(f"Answer: \n")
-print(answer.get('output'), end="\n\n")
-
-
+print(answer.get("output"), end="\n\n")

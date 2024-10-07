@@ -80,15 +80,16 @@ def create_sigma_agent(
         verbose=verbose,
         return_intermediate_steps=return_intermediate_steps,
         handle_parsing_errors=True,
-        **(agent_executor_kwargs or {}))
+        **(agent_executor_kwargs or {}),
+    )
 
     return agent_executor
 
 
 class CustomOpenAIFunctionsAgentOutputParser(OpenAIFunctionsAgentOutputParser):
     """Custom OpenAIFunctionsAgentOutputParser to overcome the JSON parsing error on some agent
-    intermediate step inputs. This occurs because the `json.load()` method needs the arg `strict=False` to
-parse the JSON. This is a hacky way to do this, but it works for now.
+        intermediate step inputs. This occurs because the `json.load()` method needs the arg `strict=False` to
+    parse the JSON. This is a hacky way to do this, but it works for now.
     """
     # Override
     @staticmethod
@@ -105,8 +106,7 @@ parse the JSON. This is a hacky way to do this, but it works for now.
                 _tool_input = json.loads(function_call["arguments"].strip(), strict=False)  # HACK
             except JSONDecodeError:
                 raise OutputParserException(
-                    f"Could not parse tool input: {function_call} because "
-                    f"the `arguments` is not valid JSON."
+                    f"Could not parse tool input: {function_call} because " f"the `arguments` is not valid JSON."
                 )
 
             # HACK HACK HACK:
@@ -129,6 +129,4 @@ parse the JSON. This is a hacky way to do this, but it works for now.
                 message_log=[message],
             )
 
-        return AgentFinish(
-            return_values={"output": message.content}, log=str(message.content)
-        )
+        return AgentFinish(return_values={"output": message.content}, log=str(message.content))

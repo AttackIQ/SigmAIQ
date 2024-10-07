@@ -37,7 +37,7 @@ class SigmaRuleUpdater:
         if not version_file.exists():
             return ""
         with open(version_file, "r") as f:
-            current_version = "r"+f.readlines()[0].split(": ")[-1].strip()
+            current_version = "r" + f.readlines()[0].split(": ")[-1].strip()
         return current_version
 
     def _needs_update(self) -> bool:
