@@ -45,3 +45,4 @@ query = sigmaiq_backend.translate(copy(sigma_rule))  # Returns List of queries
 print("\nM365Defender Query with Custom Fieldmappings: ", end="\n\n")
 pprint(query[0])
 print("\n-------------------")
+
