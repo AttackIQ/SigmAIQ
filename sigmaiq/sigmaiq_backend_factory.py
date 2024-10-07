@@ -1,42 +1,50 @@
 import logging
 from copy import deepcopy
-from typing import Union, Dict, Any, Optional, List
+from typing import Any, Dict, List, Optional, Union
 
 from sigma.collection import SigmaCollection
 from sigma.processing.pipeline import ProcessingPipeline
 from sigma.rule import SigmaRule
 
-from sigmaiq.exceptions import InvalidSigmAIQBackend
-from sigmaiq.sigmaiq_pipeline_factory import SigmAIQPipelineResolver, SigmAIQPipeline
-from sigmaiq.utils.sigmaiq.sigmaiq_utils import create_sigma_rule_obj
-
 # Backends
 from sigmaiq.backends.carbonblack import SigmAIQCarbonBlackBackend
-from sigmaiq.backends.crowdstrike import SigmAIQCrowdstrikeSplunkBackend
 from sigmaiq.backends.cortexxdr import SigmAIQCortexXDRBackend
+from sigmaiq.backends.crowdstrike import (
+    SigmAIQCrowdstrikeLogscaleBackend,
+    SigmAIQCrowdstrikeSplunkBackend,
+)
 from sigmaiq.backends.elasticsearch import SigmAIQElasticsearchBackend
 from sigmaiq.backends.insightidr import SigmAIQInsightIDRBackend
+from sigmaiq.backends.kusto import SigmAIQDefenderXDRBackend, SigmAIQSentinelASIMBackend, SigmAIQAzureMonitorBackend
 from sigmaiq.backends.loki import SigmAIQLokiBackend
-from sigmaiq.backends.microsoft365defender import SigmAIQMicrosoft365DefenderBackend
+from sigmaiq.backends.netwitness import SigmAIQNetwitnessBackend
 from sigmaiq.backends.opensearch import SigmAIQOpensearchBackend
 from sigmaiq.backends.qradar import SigmAIQQRadarBackend
 from sigmaiq.backends.sentinelone import SigmAIQSentinelOneBackend
-from sigmaiq.backends.splunk import SigmAIQSplunkBackend
 from sigmaiq.backends.sigma import SigmAIQSigmaBackend
-from sigmaiq.backends.stix import SigmAIQStixBackend
 
 ## Abstract
 from sigmaiq.backends.sigmaiq_abstract_backend import AbstractGenericSigmAIQBackendClass
+from sigmaiq.backends.splunk import SigmAIQSplunkBackend
+from sigmaiq.backends.stix import SigmAIQStixBackend
+from sigmaiq.exceptions import InvalidSigmAIQBackend
+from sigmaiq.sigmaiq_pipeline_factory import SigmAIQPipeline, SigmAIQPipelineResolver
 
+# Utils
+from sigmaiq.utils.sigmaiq.sigmaiq_utils import create_sigma_rule_obj
 
 AVAILABLE_BACKENDS = {
     "carbonblack": "Carbon Black EDR",
     "cortexxdr": "Palo Alto Cortex XDR",
-    "crowdstrike_splunk": "Crowdstrike Splunk Query",
+    "crowdstrike_splunk": "Crowdstrike FDR Splunk Query",
+    "crowdstrike_logscale": "Crowdstrike Logscale Query",
     "elasticsearch": "Elastic Elasticsearch SIEM",
     "insightidr": "Rapid7 InsightIDR SIEM",
     "loki": "Grafana Loki LogQL SIEM",
-    "microsoft365defender": "Microsoft 365 Defender Advanced Hunting Query (KQL)",
+    "microsoft_xdr": "Microsoft XDR Advanced Hunting Query (KQL) (Defender, Office365, etc)",
+    "microsoft_sentinel_asim": "Microsoft Sentinel ASIM Query (KQL)",
+    "microsoft_azure_monitor": "Microsoft Azure Monitor Query (KQL)",
+    "netwitness": "Netwitness Query",
     "opensearch": "OpenSearch Lucene",
     "qradar": "IBM QRadar",
     "sentinelone": "SentinelOne EDR",
@@ -91,9 +99,14 @@ class SigmAIQBackend:
             return SigmAIQCortexXDRBackend(**kwargs)
         # Crowdstrike Splunk Query
         if self.backend == "crowdstrike_splunk":
-            pipelines = ["crowdstrike", kwargs["processing_pipeline"]]
+            pipelines = ["crowdstrike_fdr", kwargs["processing_pipeline"]]
             kwargs["processing_pipeline"] = SigmAIQPipelineResolver(pipelines).process_pipelines()
             return SigmAIQCrowdstrikeSplunkBackend(**kwargs)
+        # Crowdstrike Logscale Query
+        if self.backend == "crowdstrike_logscale":
+            pipelines = ["crowdstrike_falcon", kwargs["processing_pipeline"]]
+            kwargs["processing_pipeline"] = SigmAIQPipelineResolver(pipelines).process_pipelines()
+            return SigmAIQCrowdstrikeLogscaleBackend(**kwargs)
         # Elasticsearch
         if self.backend == "elasticsearch":
             return SigmAIQElasticsearchBackend(**kwargs)
@@ -103,9 +116,16 @@ class SigmAIQBackend:
         # Loki (Grafana)
         if self.backend == "loki":
             return SigmAIQLokiBackend(**kwargs)
-        # Microsoft 365 Defender
-        if self.backend == "microsoft365defender":
-            return SigmAIQMicrosoft365DefenderBackend(**kwargs)
+        # Microsoft Kusto
+        if self.backend == "microsoft_xdr":
+            return SigmAIQDefenderXDRBackend(**kwargs)
+        if self.backend == "microsoft_sentinel_asim":
+            return SigmAIQSentinelASIMBackend(**kwargs)
+        if self.backend == "microsoft_azure_monitor":
+            return SigmAIQAzureMonitorBackend(**kwargs)
+        # Netwitness
+        if self.backend == "netwitness":
+            return SigmAIQNetwitnessBackend(**kwargs)
         # Opensearch
         if self.backend == "opensearch":
             return SigmAIQOpensearchBackend(**kwargs)
