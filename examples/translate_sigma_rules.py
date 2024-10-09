@@ -32,7 +32,7 @@ print("\n-------------------")
 
 # %% Create SigmAIQ backend translate the rule to a Microsoft 365 Defender query
 # %% SigmAIQ will automatically select the best pipeline for the backend
-sigmaiq_backend = SigmAIQBackend(backend="microsoft365defender").create_backend()
+sigmaiq_backend = SigmAIQBackend(backend="microsoft_xdr").create_backend()
 query = sigmaiq_backend.translate(copy(sigma_rule))  # Returns List of queries
 
 print("\nM365Defender Query: ", end="\n\n")

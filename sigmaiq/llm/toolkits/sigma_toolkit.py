@@ -12,6 +12,8 @@ from langchain.schema.vectorstore import VectorStore
 # sigmaiq tools
 from sigmaiq.llm.tools.create_sigma_rule import CreateSigmaRuleVectorStoreTool
 from sigmaiq.llm.tools.translate_sigma_rule import TranslateSigmaRuleTool
+from sigmaiq.llm.tools.find_sigma_rule import FindSigmaRuleTool
+from sigmaiq.llm.tools.query_to_sigma_rule import QueryToSigmaRuleTool
 
 
 class SigmaToolkit(BaseToolkit):
@@ -26,6 +28,8 @@ class SigmaToolkit(BaseToolkit):
     def get_tools(self) -> List[BaseTool]:
         """Get the tools in the toolkit."""
         return [
+            FindSigmaRuleTool(sigmadb=self.sigmadb, llm=self.rule_creation_llm),
             TranslateSigmaRuleTool(),
             CreateSigmaRuleVectorStoreTool(sigmadb=self.sigmadb, llm=self.rule_creation_llm),
+            QueryToSigmaRuleTool(llm=self.rule_creation_llm),
         ]
