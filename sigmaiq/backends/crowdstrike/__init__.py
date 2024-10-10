@@ -1,1 +1,1 @@
-from .crowdstrike import SigmAIQCrowdstrikeSplunkBackend
+from .crowdstrike import SigmAIQCrowdstrikeSplunkBackend, SigmAIQCrowdstrikeLogscaleBackend

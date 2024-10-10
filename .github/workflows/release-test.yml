@@ -1,0 +1,28 @@
+name: Release to Test.PyPI
+on:
+  push:
+    branches:
+      - '!main'
+      - '!master'
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install Poetry
+        run: pipx install poetry
+      - name: Install dependencies
+        run: poetry install --with dev,llm
+      - name: Build packages
+        run: poetry build
+      - name: Configure Poetry
+        run: |
+          poetry config repositories.testpypi https://test.pypi.org/legacy/
+          poetry config pypi-token.testpypi ${{ secrets.TEST_PYPI_API_TOKEN }}
+      - name: Publish to test PyPI
+        if: ${{ github.event_name == 'push' }}
+        run: poetry publish -r testpypi

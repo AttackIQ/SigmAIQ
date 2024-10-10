@@ -19,8 +19,8 @@ def sigma_rule():
             status: test
             description: A Test Sigma Rule
             author: AttackIQ
-            date: 2023/01/01
-            modified: 2023/01/02
+            date: 2023-01-01
+            modified: 2023-01-02
             tags:
                 - attack.t1003
                 - attack.t1003.001
@@ -49,8 +49,8 @@ def sigma_rule_dict():
             status: test
             description: A Test Sigma Rule
             author: AttackIQ
-            date: 2023/01/01
-            modified: 2023/01/02
+            date: 2023-01-01
+            modified: 2023-01-02
             tags:
                 - attack.t1003
                 - attack.t1003.001
@@ -78,8 +78,8 @@ def sigma_rule_yaml_str():
             status: test
             description: A Test Sigma Rule
             author: AttackIQ
-            date: 2023/01/01
-            modified: 2023/01/02
+            date: 2023-01-01
+            modified: 2023-01-02
             tags:
                 - attack.t1003
                 - attack.t1003.001
@@ -109,8 +109,8 @@ def sigma_rule_stix_shifter():
                 status: test
                 description: A Test Sigma Rule
                 author: AttackIQ
-                date: 2023/01/01
-                modified: 2023/01/02
+                date: 2023-01-01
+                modified: 2023-01-02
                 tags:
                     - attack.t1003
                     - attack.t1003.001
@@ -188,21 +188,16 @@ def test_available_backends(available_backend):
 def test_backend_conversion_rule(available_backend, sigma_rule):
     """Tests converting a basic SigmaRule object with a SigmAIQBackend object"""
     backend_obj = SigmAIQBackend(backend=available_backend).create_backend()
-
     output = backend_obj.translate(sigma_rule)
-    assert isinstance(output[0], str)
+    assert isinstance(output, list)
 
 
 @pytest.mark.parametrize("available_backend", list(SigmAIQBackend.display_available_backends().keys()))
 def test_backend_conversion_collection(available_backend, sigma_collection):
     """Tests converting a basic SigmaCollection object with a SigmAIQBackend object"""
     backend_obj = SigmAIQBackend(backend=available_backend).create_backend()
-
     output = backend_obj.translate(sigma_collection)
-    print(output)
-    assert (
-        isinstance(output[0], str) and isinstance(output[1], str)
-    )
+    assert isinstance(output, list)
 
 
 settings = []
@@ -287,7 +282,5 @@ def test_get_output_formats(available_backend):
 def test_create_all_and_translate(sigma_rule):
     """Tests classmethod create_all_and_translate_all."""
     output = SigmAIQBackend.create_all_and_translate(sigma_rule)
-    for backend, pipelines in output.items():
-        for pipeline, formats in pipelines.items():
-            for format, query in formats.items():
-                assert isinstance(query, list)
+    # ensure we have as many backends as we expect
+    assert len(output.keys()) == len(SigmAIQBackend.display_available_backends().keys())

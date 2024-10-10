@@ -11,20 +11,26 @@ jobs:
     strategy:
       matrix:
         os: [ 'ubuntu-20.04', 'windows-2019', 'macos-12' ]
-        python-version: [ '3.8', '3.9', '3.10', '3.11' ]
+        python-version: [ '3.9', '3.10', '3.11', '3.12' ]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
-      - name: Install Poetry
-        run: pipx install poetry
-      - name: Set up Python
+      - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-          cache: poetry
+      - name: Install Poetry
+        run: pipx install poetry
+      - name: Configure Poetry
+        run: |
+          poetry env use ${{ matrix.python-version }}
+          poetry --version
+          poetry env info
       - name: Install dependencies
-        run: poetry install
+        run: poetry install --with dev,llm
       - name: Run tests
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: poetry run pytest --cov=sigmaiq --cov-report term --cov-report xml:cov.xml -vv
       - name: Store coverage for badge
         if: ${{ runner.os == 'Linux' }}

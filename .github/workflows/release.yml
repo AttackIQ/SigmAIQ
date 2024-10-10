@@ -11,19 +11,20 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
-      - name: Install Poetry
-        run: pipx install poetry
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.8
-          cache: poetry
+          python-version: '3.11'
+      - name: Install Poetry
+        run: pipx install poetry
       - name: Verify versioning
         run: |
           [ "$(poetry version -s)" == "${GITHUB_REF#refs/tags/v}" ]
       - name: Install dependencies
-        run: poetry install
+        run: poetry install --with dev,llm
       - name: Run tests
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: poetry run pytest
       - name: Build packages
         run: poetry build
@@ -32,9 +33,9 @@ jobs:
           poetry config repositories.testpypi https://test.pypi.org/legacy/
           poetry config pypi-token.testpypi ${{ secrets.TEST_PYPI_API_TOKEN }}
           poetry config pypi-token.pypi "${{ secrets.PYPI_API_TOKEN }}"
-      - name: Publish to test PyPI
-        if: ${{ github.event_name == 'push' }}
-        run: poetry publish -r testpypi
+      #- name: Publish to test PyPI
+      #  if: ${{ github.event_name == 'push' }}
+      #  run: poetry publish -r testpypi
       - name: Publish to PyPI
         if: ${{ github.event_name == 'release' }}
         run: poetry publish

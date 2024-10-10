@@ -7,6 +7,7 @@ from sigmaiq import SigmAIQBackend, SigmAIQPipeline
 # %% Import pprint for pretty printing, and copy for copying rules
 from pprint import pprint
 from copy import copy
+from typing import Dict, Union, List
 
 # %% A basic Sigma Rule in YAML str to convert to a query.
 # %% SigmAIQ also accepts a rule in JSON/Dict format, SigmaRule objects, and SigmaCollection objects
@@ -33,17 +34,14 @@ print("\n-------------------")
 
 # %% Create custom field mappings
 # %% This will map the CommandLine field to a custom field named "CustomCommandLine"
-custom_field_mappings = {"CommandLine": "CustomCommandLine"}
+custom_field_mappings: Dict[str, Union[str, List[str]]] = {"CommandLine": "CustomCommandLine"}
 my_custom_pipeline = SigmAIQPipeline.from_fieldmap(custom_field_mappings, priority=0).create_pipeline()
 
 # %% Create SigmAIQ backend translate the rule to a Microsoft 365 Defender query with our custom field mappings
-sigmaiq_backend = SigmAIQBackend(
-    backend="splunk",
-    processing_pipeline=my_custom_pipeline).create_backend()
+sigmaiq_backend = SigmAIQBackend(backend="splunk", processing_pipeline=my_custom_pipeline).create_backend()
 
 query = sigmaiq_backend.translate(copy(sigma_rule))  # Returns List of queries
 
 print("\nM365Defender Query with Custom Fieldmappings: ", end="\n\n")
 pprint(query[0])
 print("\n-------------------")
-

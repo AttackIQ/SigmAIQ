@@ -21,10 +21,17 @@ from sigma.pipelines.carbonblack import CarbonBlack_pipeline, CarbonBlackRespons
 from sigma.pipelines.cortexxdr import CortexXDR_pipeline
 
 ## Crowdstrike
-from sigma.pipelines.crowdstrike import crowdstrike_fdr_pipeline
+from sigma.pipelines.crowdstrike import crowdstrike_fdr_pipeline, crowdstrike_falcon_pipeline
 
 ## Elasticsearch
-from sigma.pipelines.elasticsearch import ecs_windows, ecs_windows_old, ecs_zeek_beats, ecs_zeek_corelight, zeek_raw
+from sigma.pipelines.elasticsearch import (
+    ecs_windows,
+    ecs_windows_old,
+    ecs_zeek_beats,
+    ecs_zeek_corelight,
+    ecs_kubernetes,
+    zeek_raw,
+)
 
 ## InsightIDR
 from sigma.pipelines.insight_idr import insight_idr_pipeline
@@ -32,8 +39,13 @@ from sigma.pipelines.insight_idr import insight_idr_pipeline
 ## Loki
 from sigma.pipelines.loki import loki_grafana_logfmt, loki_promtail_sysmon, loki_okta_system_log
 
-## Microsoft 365 Defender
-from sigma.pipelines.microsoft365defender import microsoft_365_defender_pipeline
+## Microsoft
+from sigma.pipelines.microsoftxdr import microsoft_xdr_pipeline
+from sigma.pipelines.sentinelasim import sentinel_asim_pipeline
+from sigma.pipelines.azuremonitor import azure_monitor_pipeline
+
+# Netwitness
+from sigma.pipelines.netwitness import netwitness_windows_pipeline
 
 ## QRadar
 from sigma.pipelines.QRadarAQL import QRadarAQL_fields_pipeline, QRadarAQL_payload_pipeline
@@ -84,34 +96,44 @@ AVAILABLE_PIPELINES = {
         "display_name": "CB",
     },
     # Crowdstrike
-    "crowdstrike": {
+    "crowdstrike_fdr": {
         "description": "Crowdstrike FDR Splunk Mappings",
         "pipeline": crowdstrike_fdr_pipeline(),
-        "display_name": "CrowdStrike SPL",
+        "display_name": "CrowdStrike FDR SPL",
     },
-    # Elastic
+    "crowdstrike_falcon": {
+        "description": "Crowdstrike Falcon Logscale Mappings",
+        "pipeline": crowdstrike_falcon_pipeline(),
+        "display_name": "CrowdStrike Falcon Logscale",
+    },
+    # Elasticsearch
+    "ecs_kubernetes": {
+        "description": "Elastic Common Schema (ECS) Kubernetes audit log mappings",
+        "pipeline": ecs_kubernetes(),
+        "display_name": "ECS Kubernetes",
+    },
     "ecs_windows": {
-        "description": "ECS mapping for Windows event logs ingested with Winlogbeat",
+        "description": "Elastic Common Schema (ECS) Windows log mappings from Winlogbeat from version 7",
         "pipeline": ecs_windows(),
         "display_name": "ECS Winlogbeat",
     },
     "ecs_windows_old": {
-        "description": "ECS mapping for Windows event logs ingested with Winlogbeat <= 6.x",
+        "description": "Elastic Common Schema (ECS) Windows log mappings from Winlogbeat up to version 6",
         "pipeline": ecs_windows_old(),
         "display_name": "ESC Winlogbeat (<= v6.x)",
     },
     "ecs_zeek_beats": {
-        "description": "Zeek ECS mapping from Elastic",
+        "description": "Elastic Common Schema (ECS) for Zeek using filebeat >= 7.6.1",
         "pipeline": ecs_zeek_beats(),
         "display_name": "ECS Zeek (Elastic)",
     },
     "ecs_zeek_corelight": {
-        "description": "Zeek ECS mapping from Corelight",
+        "description": "Elastic Common Schema (ECS) mapping from Corelight",
         "pipeline": ecs_zeek_corelight(),
         "display_name": "ESC Zeek (Corelight)",
     },
     "zeek_raw": {
-        "description": "Zeek raw JSON log field naming",
+        "description": "Zeek raw JSON field naming",
         "pipeline": zeek_raw(),
         "display_name": "Zeek Raw JSON",
     },
@@ -137,11 +159,29 @@ AVAILABLE_PIPELINES = {
         "pipeline": loki_okta_system_log(),
         "display_name": "Okta System Event",
     },
-    # Microsoft 365 Defender
-    "microsoft365defender": {
-        "description": "Mappings for Sysmon -> Advanced Hunting Query Table Schema",
-        "pipeline": microsoft_365_defender_pipeline(),
-        "display_name": "KustoQL",
+    # Microsoft Kusto
+    "microsoft_xdr": {
+        "description": "Mappings for Sysmon -> XDR Advanced Hunting Query Table Schema",
+        "pipeline": microsoft_xdr_pipeline(),
+        "display_name": "Microsoft XDR KustoQL",
+    },
+    # Microsoft Sentinel ASIM
+    "sentinel_asim": {
+        "description": "Mappings for Sysmon -> Sentinel ASIM Query Table Schema",
+        "pipeline": sentinel_asim_pipeline(),
+        "display_name": "Sentinel ASIM KustoQL",
+    },
+    # Microsoft Azure Monitor
+    "azure_monitor": {
+        "description": "Mappings for Sysmon -> Azure Monitor Query Table Schema",
+        "pipeline": azure_monitor_pipeline(),
+        "display_name": "Azure Monitor KustoQL",
+    },
+    # Netwitness
+    "netwitness_windows": {
+        "description": "Netwitness Windows log mappings",
+        "pipeline": netwitness_windows_pipeline(),
+        "display_name": "Netwitness Windows",
     },
     # QRadar
     "qradar_fields": {
@@ -173,7 +213,7 @@ AVAILABLE_PIPELINES = {
         "display_name": "Splunk Query (Windows)",
     },
     "splunk_windows_sysmon_acc": {
-        "description": "Splunk Query, Sysmon Mappings",
+        "description": "Splunk Windows Sysmon search acceleration keywords",
         "pipeline": splunk_windows_sysmon_acceleration_keywords(),
         "display_name": "Splunk Query (Sysmon)",
     },
