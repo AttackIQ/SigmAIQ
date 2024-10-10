@@ -59,7 +59,6 @@ translation fails.
 """
     # return_direct = True  # We don't need an agent LLM to think about the output, it is what it is.
     verbose = False
-    verbose = False
 
     class Config:
         """Configuration for this pydantic object."""
