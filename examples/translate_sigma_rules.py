@@ -30,12 +30,12 @@ print("Supported Backends:", end="\n\n")
 pprint(SigmAIQBackend.display_available_backends())
 print("\n-------------------")
 
-# %% Create SigmAIQ backend translate the rule to a Microsoft 365 Defender query
+# %% Create SigmAIQ backend translate the rule to a Microsoft XDR query
 # %% SigmAIQ will automatically select the best pipeline for the backend
-sigmaiq_backend = SigmAIQBackend(backend="microsoft365defender").create_backend()
+sigmaiq_backend = SigmAIQBackend(backend="microsoft_xdr").create_backend()
 query = sigmaiq_backend.translate(copy(sigma_rule))  # Returns List of queries
 
-print("\nM365Defender Query: ", end="\n\n")
+print("\nMicrosoft XDR KQL Query: ", end="\n\n")
 pprint(query[0])
 print("\n-------------------")
 
@@ -72,6 +72,6 @@ print("\n-------------------")
 # %% Any combination that is not supported will not be included in the results
 # %% This is useful for testing and comparing the output of different backends and pipelines
 queries = SigmAIQBackend.create_all_and_translate(copy(sigma_rule))
-
-print("\n All Translations: ", end="\n\n")
-pprint(queries)
+# We won't print it, as its a lot of output
+# print("\n All Translations: ", end="\n\n")
+# pprint(queries)

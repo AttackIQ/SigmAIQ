@@ -7,7 +7,7 @@
 
 
 NOTE: This is an experimental feature that is under active development. It is not recommended for production use.
-By default, OpenAI embeddings and LLM models (gpt-3.5-turbo) are used, which  require an OpenAI API key set in the environmental 
+By default, OpenAI embeddings and LLM models (gpt-4o) are used, which  require an OpenAI API key set in the environmental 
 variable `OPENAI_API_KEY`.
 
 ## Overview
@@ -18,6 +18,7 @@ Currently, the use cases of this feature include:
 - Embedding creation and storage of Sigma Rules
 - Sigma Rule similarity searching
 - Agent/Bot for Sigma Rule translation and creation
+- Converting backend queries to Sigma Rules
 
 Please see the `examples` folder for use case examples.
 
