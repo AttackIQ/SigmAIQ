@@ -5,54 +5,91 @@
 </div>
 <h1 align="center">SigmAIQ: LLM</h1>
 
+# Table of Contents
+- [Table of Contents](#table-of-contents)
+- [Overview](#overview)
+- [Features](#features)
+  - [Embedding Creation and Storage](#embedding-creation-and-storage)
+  - [Sigma Rule Similarity Searching](#sigma-rule-similarity-searching)
+  - [Agent/Bot for Sigma Rule Translation and Creation](#agentbot-for-sigma-rule-translation-and-creation)
+  - [Converting Backend Queries to Sigma Rules](#converting-backend-queries-to-sigma-rules)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Example Q\&A](#example-qa)
+- [Known Issues](#known-issues)
+- [TODO](#todo)
+- [License](#license)
+- [Contributing](#contributing)
+- [Acknowledgements](#acknowledgements)
 
-NOTE: This is an experimental feature that is under active development. It is not recommended for production use.
-By default, OpenAI embeddings and LLM models (gpt-4o) are used, which  require an OpenAI API key set in the environmental 
-variable `OPENAI_API_KEY`.
+# Overview
 
-## Overview
-The goal of this SigmAIQ feature is to utilize the power of LLMs and Vector Databases with Sigma Rules.  
-This feature uses [langchain](https://github.com/langchain-ai/langchain) and [pySigma](https://github.com/SigmaHQ/pySigma)
-to utilize LLMs and Agents for Sigma Rule translation and creation.
-Currently, the use cases of this feature include:
-- Embedding creation and storage of Sigma Rules
-- Sigma Rule similarity searching
-- Agent/Bot for Sigma Rule translation and creation
-- Converting backend queries to Sigma Rules
+SigmAIQ LLM is an experimental feature that leverages the power of Large Language Models (LLMs) and Vector Databases to enhance Sigma Rule creation, translation, and searching. This feature integrates [langchain](https://github.com/langchain-ai/langchain) and [pySigma](https://github.com/SigmaHQ/pySigma) to provide advanced capabilities for working with Sigma Rules.
 
-Please see the `examples` folder for use case examples.
+**Note:** This feature is under active development and not recommended for production use. By default, it uses OpenAI embeddings and LLM models (gpt-4), which require an OpenAI API key set in the environmental variable `OPENAI_API_KEY`.
 
-### Embedding Creation and Storage
-The `sigmaiq.llm.base.SigmaLLM` class is used to automatically download the latest Sigma Rules from the [SigmaHQ](https://github.com/SigmaHQ/sigma/releases/latest) repo. 
-By default, this downloads the `sigma_core` ruleset into this projects `data` directory.  Embeddings are then created for each rule and stored in a Vector Database.
-By default, `OpenAIEmbeddings` and `FAISS` are used, respectively.  The `sigmaiq.llm.base.SigmaLLM` class can be extended to use different embedding and vector database implementations.
+# Features
 
-### Sigma Rule Similarity Searching
-The `sigmaiq.llm.base.SigmaLLM` class is also used to search for similar Sigma Rules using a similarity search. This does not require LLM models to be trained, as the embeddings are already created and stored in the Vector Database.
-This can be a cheaper, yet less accurate option, for searching through Sigma Rules. By default, the top 3 matching rules
-are returned based on the query sent to the similarity search. Other `langchain` `VectorStore` searching functionality can be used on the VectorStore as well.
+1. **Embedding Creation and Storage**: Automatically download and create embeddings for the latest Sigma Rules.
+2. **Sigma Rule Similarity Searching**: Efficiently search for similar Sigma Rules using vector similarity.
+3. **Agent/Bot for Sigma Rule Translation and Creation**: Utilize LLM agents for advanced rule translation and creation.
+4. **Converting Backend Queries to Sigma Rules**: Transform existing backend queries into Sigma Rules.
 
-### Agent/Bot for Sigma Rule Translation and Creation
-A `langchain` `Agent` can be created with the `create_sigma_agent()` function in `sigmaiq.llm.toolkits.base`. 
-This agent uses the tools contained in the `SigmaToolkit` class (in `sigmaiq/llm/toolkits/sigma_toolkit`) for various tasks. 
-The Agent will automatically determine what tools to use based on the query sent to it, and can run different tools in succession to complete a task.
+## Embedding Creation and Storage
+The `sigmaiq.llm.base.SigmaLLM` class automates the process of downloading the latest Sigma Rules from [SigmaHQ](https://github.com/SigmaHQ/sigma/releases/latest), creating embeddings, and storing them in a Vector Database. By default, it uses `OpenAIEmbeddings` and `FAISS`, but can be extended to use different implementations.
 
-For rule translation, the Agent will automatically parse the contents of the user's query to determine what backend, pipeline, and output format
-to use for the translation. The Agent will then create a `SigmAIQBackend` and translate the rule provided in the query.
+## Sigma Rule Similarity Searching
+Leverage the power of vector databases to find similar Sigma Rules quickly. This feature doesn't require LLM model training and can be a cost-effective option for rule searching.
 
-For rule creation, the Agent will first look for similar Sigma Rules in the local Sigma VectorStore (from `SigmaLLM`) and return
-the top 3 best matching rules. The Agent will then use these matching rules as context, in addition to the context/IOCs in the user's question, 
-to create a brand new Sigma Rule! The Agent will then return the newly created Sigma Rule to the user.
+## Agent/Bot for Sigma Rule Translation and Creation
+The `create_sigma_agent()` function in `sigmaiq.llm.toolkits.base` creates a `langchain` `Agent` that can:
+- Automatically determine the appropriate backend, pipeline, and output format for rule translation.
+- Create new Sigma Rules based on user queries and similar existing rules.
 
+## Converting Backend Queries to Sigma Rules
+Transform existing backend-specific queries into standardized Sigma Rules for better portability and management.
 
-#### Example Q&A
-This example demonstrates how the agent can use multiple tools in succession; in this case, a Sigma Rule is first created 
-based on the user's question with the rule creation tool, then the rule is translated to a Microsoft 365 Defender query with the rule translation tool.
-The Sigma Rule YAML can be found retrieved in the `intermediate_steps` of the output.
+# Installation
 
-QUESTION: "Create a Windows process creation Sigma Rule for certutil downloading a file from definitely-not-malware.com, then translate it to a Microsoft 365 Defender query."
+Clone this repository and install SigmAIQ dependencies along with the `llm` group:
 
-ANSWER:
+Using pip:
+```bash
+pip install -e .
+pip install -r requirements/llm.txt
+```
+
+Using poetry:
+```bash
+poetry install --with llm
+```
+
+# Usage
+
+For detailed usage examples, please refer to the `examples` directory in the repository. Here's a basic example:
+
+```python
+from sigmaiq.llm.base import SigmaLLM
+from langchain_openai import OpenAIEmbeddings
+
+# Initialize SigmaLLM
+sigma_llm = SigmaLLM(embedding_model=OpenAIEmbeddings(model="text-embedding-3-large"))
+
+# Create and save vector database
+sigma_llm.create_sigma_vectordb(save=True)
+
+# Perform similarity search
+query = "Encoded powershell commands"
+results = sigma_llm.similarity_search(query)
+```
+
+# Example Q&A
+
+This example demonstrates how the agent can use multiple tools in succession:
+
+**Question:** "Create a Windows process creation Sigma Rule for certutil downloading a file from definitely-not-malware.com, then translate it to a Microsoft XDR query."
+
+**Answer:**
 
 Intermediate Step (Rule Creation):
 ```yaml
@@ -75,61 +112,34 @@ falsepositives:
 level: high
 ```
 
-Final Output:
-
-Here is the translated Microsoft 365 Defender query:
-
+Final Output (Microsoft XDR KQL query):
 ```
 DeviceProcessEvents
 | where FolderPath endswith "\\certutil.exe" and ProcessCommandLine contains "definitely-not-malware.com"
 ```
 
+# Known Issues
 
-## Installation
-Clone this repo, then install SigmAIQ dependencies along with the `llm` group dependencies 
-with your favorite Python package manager, such as pip or poetry.
+- Agent parsing issues may occur when invalid JSON is passed between agent steps.
 
-### pip
-```bash
-pip install -e .
-pip install -r requirements/llm.txt
-```
+# TODO
 
-### poetry
-```bash
-poetry install --with llm
-```
+- [ ] Add example for using custom (and free) embeddings and LLM models
+- [ ] Add example for using custom Vector Databases
+- [ ] Add ability to easily customize prompts for tools/agents
+- [ ] Implement Sigma Rule Creation Tool without Vector Databases
+- [ ] Add metadata to Vector Database entries for advanced filtering on Sigma Rule fields (e.g., category, product, level, status)
 
+# License
 
-## Usage
-For usage examples, please see the `examples` directory. By default, OpenAI embeddings and LLM models are used, which 
-require an OpenAI API key set in the environmental variable `OPENAI_API_KEY`.
-
-
-## Known Issues
-- Agent parsing issues sometimes occur when invalid JSON is passed between agent steps.
-
-
-## TODO
-- Add example for using custom (and free) embeddings and LLM models
-- Add example for using custom Vector Databases
-- Add ability to easily customize prompts for tools/agents
-- Sigma Rule Creation Tool without Vector Databases
-- Adding metadata to Vector Database entries for advanced filtering on Sigma Rule fields
-  - I.E. category, product, level, status, etc
-
-
-## License
 This project is licensed under the terms of the GNU LGPL, version 2.1. Please see the `LICENSE` file for full details.
 
+# Contributing
 
-## Contributing
 Contributions and use cases are welcome! Please submit a PR or issue if you would like to contribute or have any questions.
 
+# Acknowledgements
 
-## Acknowledgements
-First and foremost, we'd like to acknowledge the creators, maintainers, contributors, and everyone else involved with the
-[Sigma](https://github.com/SigmaHQ/sigma/) and [pySigma](https://github.com/SigmaHQ/pySigma) projects for obvious reasons.
-
-We'd also like to acknowledge the [langchain](https://github.com/langchain-ai/langchain) project the work with making
-LLMs more accessible and easier to use.  
+We'd like to acknowledge:
+- The creators, maintainers, and contributors of the [Sigma](https://github.com/SigmaHQ/sigma/) and [pySigma](https://github.com/SigmaHQ/pySigma) projects.
+- The [langchain](https://github.com/langchain-ai/langchain) project for making LLMs more accessible and easier to use.
