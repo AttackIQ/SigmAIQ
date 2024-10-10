@@ -25,6 +25,8 @@ jobs:
       - name: Install dependencies
         run: poetry install --with dev,llm
       - name: Run tests
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: poetry run pytest --cov=sigmaiq --cov-report term --cov-report xml:cov.xml -vv
       - name: Store coverage for badge
         if: ${{ runner.os == 'Linux' }}
