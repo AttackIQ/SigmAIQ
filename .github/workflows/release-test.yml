@@ -17,7 +17,7 @@ jobs:
           python-version: 3.11
           cache: poetry
       - name: Install dependencies
-        run: poetry install
+        run: poetry install --with dev,llm
       - name: Build packages
         run: poetry build
       - name: Configure Poetry
