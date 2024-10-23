@@ -8,6 +8,10 @@
 ![Tests](https://github.com/AttackIQ/SigmAIQ/actions/workflows/test.yml/badge.svg)
 ![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/slincoln-aiq/f6d72f7ec2b300546a114fd80d371f7e/raw/slincoln-aiq-SigmAIQ.json)
 ![Status](https://img.shields.io/badge/Status-pre--release-orange)
+![PyPI version](https://badge.fury.io/py/sigmaiq.svg)
+![Python versions](https://img.shields.io/pypi/pyversions/sigmaiq.svg)
+![pySigma version](https://img.shields.io/badge/pySigma-%3E%3D0.11.17-blue)
+![License](https://img.shields.io/github/license/AttackIQ/SigmAIQ.svg)
 
 # Table of Contents
 - [Table of Contents](#table-of-contents)
