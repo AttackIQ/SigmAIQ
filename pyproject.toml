@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "SigmAIQ"
-version = "0.4.2"
+version = "0.4.3"
 description = "Wrapper and tools for pySigma and Sigma rules"
 authors = ["Stephen Lincoln <stephen.lincoln@attackiq.com>", "AttackIQ <support@attackiq.com>"]
 readme = "README.md"
@@ -20,8 +20,8 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.9, <3.13"
-pysigma = "0.11.14"
+python = ">=3.9, <3.14"
+pysigma = "0.11.17"
 certifi = "^2024.8.30"
 pysigma-backend-carbonblack = "0.1.8"
 pysigma-backend-cortexxdr = "0.1.4"
