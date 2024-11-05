@@ -15,11 +15,12 @@ from sigmaiq.backends.crowdstrike import (
 )
 from sigmaiq.backends.elasticsearch import SigmAIQElasticsearchBackend
 from sigmaiq.backends.insightidr import SigmAIQInsightIDRBackend
-from sigmaiq.backends.kusto import SigmAIQDefenderXDRBackend, SigmAIQSentinelASIMBackend, SigmAIQAzureMonitorBackend
+from sigmaiq.backends.kusto import SigmAIQAzureMonitorBackend, SigmAIQDefenderXDRBackend, SigmAIQSentinelASIMBackend
 from sigmaiq.backends.loki import SigmAIQLokiBackend
 from sigmaiq.backends.netwitness import SigmAIQNetwitnessBackend
 from sigmaiq.backends.opensearch import SigmAIQOpensearchBackend
 from sigmaiq.backends.qradar import SigmAIQQRadarBackend
+from sigmaiq.backends.secops import SigmAIQSecOpsBackend
 from sigmaiq.backends.sentinelone import SigmAIQSentinelOneBackend
 from sigmaiq.backends.sigma import SigmAIQSigmaBackend
 
@@ -47,6 +48,7 @@ AVAILABLE_BACKENDS = {
     "netwitness": "Netwitness Query",
     "opensearch": "OpenSearch Lucene",
     "qradar": "IBM QRadar",
+    "secops": "Google SecOps (Chronicle)",
     "sentinelone": "SentinelOne EDR",
     "splunk": "Splunk SIEM",
     "sigma": "Original YAML/JSON Sigma Rule Output",
@@ -61,7 +63,7 @@ class SigmAIQBackend:
     """
 
     def __init__(
-        self, backend: str, processing_pipeline: Union[str, list, ProcessingPipeline] = None, output_format: str = None
+        self, backend: str, processing_pipeline: Optional[Union[str, list, ProcessingPipeline]] = None, output_format: Optional[str] = None
     ):
         """Initialize instance attributes.
 
@@ -133,15 +135,17 @@ class SigmAIQBackend:
         # QRadar Backend
         if self.backend == "qradar":
             return SigmAIQQRadarBackend(**kwargs)
+        # SecOps Backend
+        if self.backend == "secops":
+            return SigmAIQSecOpsBackend(**kwargs)
         # SentinelOne
         if self.backend == "sentinelone":
             return SigmAIQSentinelOneBackend(**kwargs)
         # Splunk Backend
         if self.backend == "splunk":
             if kwargs["output_format"] == "data_model":
-                kwargs["processing_pipeline"] = SigmAIQPipelineResolver(
-                    ["splunk_cim_dm", kwargs.get("processing_pipeline")]
-                ).process_pipelines()
+                pipelines = [p for p in ["splunk_cim_dm", kwargs.get("processing_pipeline")] if p is not None]
+                kwargs["processing_pipeline"] = SigmAIQPipelineResolver(pipelines).process_pipelines()
             return SigmAIQSplunkBackend(**kwargs)
         # Raw sigma output
         if self.backend == "sigma":

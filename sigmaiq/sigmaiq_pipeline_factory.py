@@ -1,4 +1,4 @@
-from typing import Dict, Union, Callable, List
+from typing import Dict, Optional, Union, Callable, List
 from uuid import uuid4
 
 from sigmaiq.exceptions import InvalidCustomFieldMapping, InvalidSigmAIQPipeline
@@ -49,6 +49,9 @@ from sigma.pipelines.netwitness import netwitness_windows_pipeline
 
 ## QRadar
 from sigma.pipelines.QRadarAQL import QRadarAQL_fields_pipeline, QRadarAQL_payload_pipeline
+
+## SecOps
+from sigma.pipelines.secops import secops_udm_pipeline
 
 ## SentinelOne
 from sigma.pipelines.sentinelone import sentinelone_pipeline
@@ -200,6 +203,12 @@ AVAILABLE_PIPELINES = {
         "pipeline": ProcessingPipeline(name="Sigma Placeholder"),
         "display_name": "Sigma",
     },
+    # SecOps
+    "secops_udm": {
+        "description": "Mappings for Google SecOps (Chronicle) UDM",
+        "pipeline": secops_udm_pipeline(),
+        "display_name": "Google SecOps UDM",
+    },
     # SentinelOne
     "sentinelone": {
         "description": "Mappings for SentinelOne Deep Visibility Queries",
@@ -256,7 +265,7 @@ class SigmAIQPipeline:
 
     """
 
-    def __init__(self, processing_pipeline: Union[str, ProcessingPipeline, Callable] = None):
+    def __init__(self, processing_pipeline: Optional[Union[str, ProcessingPipeline, Callable]] = None):
         """Initialize the class to create a ProcessingPipeline
 
             :param processing_pipeline: Specifies the desired pipeline to create. This can be one of three types:
@@ -411,7 +420,7 @@ class SigmAIQPipelineResolver:
             raise TypeError(f"processing_pipelines is not of type list or set: type is {type(processing_pipelines)}")
         raise ValueError("processing_pipelines is empty or None, please provide valid values to processing_pipelines")
 
-    def process_pipelines(self, name: str = None) -> ProcessingPipeline:
+    def process_pipelines(self, name: Optional[str] = None) -> ProcessingPipeline:
         """Consolidates processing_pipelines with a resolver by creating a ProcessingPipeline via
         SigmAIQPipeline for each item in the processing_pipelines list.  An optional name can be passed
         to the method; if present, the final resolved singular ProcessingPipeline will be given this name. Otherwise,

@@ -354,87 +354,90 @@ Output:
 
 ### Available Backends
 
-| Backend Option | Description | Associated Pipelines | Default Pipeline |
-|-----------------|-------------|----------------------|-------------------|
-| carbonblack | Carbon Black EDR | carbonblack<br>carbonblack_enterprise | carbonblack |
-| cortexxdr | Palo Alto Cortex XDR | cortexxdr | cortexxdr |
-| crowdstrike_splunk | Crowdstrike FDR Splunk Query | crowdstrike_fdr | crowdstrike_fdr |
-| crowdstrike_logscale | Crowdstrike Logscale Query | crowdstrike_falcon | crowdstrike_falcon |
-| elasticsearch | Elastic Elasticsearch SIEM | ecs_windows<br>ecs_kubernetes<br>ecs_windows_old<br>ecs_zeek_beats<br>ecs_zeek_corelight<br>zeek_raw | ecs_windows |
-| insightidr | Rapid7 InsightIDR SIEM | insightidr | insightidr |
-| loki | Grafana Loki LogQL SIEM | loki_grafana_logfmt<br>loki_promtail_sysmon<br>loki_okta_system_log | loki_grafana_logfmt |
-| microsoft_xdr | Microsoft XDR Advanced Hunting Query (KQL) (Defender, Office365, etc) | microsoft_xdr | microsoft_xdr |
-| microsoft_sentinel_asim | Microsoft Sentinel ASIM Query (KQL) | sentinel_asim | sentinel_asim |
-| microsoft_azure_monitor | Microsoft Azure Monitor Query (KQL) | azure_monitor | azure_monitor |
-| netwitness | Netwitness Query | netwitness_windows | netwitness_windows |
-| opensearch | OpenSearch Lucene | ecs_windows<br>ecs_windows_old<br>ecs_zeek_beats<br>ecs_zeek_corelight<br>zeek_raw | ecs_windows |
-| qradar | IBM QRadar | qradar_fields<br>qradar_payload | qradar_fields |
-| sentinelone | SentinelOne EDR | sentinelone | sentinelone |
-| splunk | Splunk SIEM | splunk_windows<br>splunk_wineventlog<br>splunk_windows_sysmon_acc<br>splunk_cim_dm | splunk_windows |
-| sigma | Original YAML/JSON Sigma Rule Output | sigma_default | sigma_default |
-| stix | STIX 2.0 & STIX Shifter Queries | stix_2_0<br>stix_shifter | stix_2_0 |
+| Backend Option          | Description                                                           | Associated Pipelines                                                                                 | Default Pipeline    |
+| ----------------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------- |
+| carbonblack             | Carbon Black EDR                                                      | carbonblack<br>carbonblack_enterprise                                                                | carbonblack         |
+| cortexxdr               | Palo Alto Cortex XDR                                                  | cortexxdr                                                                                            | cortexxdr           |
+| crowdstrike_splunk      | Crowdstrike FDR Splunk Query                                          | crowdstrike_fdr                                                                                      | crowdstrike_fdr     |
+| crowdstrike_logscale    | Crowdstrike Logscale Query                                            | crowdstrike_falcon                                                                                   | crowdstrike_falcon  |
+| elasticsearch           | Elastic Elasticsearch SIEM                                            | ecs_windows<br>ecs_kubernetes<br>ecs_windows_old<br>ecs_zeek_beats<br>ecs_zeek_corelight<br>zeek_raw | ecs_windows         |
+| insightidr              | Rapid7 InsightIDR SIEM                                                | insightidr                                                                                           | insightidr          |
+| loki                    | Grafana Loki LogQL SIEM                                               | loki_grafana_logfmt<br>loki_promtail_sysmon<br>loki_okta_system_log                                  | loki_grafana_logfmt |
+| microsoft_xdr           | Microsoft XDR Advanced Hunting Query (KQL) (Defender, Office365, etc) | microsoft_xdr                                                                                        | microsoft_xdr       |
+| microsoft_sentinel_asim | Microsoft Sentinel ASIM Query (KQL)                                   | sentinel_asim                                                                                        | sentinel_asim       |
+| microsoft_azure_monitor | Microsoft Azure Monitor Query (KQL)                                   | azure_monitor                                                                                        | azure_monitor       |
+| netwitness              | Netwitness Query                                                      | netwitness_windows                                                                                   | netwitness_windows  |
+| opensearch              | OpenSearch Lucene                                                     | ecs_windows<br>ecs_windows_old<br>ecs_zeek_beats<br>ecs_zeek_corelight<br>zeek_raw                   | ecs_windows         |
+| qradar                  | IBM QRadar                                                            | qradar_fields<br>qradar_payload                                                                      | qradar_fields       |
+| secops                  | Google SecOps (Chronicle)                                             | secops_udm                                                                                           | secops_udm          |
+| sentinelone             | SentinelOne EDR                                                       | sentinelone                                                                                          | sentinelone         |
+| splunk                  | Splunk SIEM                                                           | splunk_windows<br>splunk_wineventlog<br>splunk_windows_sysmon_acc<br>splunk_cim_dm                   | splunk_windows      |
+| sigma                   | Original YAML/JSON Sigma Rule Output                                  | sigma_default                                                                                        | sigma_default       |
+| stix                    | STIX 2.0 & STIX Shifter Queries                                       | stix_2_0<br>stix_shifter                                                                             | stix_2_0            |
 
 
 ### Backend Output Formats
 
-| Backend Option | Output Format Option | Description |
-|-----------------|------------------------|-------------|
-| carbonblack | default<br>json | Plain CarbonBlack queries<br>CarbonBlack JSON query |
-| cortexxdr | default<br>json | Plain CortexXDR queries<br>json output format |
-| crowdstrike_splunk | default | Plain SPL queries |
-| crowdstrike_logscale | default | CrowdStrike LogScale queries |
-| elasticsearch | default<br>kibana_ndjson<br>dsl_lucene<br>siem_rule<br>siem_rule_ndjson | Plain Elasticsearch Lucene queries<br>Kibana NDJSON import file with Lucene queries<br>Elasticsearch query DSL with embedded Lucene queries<br>Elasticsearch query DSL as SIEM Rules in JSON Format<br>Elasticsearch query DSL as SIEM Rules in NDJSON Format |
-| insightidr | default<br>leql_advanced_search<br>leql_detection_definition | Simple log search query mode<br>Advanced Log Entry Query Language (LEQL) queries<br>LEQL format roughly matching the 'Rule Logic' tab in ABA detection rule definition |
-| loki | default<br>ruler | Plain Loki queries<br>Loki 'ruler' output format for generating alerts |
-| microsoft_xdr | default | Kusto Query Language search strings |
-| microsoft_sentinel_asim | default | Kusto Query Language search strings |
-| microsoft_azure_monitor | default | Kusto Query Language search strings |
-| netwitness | default | Plain netwitness queries |
-| opensearch | default<br>dashboards_ndjson<br>monitor_rule<br>dsl_lucene | Plain OpenSearch Lucene queries<br>OpenSearch Dashboards NDJSON import file with Lucene queries<br>OpenSearch monitor rule with embedded Lucene query<br>OpenSearch query DSL with embedded Lucene queries |
-| qradar | default | Plain QRadar queries |
-| sentinelone | default<br>json | Plaintext<br>JSON format |
-| splunk | default<br>savedsearches<br>data_model<br>stanza | Plain SPL queries<br>Plain SPL in a savedsearches.conf file<br>Data model queries with tstats<br>Enterprise Security savedsearches.conf stanza |
-| sigma | default<br>yaml<br>json | Default output format<br>Default Sigma Rule output format<br>JSON style Sigma Rule Output |
-| stix | default | Plain stix queries |
+| Backend Option          | Output Format Option                                                    | Description                                                                                                                                                                                                                                                   |
+| ----------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| carbonblack             | default<br>json                                                         | Plain CarbonBlack queries<br>CarbonBlack JSON query                                                                                                                                                                                                           |
+| cortexxdr               | default<br>json                                                         | Plain CortexXDR queries<br>json output format                                                                                                                                                                                                                 |
+| crowdstrike_splunk      | default                                                                 | Plain SPL queries                                                                                                                                                                                                                                             |
+| crowdstrike_logscale    | default                                                                 | CrowdStrike LogScale queries                                                                                                                                                                                                                                  |
+| elasticsearch           | default<br>kibana_ndjson<br>dsl_lucene<br>siem_rule<br>siem_rule_ndjson | Plain Elasticsearch Lucene queries<br>Kibana NDJSON import file with Lucene queries<br>Elasticsearch query DSL with embedded Lucene queries<br>Elasticsearch query DSL as SIEM Rules in JSON Format<br>Elasticsearch query DSL as SIEM Rules in NDJSON Format |
+| insightidr              | default<br>leql_advanced_search<br>leql_detection_definition            | Simple log search query mode<br>Advanced Log Entry Query Language (LEQL) queries<br>LEQL format roughly matching the 'Rule Logic' tab in ABA detection rule definition                                                                                        |
+| loki                    | default<br>ruler                                                        | Plain Loki queries<br>Loki 'ruler' output format for generating alerts                                                                                                                                                                                        |
+| microsoft_xdr           | default                                                                 | Kusto Query Language search strings                                                                                                                                                                                                                           |
+| microsoft_sentinel_asim | default                                                                 | Kusto Query Language search strings                                                                                                                                                                                                                           |
+| microsoft_azure_monitor | default                                                                 | Kusto Query Language search strings                                                                                                                                                                                                                           |
+| netwitness              | default                                                                 | Plain netwitness queries                                                                                                                                                                                                                                      |
+| opensearch              | default<br>dashboards_ndjson<br>monitor_rule<br>dsl_lucene              | Plain OpenSearch Lucene queries<br>OpenSearch Dashboards NDJSON import file with Lucene queries<br>OpenSearch monitor rule with embedded Lucene query<br>OpenSearch query DSL with embedded Lucene queries                                                    |
+| qradar                  | default                                                                 | Plain QRadar queries                                                                                                                                                                                                                                          |
+| secops                  | default<br>yara_l                                                       | Plain UDM queries<br>YARA-L 2.0 Detection Rules Output Format                                                                                                                                                                                                 |
+| sentinelone             | default<br>json                                                         | Plaintext<br>JSON format                                                                                                                                                                                                                                      |
+| splunk                  | default<br>savedsearches<br>data_model<br>stanza                        | Plain SPL queries<br>Plain SPL in a savedsearches.conf file<br>Data model queries with tstats<br>Enterprise Security savedsearches.conf stanza                                                                                                                |
+| sigma                   | default<br>yaml<br>json                                                 | Default output format<br>Default Sigma Rule output format<br>JSON style Sigma Rule Output                                                                                                                                                                     |
+| stix                    | default                                                                 | Plain stix queries                                                                                                                                                                                                                                            |
 
 ## Pipelines
 
 ### Available Named Pipelines
 
-| Pipeline Option | Description | Display Name |
-|------------------|-------------|---------------|
-| splunk_wineventlog | SigmAIQ Custom combined windows_audit and splunk_windows pipelines to convert Sysmon fields to Windows Event Log fields for Splunk searches | Splunk WinEventLog |
-| carbonblack | Uses Carbon Black EDR field mappings | CB |
-| cortexxdr | Uses Palo Alto Cortex XDR field mappings | Palo Alto Cortex XDR |
-| carbonblack_enterprise | Uses Carbon Black Enterprise EDR field mappings | CB |
-| crowdstrike_fdr | Crowdstrike FDR Splunk Mappings | CrowdStrike FDR SPL |
-| crowdstrike_falcon | Crowdstrike Falcon Logscale Mappings | CrowdStrike Falcon Logscale |
-| ecs_kubernetes | Elastic Common Schema (ECS) Kubernetes audit log mappings | ECS Kubernetes |
-| ecs_windows | Elastic Common Schema (ECS) Windows log mappings from Winlogbeat from version 7 | ECS Winlogbeat |
-| ecs_windows_old | Elastic Common Schema (ECS) Windows log mappings from Winlogbeat up to version 6 | ESC Winlogbeat (<= v6.x) |
-| ecs_zeek_beats | Elastic Common Schema (ECS) for Zeek using filebeat >= 7.6.1 | ECS Zeek (Elastic) |
-| ecs_zeek_corelight | Elastic Common Schema (ECS) mapping from Corelight | ESC Zeek (Corelight) |
-| zeek_raw | Zeek raw JSON field naming | Zeek Raw JSON |
-| insightidr | InsightIDR Log Entry Query Language (LEQL) Transformations | InsightIDR LEQL |
-| loki_grafana_logfmt | Converts field names to logfmt labels used by Grafana | Logfmt Labels |
-| loki_promtail_sysmon | Parse and adjust field names for Windows sysmon data produced by promtail | WinSysmon Promtail |
-| loki_okta_system_log | Parse the Okta System Log event json, adjusting field-names appropriately | Okta System Event |
-| microsoft_xdr | Mappings for Sysmon -> XDR Advanced Hunting Query Table Schema | Microsoft XDR KustoQL |
-| sentinel_asim | Mappings for Sysmon -> Sentinel ASIM Query Table Schema | Sentinel ASIM KustoQL |
-| azure_monitor | Mappings for Sysmon -> Azure Monitor Query Table Schema | Azure Monitor KustoQL |
-| netwitness_windows | Netwitness Windows log mappings | Netwitness Windows |
-| qradar_fields | Supports only the Sigma fields in the Field Mapping | Sigma Fields |
-| qradar_payload | Uses UTF8(payload) instead of fields unsupported by the Field Mapping. | UTF8(payload) (Non-Sigma Fields) |
-| sigma_default | Empty ProcessingPipeline placeholder | Sigma |
-| sentinelone | Mappings for SentinelOne Deep Visibility Queries | SentinelOne Deep Visibility |
-| splunk_windows | Splunk Query, Windows Mappings | Splunk Query (Windows) |
-| splunk_windows_sysmon_acc | Splunk Windows Sysmon search acceleration keywords | Splunk Query (Sysmon) |
-| splunk_cim_dm | Splunk Datamodel Field Mappings | Splunk Datamodel Query |
-| stix_2_0 | STIX 2.0 Mappings | STIX 2.0 |
-| stix_shifter | STIX Shifter Mappings | STIX Shifter |
-| windows_sysmon | Sysmon for Windows | Sysmon |
-| windows_audit | Windows Event Logs | Windows Event Logs |
-| windows_logsource | Windows Logs, General | Windows Logs, General |
+| Pipeline Option           | Description                                                                                                                                 | Display Name                     |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
+| splunk_wineventlog        | SigmAIQ Custom combined windows_audit and splunk_windows pipelines to convert Sysmon fields to Windows Event Log fields for Splunk searches | Splunk WinEventLog               |
+| carbonblack               | Uses Carbon Black EDR field mappings                                                                                                        | CB                               |
+| cortexxdr                 | Uses Palo Alto Cortex XDR field mappings                                                                                                    | Palo Alto Cortex XDR             |
+| carbonblack_enterprise    | Uses Carbon Black Enterprise EDR field mappings                                                                                             | CB                               |
+| crowdstrike_fdr           | Crowdstrike FDR Splunk Mappings                                                                                                             | CrowdStrike FDR SPL              |
+| crowdstrike_falcon        | Crowdstrike Falcon Logscale Mappings                                                                                                        | CrowdStrike Falcon Logscale      |
+| ecs_kubernetes            | Elastic Common Schema (ECS) Kubernetes audit log mappings                                                                                   | ECS Kubernetes                   |
+| ecs_windows               | Elastic Common Schema (ECS) Windows log mappings from Winlogbeat from version 7                                                             | ECS Winlogbeat                   |
+| ecs_windows_old           | Elastic Common Schema (ECS) Windows log mappings from Winlogbeat up to version 6                                                            | ESC Winlogbeat (<= v6.x)         |
+| ecs_zeek_beats            | Elastic Common Schema (ECS) for Zeek using filebeat >= 7.6.1                                                                                | ECS Zeek (Elastic)               |
+| ecs_zeek_corelight        | Elastic Common Schema (ECS) mapping from Corelight                                                                                          | ESC Zeek (Corelight)             |
+| zeek_raw                  | Zeek raw JSON field naming                                                                                                                  | Zeek Raw JSON                    |
+| insightidr                | InsightIDR Log Entry Query Language (LEQL) Transformations                                                                                  | InsightIDR LEQL                  |
+| loki_grafana_logfmt       | Converts field names to logfmt labels used by Grafana                                                                                       | Logfmt Labels                    |
+| loki_promtail_sysmon      | Parse and adjust field names for Windows sysmon data produced by promtail                                                                   | WinSysmon Promtail               |
+| loki_okta_system_log      | Parse the Okta System Log event json, adjusting field-names appropriately                                                                   | Okta System Event                |
+| microsoft_xdr             | Mappings for Sysmon -> XDR Advanced Hunting Query Table Schema                                                                              | Microsoft XDR KustoQL            |
+| sentinel_asim             | Mappings for Sysmon -> Sentinel ASIM Query Table Schema                                                                                     | Sentinel ASIM KustoQL            |
+| azure_monitor             | Mappings for Sysmon -> Azure Monitor Query Table Schema                                                                                     | Azure Monitor KustoQL            |
+| netwitness_windows        | Netwitness Windows log mappings                                                                                                             | Netwitness Windows               |
+| qradar_fields             | Supports only the Sigma fields in the Field Mapping                                                                                         | Sigma Fields                     |
+| qradar_payload            | Uses UTF8(payload) instead of fields unsupported by the Field Mapping.                                                                      | UTF8(payload) (Non-Sigma Fields) |
+| sigma_default             | Empty ProcessingPipeline placeholder                                                                                                        | Sigma                            |
+| secops_udm                | Mappings for Google SecOps (Chronicle) UDM                                                                                                  | Google SecOps UDM                |
+| sentinelone               | Mappings for SentinelOne Deep Visibility Queries                                                                                            | SentinelOne Deep Visibility      |
+| splunk_windows            | Splunk Query, Windows Mappings                                                                                                              | Splunk Query (Windows)           |
+| splunk_windows_sysmon_acc | Splunk Windows Sysmon search acceleration keywords                                                                                          | Splunk Query (Sysmon)            |
+| splunk_cim_dm             | Splunk Datamodel Field Mappings                                                                                                             | Splunk Datamodel Query           |
+| stix_2_0                  | STIX 2.0 Mappings                                                                                                                           | STIX 2.0                         |
+| stix_shifter              | STIX Shifter Mappings                                                                                                                       | STIX Shifter                     |
+| windows_sysmon            | Sysmon for Windows                                                                                                                          | Sysmon                           |
+| windows_audit             | Windows Event Logs                                                                                                                          | Windows Event Logs               |
+| windows_logsource         | Windows Logs, General                                                                                                                       | Windows Logs, General            |
 
 # Contributing
 
