@@ -18,7 +18,17 @@ class MockLLM(BaseLanguageModel):
         return "Mocked LLM response"
 
     async def ainvoke(self, *args, **kwargs):
-        return "Mocked async LLM response"
+        return """title: Detect PowerShell Execution
+description: Detects PowerShell execution
+status: test
+author: MockLLM
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        CommandLine|contains: 'powershell'
+    condition: selection"""
 
     def generate_prompt(self, *args, **kwargs):
         return "Mocked generate_prompt response"
@@ -94,7 +104,7 @@ def test_sigma_toolkit():
 
 @pytest.mark.asyncio
 async def test_create_sigma_rule_tool(mock_openai_create, mock_vector_store):
-    tool = CreateSigmaRuleVectorStoreTool(sigmadb=mock_vector_store, llm=Mock())
+    tool = CreateSigmaRuleVectorStoreTool(sigmadb=mock_vector_store, llm=MockLLM())
     result = await tool._arun("Create a Sigma rule for detecting PowerShell execution")
     assert isinstance(result, str)
     assert "title:" in result.lower()
@@ -110,13 +120,13 @@ async def test_translate_sigma_rule_tool(mock_openai_create):
 
 @pytest.mark.asyncio
 async def test_find_sigma_rule_tool(mock_openai_create, mock_vector_store):
-    tool = FindSigmaRuleTool(sigmadb=mock_vector_store, llm=Mock())
+    tool = FindSigmaRuleTool(sigmadb=mock_vector_store, llm=MockLLM())
     result = await tool._arun("Find a rule for detecting mimikatz")
     assert isinstance(result, str)
 
 @pytest.mark.asyncio
 async def test_query_to_sigma_rule_tool(mock_openai_create):
-    tool = QueryToSigmaRuleTool(llm=Mock())
+    tool = QueryToSigmaRuleTool(llm=MockLLM())
     result = await tool._arun(
         query="process_name=powershell.exe",
         backend="splunk"
