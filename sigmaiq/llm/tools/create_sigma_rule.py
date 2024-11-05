@@ -4,7 +4,6 @@ from typing import Type
 
 # langchain
 from langchain.prompts import ChatPromptTemplate
-from langchain.pydantic_v1 import BaseModel, Field
 
 # langchain typing
 from langchain.schema.language_model import BaseLanguageModel
@@ -12,6 +11,7 @@ from langchain.schema.output_parser import StrOutputParser
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.schema.vectorstore import VectorStore
 from langchain.tools import BaseTool
+from pydantic import BaseModel, Field
 
 
 class CreateSigmaRuleInput(BaseModel):
@@ -21,9 +21,6 @@ class CreateSigmaRuleInput(BaseModel):
     query: str = Field(
         description="The users question, used to search through the Sigma VectorStore and create a Sigma Rule."
     )
-
-    class Config(BaseTool.Config):
-        pass
 
 
 class CreateSigmaRuleVectorStoreTool(BaseTool):
@@ -38,7 +35,7 @@ to use as context. The output is a Sigma Rule in YAML format.
     sigmadb: VectorStore
     llm: BaseLanguageModel
     k: int = 3
-    verbose = False
+    verbose: bool = False
 
     def _run(self, query: str) -> str:
         """Run the tool"""

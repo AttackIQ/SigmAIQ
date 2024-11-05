@@ -3,7 +3,7 @@ import json
 from typing import Union, Type
 
 from langchain.tools import BaseTool
-from pydantic import BaseModel, Field, Extra
+from pydantic import BaseModel, Field, ConfigDict
 
 from sigmaiq.sigmaiq_backend_factory import AVAILABLE_BACKENDS, SigmAIQBackend
 from sigmaiq.sigmaiq_pipeline_factory import AVAILABLE_PIPELINES
@@ -43,6 +43,8 @@ descriptions are as follows:\n"""
         + f"{json.dumps({k: v['output_formats'] for k, v in SigmAIQBackend.display_backends_and_outputs().items()}, indent=2)}",
     )
 
+    model_config = ConfigDict(extra="forbid")
+
 
 class TranslateSigmaRuleTool(BaseTool):
     """Class for translating Sigma rules via SigmAIQ Backend Factory"""
@@ -58,12 +60,7 @@ The output is json of the translated rule to a query for the backend, or an erro
 translation fails.
 """
     # return_direct = True  # We don't need an agent LLM to think about the output, it is what it is.
-    verbose = False
-
-    class Config:
-        """Configuration for this pydantic object."""
-
-        extra = Extra.forbid
+    verbose: bool = False
 
     def _run(
         self,

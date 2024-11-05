@@ -7,7 +7,7 @@ from langchain.schema.output_parser import StrOutputParser
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.schema.vectorstore import VectorStore
 from langchain.tools import BaseTool
-from pydantic import BaseModel, Field, Extra
+from pydantic import BaseModel, Field
 
 
 class FindSigmaRuleInput(BaseModel):
@@ -35,12 +35,7 @@ to search the vector store. If multiple rules are returned from the vector store
     llm: BaseLanguageModel
     sigmadb: VectorStore
     k: int = 3
-    verbose = False
-
-    class Config:
-        """Configuration for this pydantic object."""
-
-        extra = Extra.forbid
+    verbose: bool = False
 
     def _run(self, query: Union[str, dict] = None) -> str:
         return asyncio.run(self._arun(query))
