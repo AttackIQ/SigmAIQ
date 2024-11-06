@@ -2,7 +2,7 @@ SHELL := /bin/bash
 
 .DEFAULT_GOAL := help
 
-SRC_DIRS := sigmaiq/llm/tools examples
+SRC_DIRS := sigmaiq/llm examples
 PYTHON_FILES := $(shell find $(SRC_DIRS) -type f -name "*.py")
 
 .PHONY: help
