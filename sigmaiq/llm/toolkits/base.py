@@ -71,6 +71,7 @@ def create_sigma_agent(
     agent = (
         {
             "input": lambda x: x["input"],
+            "chat_history": lambda x: x.get("chat_history", []),
             "agent_scratchpad": lambda x: format_to_openai_function_messages(x["intermediate_steps"]),
         }
         | prompt
