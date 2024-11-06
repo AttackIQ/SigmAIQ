@@ -2,22 +2,24 @@
 import os
 from typing import Type, List
 
-# sigmaiq
-from sigmaiq.utils.sigma.rule_updater import SigmaRuleUpdater
-from sigmaiq.globals import DEFAULT_DIRS
-
-# langchain
-from langchain_openai import OpenAIEmbeddings
-from langchain_community.vectorstores import FAISS
-from langchain_community.document_loaders import DirectoryLoader, TextLoader
-from langchain.text_splitter import CharacterTextSplitter
+from langchain.docstore.document import Document
+from langchain.document_loaders.base import BaseLoader
+from langchain.schema.document import BaseDocumentTransformer
 
 # langchain typing
 from langchain.schema.embeddings import Embeddings
 from langchain.schema.vectorstore import VectorStore
-from langchain.docstore.document import Document
-from langchain.document_loaders.base import BaseLoader
-from langchain.schema.document import BaseDocumentTransformer
+from langchain.text_splitter import CharacterTextSplitter
+from langchain_community.document_loaders import DirectoryLoader, TextLoader
+from langchain_community.vectorstores import FAISS
+
+# langchain
+from langchain_openai import OpenAIEmbeddings
+
+from sigmaiq.globals import DEFAULT_DIRS
+
+# sigmaiq
+from sigmaiq.utils.sigma.rule_updater import SigmaRuleUpdater
 
 
 class SigmaLLM(SigmaRuleUpdater):
