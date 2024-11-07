@@ -2597,9 +2597,9 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 type = ["pytest-mypy"]
 
 [extras]
-llm = []
+llm = ["faiss-cpu", "langchain", "langchain-community", "langchain-core", "langchain-openai", "openai", "tiktoken"]
 
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9, <3.14"
-content-hash = "dc00840fa27202e44da39c8f11c3d2290085d09a858c043fd06cf317f2fa5ba4"
+content-hash = "1af0d2925ad736f9e22bd81abd41febbd7e58258a423848f86c0f0ba69bc9ff2"
