@@ -1,8 +1,8 @@
-from typing import Union
-from sigma.rule import SigmaRule
-from sigma.collection import SigmaCollection
 from datetime import datetime
-import re
+from typing import Union
+
+from sigma.collection import SigmaCollection
+from sigma.rule import SigmaRule
 
 
 def _is_v1_schema(rule_data: dict) -> bool:
