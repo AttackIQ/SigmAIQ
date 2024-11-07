@@ -21,9 +21,9 @@ packages = [
 
 [tool.poetry.dependencies]
 python = ">=3.9, <3.14"
-pysigma = "^0.11.18"
+pysigma = "0.11.18"
 certifi = ">=2024.8.30"
-pysigma-backend-carbonblack = "^0.1.8"
+pysigma-backend-carbonblack = "0.1.8"
 pysigma-backend-cortexxdr = "0.1.4"
 pysigma-backend-crowdstrike = "2.0.1"
 pysigma-backend-elasticsearch = "1.1.3"
