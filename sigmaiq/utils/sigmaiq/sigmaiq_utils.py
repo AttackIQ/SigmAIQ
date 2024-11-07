@@ -91,7 +91,14 @@ def create_sigma_rule_obj(sigma_rule: Union[SigmaRule, SigmaCollection, dict, st
     if isinstance(sigma_rule, (SigmaRule, SigmaCollection)):
         return sigma_rule
     if isinstance(sigma_rule, list):
-        return SigmaCollection([create_sigma_rule_obj(s) for s in sigma_rule])
+        rules = []
+        for s in sigma_rule:
+            result = create_sigma_rule_obj(s)
+            if isinstance(result, SigmaCollection):
+                rules.extend(result.rules)
+            else:
+                rules.append(result)
+        return SigmaCollection(rules)
     if isinstance(sigma_rule, dict):
         # Check and convert v1 schema if needed
         if _is_v1_schema(sigma_rule):
