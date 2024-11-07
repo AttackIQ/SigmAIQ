@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "SigmAIQ"
-version = "0.4.4"
+version = "0.4.5"
 description = "Wrapper and tools for pySigma and Sigma rules"
 authors = ["Stephen Lincoln <stephen.lincoln@attackiq.com>", "AttackIQ <support@attackiq.com>"]
 readme = "README.md"
@@ -41,6 +41,15 @@ pysigma-pipeline-sysmon = "1.0.4"
 pysigma-pipeline-windows = "1.2.0"
 importlib-resources = "^5.13.0"
 
+# Optional LLM dependencies, needed here for extras install with pip
+langchain = {version = "^0.2.9", optional = true}
+openai = {version = "*", optional = true}
+tiktoken = {version = "*", optional = true}
+faiss-cpu = {version = "*", optional = true}
+langchain-community = {version = "^0.2.7", optional = true}
+langchain-openai = {version = "^0.1.17", optional = true}
+langchain-core = {version = "^0.2.20", optional = true}
+
 [tool.poetry.group.llm]
 optional = true
 
@@ -62,6 +71,17 @@ pytest-cov = "^5.0.0"
 black = "^24.8.0"
 ruff = "^0.7.2"
 pytest-asyncio = "^0.24.0"
+
+[tool.poetry.extras]
+llm = [
+    "langchain",
+    "openai",
+    "tiktoken",
+    "faiss-cpu",
+    "langchain-community",
+    "langchain-openai",
+    "langchain-core"
+]
 
 [build-system]
 requires = ["poetry-core"]
@@ -123,14 +143,3 @@ testpaths = ["tests"]
 pythonpath = ["."]
 addopts = "--cov=sigmaiq --cov-report=term-missing"
 asyncio_mode = "auto"
-
-[tool.poetry.extras]
-llm = [
-    "langchain",
-    "openai",
-    "tiktoken",
-    "faiss-cpu",
-    "langchain-community",
-    "langchain-openai",
-    "langchain-core"
-]
