@@ -1,8 +1,8 @@
 import pytest
-from unittest.mock import Mock, patch, create_autospec
+from unittest.mock import patch, create_autospec
 from langchain.schema import AgentAction, AgentFinish, Document, AIMessage
 from langchain.schema.vectorstore import VectorStore
-from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from langchain_openai import OpenAIEmbeddings
 from langchain.schema.language_model import BaseLanguageModel
 
 from sigmaiq.llm.base import SigmaLLM
