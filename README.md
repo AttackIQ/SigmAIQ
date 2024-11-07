@@ -74,6 +74,14 @@ pipenv install sigmaiq
 poetry add sigmaiq
 ```
 
+To install the LLM dependencies, use the `llm` extra:
+
+```
+pip install sigmaiq[llm]
+pipenv install sigmaiq[llm]
+poetry add sigmaiq[llm]
+```
+
 ## Usage Quickstart
 
 Create a backend from the list of available backends, then give a valid Sigma rule to convert to a query. You
