@@ -36,6 +36,7 @@ to search the vector store. If multiple rules are returned from the vector store
 
     class Config:
         """Configuration for this pydantic object."""
+
         extra = Extra.forbid
 
     def _run(self, query: Union[str, dict]) -> str:

@@ -5,6 +5,7 @@ from sigmaiq.backends.sigmaiq_abstract_backend import AbstractGenericSigmAIQBack
 class SigmAIQElasticsearchBackend(AbstractGenericSigmAIQBackendClass, LuceneBackend):
     """SigmAIQ backend interface for the pySigma Elasticsearch Backend library to translate a SigmaRule object
     to an Elasticsearch search query"""
+
     custom_formats = {}
     associated_pipelines = [
         "ecs_windows",

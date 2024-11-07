@@ -36,7 +36,7 @@ class SigmaLLM(SigmaRuleUpdater):
         rule_dir: str = None,
         vector_store_dir: str = None,
         embedding_model: OpenAIEmbeddings = None,
-        embedding_function: Type[Embeddings] = OpenAIEmbeddings, #TODO RS : Consolidate this with embedding_model
+        embedding_function: Type[Embeddings] = OpenAIEmbeddings,  # TODO RS : Consolidate this with embedding_model
         vector_store: Type[VectorStore] = FAISS,
         rule_loader: Type[BaseLoader] = DirectoryLoader,
         rule_splitter: Type[BaseDocumentTransformer] = CharacterTextSplitter,

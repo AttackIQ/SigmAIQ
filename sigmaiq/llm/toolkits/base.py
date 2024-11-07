@@ -8,16 +8,21 @@ from langchain.agents.agent import AgentExecutor
 from langchain.agents.format_scratchpad import format_to_openai_function_messages
 from langchain.agents.output_parsers import OpenAIFunctionsAgentOutputParser
 from langchain.prompts import ChatPromptTemplate
+
 # langchain typing
-from langchain.schema import (AgentAction, AgentFinish, OutputParserException, AIMessage, BaseMessage)
+from langchain.schema import AgentAction, AgentFinish, OutputParserException, AIMessage, BaseMessage
 from langchain.schema.agent import AgentActionMessageLog
 from langchain.schema.language_model import BaseLanguageModel
-from langchain.schema.messages import (AIMessage, BaseMessage, )
+from langchain.schema.messages import (
+    AIMessage,
+    BaseMessage,
+)
 from langchain.schema.vectorstore import VectorStore
 from langchain_core.utils.function_calling import convert_to_openai_function
 from langchain_openai import ChatOpenAI
 
 from sigmaiq.llm.toolkits.prompts import SIGMA_AGENT_PROMPT
+
 # sigmaiq
 from sigmaiq.llm.toolkits.sigma_toolkit import SigmaToolkit
 
@@ -31,7 +36,7 @@ def create_sigma_agent(
 ) -> AgentExecutor:
     if sigma_vectorstore is None:
         raise ValueError("sigma_vectorstore must be provided")
-    
+
     if rule_creation_llm is None:
         rule_creation_llm = ChatOpenAI(model="gpt-4o")
 
@@ -40,20 +45,32 @@ def create_sigma_agent(
 
     # Assert if any of the tools does not have arun
     for tool in tools:
-        assert hasattr(tool, 'arun'), f"Tool {tool.name} does not have an 'arun' method"
+        assert hasattr(tool, "arun"), f"Tool {tool.name} does not have an 'arun' method"
 
     # Create OpenAI Function for each tool for the agent LLM, so we can create an OpenAI Function AgentExecutor
     llm_with_tools = rule_creation_llm.bind(functions=[convert_to_openai_function(t) for t in tools])
 
     # Create the agent
     prompt = SIGMA_AGENT_PROMPT
-    agent = ({"input": lambda x: x["input"], "agent_scratchpad": lambda x: format_to_openai_function_messages(
-        x["intermediate_steps"]), } | prompt | llm_with_tools | CustomOpenAIFunctionsAgentOutputParser())
+    agent = (
+        {
+            "input": lambda x: x["input"],
+            "agent_scratchpad": lambda x: format_to_openai_function_messages(x["intermediate_steps"]),
+        }
+        | prompt
+        | llm_with_tools
+        | CustomOpenAIFunctionsAgentOutputParser()
+    )
 
     # Create and return the AgentExecutor
-    agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=verbose,
-        return_intermediate_steps=return_intermediate_steps, handle_parsing_errors=True,
-        **(agent_executor_kwargs or {}))
+    agent_executor = AgentExecutor(
+        agent=agent,
+        tools=tools,
+        verbose=verbose,
+        return_intermediate_steps=return_intermediate_steps,
+        handle_parsing_errors=True,
+        **(agent_executor_kwargs or {}),
+    )
 
     return agent_executor
 
@@ -70,7 +87,7 @@ class CustomOpenAIFunctionsAgentOutputParser(OpenAIFunctionsAgentOutputParser):
             raise ValueError("Expected an AIMessage object, got a string")
         if not isinstance(message, AIMessage):
             raise TypeError(f"Expected an AI message got {type(message)}")
-        
+
         return self._parse_ai_message(message)
 
     @staticmethod
@@ -83,8 +100,9 @@ class CustomOpenAIFunctionsAgentOutputParser(OpenAIFunctionsAgentOutputParser):
             try:
                 _tool_input = json.loads(function_call["arguments"].strip(), strict=False)  # HACK
             except JSONDecodeError:
-                raise OutputParserException(f"Could not parse tool input: {function_call} because "
-                                            f"the `arguments` is not valid JSON.")
+                raise OutputParserException(
+                    f"Could not parse tool input: {function_call} because " f"the `arguments` is not valid JSON."
+                )
 
             # HACK HACK HACK:
             # The code that encodes tool input into Open AI uses a special variable

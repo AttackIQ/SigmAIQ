@@ -50,23 +50,11 @@ def sigma_rule_dict():
         "author": "AttackIQ",
         "date": "2023-01-01",
         "modified": "2023-01-02",
-        "tags": [
-            "attack.t1003",
-            "attack.t1003.001",
-            "attack.credential_access"
-        ],
-        "logsource": {
-            "category": "process_creation",
-            "product": "windows"
-        },
-        "detection": {
-            "sel": {
-                "CommandLine": "valueA"
-            },
-            "condition": "sel"
-        },
+        "tags": ["attack.t1003", "attack.t1003.001", "attack.credential_access"],
+        "logsource": {"category": "process_creation", "product": "windows"},
+        "detection": {"sel": {"CommandLine": "valueA"}, "condition": "sel"},
         "falsepositives": ["None"],
-        "level": "high"
+        "level": "high",
     }
 
 

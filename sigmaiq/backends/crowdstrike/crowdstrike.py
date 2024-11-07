@@ -6,6 +6,7 @@ from sigmaiq.backends.sigmaiq_abstract_backend import AbstractGenericSigmAIQBack
 class SigmAIQCrowdstrikeSplunkBackend(AbstractGenericSigmAIQBackendClass, SplunkBackend):
     """SigmAIQ backend interface for the pySigma Splunk Backend library to translate a SigmaRule object
     to a Splunk search query with the Crowdstrike FDR format"""
+
     custom_formats = {}
     associated_pipelines = ["crowdstrike_fdr"]
     default_pipeline = "crowdstrike_fdr"
@@ -15,6 +16,7 @@ class SigmAIQCrowdstrikeSplunkBackend(AbstractGenericSigmAIQBackendClass, Splunk
 class SigmAIQCrowdstrikeLogscaleBackend(AbstractGenericSigmAIQBackendClass, LogScaleBackend):
     """SigmAIQ backend interface for the pySigma Logscale Backend library to translate a SigmaRule object
     to a Logscale search query with the Crowdstrike Falcon format"""
+
     custom_formats = {}
     associated_pipelines = ["crowdstrike_falcon"]
     default_pipeline = "crowdstrike_falcon"

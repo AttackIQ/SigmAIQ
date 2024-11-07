@@ -63,7 +63,10 @@ class SigmAIQBackend:
     """
 
     def __init__(
-        self, backend: str, processing_pipeline: Optional[Union[str, list, ProcessingPipeline]] = None, output_format: Optional[str] = None
+        self,
+        backend: str,
+        processing_pipeline: Optional[Union[str, list, ProcessingPipeline]] = None,
+        output_format: Optional[str] = None,
     ):
         """Initialize instance attributes.
 

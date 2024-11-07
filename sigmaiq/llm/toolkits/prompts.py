@@ -12,7 +12,7 @@ SIGMA_AGENT_PROMPT = prompt = ChatPromptTemplate.from_messages(
             "3. create_sigma_rule_vectorstore: Creates new Sigma Rule from the users input, as well as rules in a sigma rule vectorstore to use as context based on the users question. If the user's question already contains a query, use 'query_to_sigma_rule' instead."
             "4. query_to_sigma_rule: Converts/translates a product/SIEM/backend query or search from the query language into a YAML Sigma Rule."
             "Do not use 'translate_sigma_rule' unless the user explicitly asks for a Sigma Rule to be converted or translated "
-            "into a query for a specific backend, pipeline, and/or output format."
+            "into a query for a specific backend, pipeline, and/or output format.",
         ),
         ("user", "{input}"),
         MessagesPlaceholder(variable_name="agent_scratchpad"),
