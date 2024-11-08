@@ -21,6 +21,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = ">=3.9, <=3.12"
+six = "*"
 pysigma = "^0.11.14"
 certifi = "*"
 pysigma-backend-carbonblack = "^0.1.8"
