@@ -7,7 +7,7 @@ from langchain.schema.language_model import BaseLanguageModel
 from langchain.schema.output_parser import StrOutputParser
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.tools import BaseTool
-from pydantic import BaseModel, Field, Extra
+from pydantic import BaseModel, Field
 
 from sigmaiq.sigmaiq_backend_factory import AVAILABLE_BACKENDS
 
@@ -43,12 +43,7 @@ The output is a Sigma Rule YAML string, or an error message if the conversion fa
 """
     # return_direct = True  # We don't need an agent LLM to think about the output, it is what it is.
     llm: BaseLanguageModel
-    verbose = False
-
-    class Config:
-        """Configuration for this pydantic object."""
-
-        extra = Extra.forbid
+    verbose: bool = False
 
     def _run(self, query: Optional[str] = None, backend: Optional[str] = None) -> str:
         return asyncio.run(self._arun(query, backend))

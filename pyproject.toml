@@ -42,25 +42,25 @@ pysigma-pipeline-windows = "1.2.0"
 importlib-resources = "^5.13.0"
 
 # Optional LLM dependencies, needed here for extras install with pip
-langchain = {version = "^0.2.9", optional = true}
+langchain = {version = "*", optional = true}
+langchain-community = {version = "*", optional = true}
+langchain-openai = {version = "*", optional = true}
+langchain-core = {version = "*", optional = true}
 openai = {version = "*", optional = true}
 tiktoken = {version = "*", optional = true}
 faiss-cpu = {version = "*", optional = true}
-langchain-community = {version = "^0.2.7", optional = true}
-langchain-openai = {version = "^0.1.17", optional = true}
-langchain-core = {version = "^0.2.20", optional = true}
 
 [tool.poetry.group.llm]
 optional = true
 
 [tool.poetry.group.llm.dependencies]
-langchain = "^0.2.9"
+langchain = "*"
+langchain-community = "*"
+langchain-openai = "*"
+langchain-core = "*"
 openai = "*"
 tiktoken = "*"
 faiss-cpu = "*"
-langchain-community = "^0.2.7"
-langchain-openai = "^0.1.17"
-langchain-core = "^0.2.20"
 
 [tool.poetry.group.dev]
 optional = true

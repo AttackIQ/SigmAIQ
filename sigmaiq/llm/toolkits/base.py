@@ -1,7 +1,7 @@
 # stdlib
 import json
 from json import JSONDecodeError
-from typing import Optional, Dict, Any, Type, Union
+from typing import Any, Dict, Optional, Type, Union
 
 # langchain
 from langchain.agents.agent import AgentExecutor
@@ -10,7 +10,11 @@ from langchain.agents.output_parsers import OpenAIFunctionsAgentOutputParser
 from langchain.prompts import ChatPromptTemplate
 
 # langchain typing
-from langchain.schema import AgentAction, AgentFinish, OutputParserException, AIMessage, BaseMessage
+from langchain.schema import (
+    AgentAction,
+    AgentFinish,
+    OutputParserException,
+)
 from langchain.schema.agent import AgentActionMessageLog
 from langchain.schema.language_model import BaseLanguageModel
 from langchain.schema.messages import (
@@ -28,8 +32,11 @@ from sigmaiq.llm.toolkits.sigma_toolkit import SigmaToolkit
 
 
 def create_sigma_agent(
-    sigma_vectorstore: Optional[VectorStore] = None,
-    rule_creation_llm: Optional[BaseLanguageModel] = None,
+    agent_llm: BaseLanguageModel = ChatOpenAI(model="gpt-4o"),
+    rule_creation_llm: BaseLanguageModel = ChatOpenAI(model="gpt-4o"),
+    sigma_vectorstore: VectorStore = None,
+    toolkit: Type[SigmaToolkit] = SigmaToolkit,
+    prompt: Optional[ChatPromptTemplate] = SIGMA_AGENT_PROMPT,
     verbose: bool = False,
     return_intermediate_steps: bool = False,
     agent_executor_kwargs: Optional[Dict[str, Any]] = None,
@@ -55,6 +62,7 @@ def create_sigma_agent(
     agent = (
         {
             "input": lambda x: x["input"],
+            "chat_history": lambda x: x.get("chat_history", []),
             "agent_scratchpad": lambda x: format_to_openai_function_messages(x["intermediate_steps"]),
         }
         | prompt
@@ -117,6 +125,11 @@ class CustomOpenAIFunctionsAgentOutputParser(OpenAIFunctionsAgentOutputParser):
 
             content_msg = f"responded: {message.content}\n" if message.content else "\n"
             log = f"\nInvoking: `{function_name}` with `{tool_input}`\n{content_msg}\n"
-            return AgentActionMessageLog(tool=function_name, tool_input=tool_input, log=log, message_log=[message])
+            return AgentActionMessageLog(
+                tool=function_name,
+                tool_input=tool_input,
+                log=log,
+                message_log=[message],
+            )
 
         return AgentFinish(return_values={"output": message.content}, log=str(message.content))
