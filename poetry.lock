@@ -1945,13 +1945,13 @@ pysigma = ">=0.11.9,<0.12.0"
 
 [[package]]
 name = "pysigma-backend-opensearch"
-version = "1.0.3"
+version = "1.0.4"
 description = "pySigma OpenSearch backend"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "pysigma_backend_opensearch-1.0.3-py3-none-any.whl", hash = "sha256:f0d0650fa9fc69df186f07520157bc5b405677c4e77261a942992a2d923afb0b"},
-    {file = "pysigma_backend_opensearch-1.0.3.tar.gz", hash = "sha256:3ce5d61dd54eadd6c66c400019fc4d1fcfa118111e00e0c09396fafbc20db40e"},
+    {file = "pysigma_backend_opensearch-1.0.4-py3-none-any.whl", hash = "sha256:d1d6f6a499288f0966e3360db75d1350de996222c3b5b22608e2b3634bdf1721"},
+    {file = "pysigma_backend_opensearch-1.0.4.tar.gz", hash = "sha256:531dd6d44e8489befb500215a76adf04dc7b6b6e217f9fcbda6a0192e2ca7624"},
 ]
 
 [package.dependencies]
