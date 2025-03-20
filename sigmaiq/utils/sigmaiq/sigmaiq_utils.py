@@ -1,6 +1,7 @@
 from typing import Union
-from sigma.rule import SigmaRule
+
 from sigma.collection import SigmaCollection
+from sigma.rule import SigmaRule
 
 
 def create_sigma_rule_obj(sigma_rule: Union[SigmaRule, SigmaCollection, dict, str, list]):
@@ -26,7 +27,5 @@ def create_sigma_rule_obj(sigma_rule: Union[SigmaRule, SigmaCollection, dict, st
         return SigmaRule.from_dict(sigma_rule)
     if isinstance(sigma_rule, str):  # from YAML str
         return SigmaRule.from_yaml(sigma_rule)
-    raise TypeError(
-        f"Invalid type '{type(sigma_rule)}' for `sigma_rule`. "
-        f"Use a SigmaRule, SigmaCollection, dict, str, or list of these types instead."
-    )
+    raise TypeError(f"Invalid type '{type(sigma_rule)}' for `sigma_rule`. "
+                    f"Use a SigmaRule, SigmaCollection, dict, str, or list of these types instead.")
