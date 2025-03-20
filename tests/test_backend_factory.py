@@ -1,12 +1,11 @@
 import pytest
-import json
-
-from sigmaiq.sigmaiq_backend_factory import SigmAIQBackend
-from sigma.rule import SigmaRule
 from sigma.collection import SigmaCollection
 from sigma.processing.pipeline import ProcessingPipeline, ProcessingItem
 from sigma.processing.transformations import SetStateTransformation
+from sigma.rule import SigmaRule
+
 from sigmaiq.exceptions import InvalidSigmAIQBackend, InvalidOutputFormat
+from sigmaiq.sigmaiq_backend_factory import SigmAIQBackend
 
 
 @pytest.fixture

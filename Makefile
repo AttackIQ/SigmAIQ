@@ -18,3 +18,8 @@ format: ## Format Python files
 ruff: ## Run Ruff linter
 	@echo "Running Ruff linter..."
 	ruff check --ignore E501 $(PYTHON_FILES)
+
+.PHONY: ruff-fix
+ruff-fix: ## Run Ruff linter with auto-fixes
+	@echo "Running Ruff linter with auto-fixes..."
+	ruff check --fix --ignore E501 $(PYTHON_FILES)
