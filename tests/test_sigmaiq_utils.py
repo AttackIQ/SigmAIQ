@@ -1,5 +1,6 @@
 import datetime
 
+# ruff: noqa: F811
 import pytest
 import yaml
 from sigma.collection import SigmaCollection
