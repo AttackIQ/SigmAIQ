@@ -47,6 +47,7 @@ langchain = "*"
 langchain-community = "*"
 langchain-openai = "*"
 langchain-core = "*"
+pysigma-backend-secops = "0.1.4"
 
 
 [tool.poetry.dev-dependencies]
