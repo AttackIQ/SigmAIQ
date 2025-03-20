@@ -5,6 +5,7 @@ from copy import copy
 
 # %% Import pprint for pretty printing, and copy for copying rules
 from pprint import pprint
+from typing import Dict, Union, List
 
 # %% Import SigmAIQ
 from sigmaiq import SigmAIQBackend, SigmAIQPipeline
@@ -34,7 +35,7 @@ print("\n-------------------")
 
 # %% Create custom field mappings
 # %% This will map the CommandLine field to a custom field named "CustomCommandLine"
-custom_field_mappings = {"CommandLine": "CustomCommandLine"}
+custom_field_mappings: Dict[str, Union[str, List[str]]] = {"CommandLine": "CustomCommandLine"}
 my_custom_pipeline = SigmAIQPipeline.from_fieldmap(custom_field_mappings, priority=0).create_pipeline()
 
 # %% Create SigmAIQ backend translate the rule to a Microsoft 365 Defender query with our custom field mappings
