@@ -48,33 +48,34 @@ from sigmaiq.pipelines.splunk_windows_audit import splunk_wineventlog_pipeline
 # RS uncommented this line after Stephen uncomment corresponding line in pyproject.toml
 # from sigma.pipelines.insight_idr import insight_idr_pipeline
 
-AVAILABLE_PIPELINES = {# AIQ Custom
+AVAILABLE_PIPELINES = {  # AIQ Custom
     "splunk_wineventlog": {
         "description": "SigmAIQ Custom combined windows_audit and splunk_windows pipelines to convert Sysmon fields to "
                        "Windows Event Log fields for Splunk searches", "pipeline": splunk_wineventlog_pipeline(),
-        "display_name": "Splunk WinEventLog", }, # CarbonBlack
+        "display_name": "Splunk WinEventLog", },  # CarbonBlack
     "carbonblack": {"description": "Uses Carbon Black EDR field mappings", "pipeline": CarbonBlackResponse_pipeline(),
-        "display_name": "CB", }, # Cortex XDR, Palo Alto
+                    "display_name": "CB", },  # Cortex XDR, Palo Alto
     "cortexxdr": {"description": "Uses Palo Alto Cortex XDR field mappings", "pipeline": CortexXDR_pipeline(),
-        "display_name": "Palo Alto Cortex XDR", },
+                  "display_name": "Palo Alto Cortex XDR", },
     "carbonblack_enterprise": {"description": "Uses Carbon Black Enterprise EDR field mappings",
-        "pipeline": CarbonBlack_pipeline(), "display_name": "CB", }, # Crowdstrike
+                               "pipeline": CarbonBlack_pipeline(), "display_name": "CB", },  # Crowdstrike
     "crowdstrike_fdr": {"description": "Crowdstrike FDR Splunk Mappings", "pipeline": crowdstrike_fdr_pipeline(),
-        "display_name": "CrowdStrike FDR SPL", },
+                        "display_name": "CrowdStrike FDR SPL", },
     "crowdstrike_falcon": {"description": "Crowdstrike Falcon Logscale Mappings",
-        "pipeline": crowdstrike_falcon_pipeline(), "display_name": "CrowdStrike Falcon Logscale", }, # Elasticsearch
+                           "pipeline": crowdstrike_falcon_pipeline(), "display_name": "CrowdStrike Falcon Logscale", },
+    # Elasticsearch
     "ecs_kubernetes": {"description": "Elastic Common Schema (ECS) Kubernetes audit log mappings",
-        "pipeline": ecs_kubernetes(), "display_name": "ECS Kubernetes", },
+                       "pipeline": ecs_kubernetes(), "display_name": "ECS Kubernetes", },
     "ecs_windows": {"description": "Elastic Common Schema (ECS) Windows log mappings from Winlogbeat from version 7",
-        "pipeline": ecs_windows(), "display_name": "ECS Winlogbeat", }, "ecs_windows_old": {
+                    "pipeline": ecs_windows(), "display_name": "ECS Winlogbeat", }, "ecs_windows_old": {
         "description": "Elastic Common Schema (ECS) Windows log mappings from Winlogbeat up to version 6",
         "pipeline": ecs_windows_old(), "display_name": "ESC Winlogbeat (<= v6.x)", },
     "ecs_zeek_beats": {"description": "Elastic Common Schema (ECS) for Zeek using filebeat >= 7.6.1",
-        "pipeline": ecs_zeek_beats(), "display_name": "ECS Zeek (Elastic)", },
+                       "pipeline": ecs_zeek_beats(), "display_name": "ECS Zeek (Elastic)", },
     "ecs_zeek_corelight": {"description": "Elastic Common Schema (ECS) mapping from Corelight",
-        "pipeline": ecs_zeek_corelight(), "display_name": "ESC Zeek (Corelight)", },
+                           "pipeline": ecs_zeek_corelight(), "display_name": "ESC Zeek (Corelight)", },
     "zeek_raw": {"description": "Zeek raw JSON field naming", "pipeline": zeek_raw(),
-        "display_name": "Zeek Raw JSON", }, # InsightIDR
+                 "display_name": "Zeek Raw JSON", },  # InsightIDR
     # RS uncommented this line after Stephen uncomment corresponding line in pyproject.toml
     # "insightidr": {
     #     "description": "InsightIDR Log Entry Query Language (LEQL) Transformations",
@@ -83,44 +84,48 @@ AVAILABLE_PIPELINES = {# AIQ Custom
     # },
     # Loki
     "loki_grafana_logfmt": {"description": "Converts field names to logfmt labels used by Grafana",
-        "pipeline": loki_grafana_logfmt(), "display_name": "Logfmt Labels", },
+                            "pipeline": loki_grafana_logfmt(), "display_name": "Logfmt Labels", },
     "loki_promtail_sysmon": {"description": "Parse and adjust field names for Windows sysmon data produced by promtail",
-        "pipeline": loki_promtail_sysmon(), "display_name": "WinSysmon Promtail", },
+                             "pipeline": loki_promtail_sysmon(), "display_name": "WinSysmon Promtail", },
     "loki_okta_system_log": {"description": "Parse the Okta System Log event json, adjusting field-names appropriately",
-        "pipeline": loki_okta_system_log(), "display_name": "Okta System Event", }, # Microsoft Kusto
+                             "pipeline": loki_okta_system_log(), "display_name": "Okta System Event", },
+    # Microsoft Kusto
     "microsoft_xdr": {"description": "Mappings for Sysmon -> XDR Advanced Hunting Query Table Schema",
-        "pipeline": microsoft_xdr_pipeline(), "display_name": "Microsoft XDR KustoQL", }, # Microsoft Sentinel ASIM
+                      "pipeline": microsoft_xdr_pipeline(), "display_name": "Microsoft XDR KustoQL", },
+    # Microsoft Sentinel ASIM
     "sentinel_asim": {"description": "Mappings for Sysmon -> Sentinel ASIM Query Table Schema",
-        "pipeline": sentinel_asim_pipeline(), "display_name": "Sentinel ASIM KustoQL", }, # Microsoft Azure Monitor
+                      "pipeline": sentinel_asim_pipeline(), "display_name": "Sentinel ASIM KustoQL", },
+    # Microsoft Azure Monitor
     "azure_monitor": {"description": "Mappings for Sysmon -> Azure Monitor Query Table Schema",
-        "pipeline": azure_monitor_pipeline(), "display_name": "Azure Monitor KustoQL", }, # Netwitness
+                      "pipeline": azure_monitor_pipeline(), "display_name": "Azure Monitor KustoQL", },  # Netwitness
     "netwitness_windows": {"description": "Netwitness Windows log mappings", "pipeline": netwitness_windows_pipeline(),
-        "display_name": "Netwitness Windows", }, # QRadar
+                           "display_name": "Netwitness Windows", },  # QRadar
     "qradar_fields": {"description": "Supports only the Sigma fields in the Field Mapping",
-        "pipeline": QRadarAQL_fields_pipeline(), "display_name": "Sigma Fields", },
+                      "pipeline": QRadarAQL_fields_pipeline(), "display_name": "Sigma Fields", },
     "qradar_payload": {"description": "Uses UTF8(payload) instead of fields unsupported by the Field Mapping.",
-        "pipeline": QRadarAQL_payload_pipeline(), "display_name": "UTF8(payload) (Non-Sigma Fields)", },
+                       "pipeline": QRadarAQL_payload_pipeline(), "display_name": "UTF8(payload) (Non-Sigma Fields)", },
     # Sigma Pipeline Placeholder
     "sigma_default": {"description": "Empty ProcessingPipeline placeholder",
-        "pipeline": ProcessingPipeline(name="Sigma Placeholder"), "display_name": "Sigma", }, # SecOps
+                      "pipeline": ProcessingPipeline(name="Sigma Placeholder"), "display_name": "Sigma", },  # SecOps
     "secops_udm": {"description": "Mappings for Google SecOps (Chronicle) UDM", "pipeline": secops_udm_pipeline(),
-        "display_name": "Google SecOps UDM", }, # SentinelOne
+                   "display_name": "Google SecOps UDM", },  # SentinelOne
     "sentinelone": {"description": "Mappings for SentinelOne Deep Visibility Queries",
-        "pipeline": sentinelone_pipeline(), "display_name": "SentinelOne Deep Visibility", }, # Splunk
+                    "pipeline": sentinelone_pipeline(), "display_name": "SentinelOne Deep Visibility", },  # Splunk
     "splunk_windows": {"description": "Splunk Query, Windows Mappings", "pipeline": splunk_windows_pipeline(),
-        "display_name": "Splunk Query (Windows)", },
+                       "display_name": "Splunk Query (Windows)", },
     "splunk_windows_sysmon_acc": {"description": "Splunk Windows Sysmon search acceleration keywords",
-        "pipeline": splunk_windows_sysmon_acceleration_keywords(), "display_name": "Splunk Query (Sysmon)", },
+                                  "pipeline": splunk_windows_sysmon_acceleration_keywords(),
+                                  "display_name": "Splunk Query (Sysmon)", },
     "splunk_cim_dm": {"description": "Splunk Datamodel Field Mappings", "pipeline": splunk_cim_data_model(),
-        "display_name": "Splunk Datamodel Query", }, # STIX
+                      "display_name": "Splunk Datamodel Query", },  # STIX
     "stix_2_0": {"description": "STIX 2.0 Mappings", "pipeline": stix_2_0(), "display_name": "STIX 2.0"},
     "stix_shifter": {"description": "STIX Shifter Mappings", "pipeline": stix_shifter(),
-        "display_name": "STIX Shifter", }, # Windows
+                     "display_name": "STIX Shifter", },  # Windows
     "windows_sysmon": {"description": "Sysmon for Windows", "pipeline": sysmon_pipeline(), "display_name": "Sysmon"},
     "windows_audit": {"description": "Windows Event Logs", "pipeline": windows_audit_pipeline(),
-        "display_name": "Windows Event Logs", },
+                      "display_name": "Windows Event Logs", },
     "windows_logsource": {"description": "Windows Logs, General", "pipeline": windows_logsource_pipeline(),
-        "display_name": "Windows Logs, General", }, }
+                          "display_name": "Windows Logs, General", }, }
 
 
 class SigmAIQPipeline:
