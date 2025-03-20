@@ -11,11 +11,11 @@
 # `pip install -r requirements/common.txt -r requirements/llm.txt`
 
 
-# %% Import SigmAIQ LLM and OpenAIEmbeddings
-from sigmaiq.llm.base import SigmaLLM
-
 # %% Create a SigmaLLM object with default settings. See the class docstring for more information
 from langchain_openai import OpenAIEmbeddings
+
+# %% Import SigmAIQ LLM and OpenAIEmbeddings
+from sigmaiq.llm.base import SigmaLLM
 
 sigma_llm = SigmaLLM(embedding_model=OpenAIEmbeddings(model="text-embedding-3-large"))
 

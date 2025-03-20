@@ -1,13 +1,14 @@
 # %% This example shows how to use the SigmAIQ pySigma wrapper to provide custom field mappings for a backend
 # %% This will allow you to translate specific field names to custom field names during rule translation
 
-# %% Import SigmAIQ
-from sigmaiq import SigmAIQBackend, SigmAIQPipeline
+from copy import copy
 
 # %% Import pprint for pretty printing, and copy for copying rules
 from pprint import pprint
-from copy import copy
 from typing import Dict, Union, List
+
+# %% Import SigmAIQ
+from sigmaiq import SigmAIQBackend, SigmAIQPipeline
 
 # %% A basic Sigma Rule in YAML str to convert to a query.
 # %% SigmAIQ also accepts a rule in JSON/Dict format, SigmaRule objects, and SigmaCollection objects

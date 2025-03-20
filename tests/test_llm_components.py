@@ -1,17 +1,18 @@
-import pytest
 from unittest.mock import patch, create_autospec
+
+import pytest
 from langchain.schema import AgentAction, AgentFinish, Document, AIMessage
+from langchain.schema.language_model import BaseLanguageModel
 from langchain.schema.vectorstore import VectorStore
 from langchain_openai import OpenAIEmbeddings
-from langchain.schema.language_model import BaseLanguageModel
 
 from sigmaiq.llm.base import SigmaLLM
 from sigmaiq.llm.toolkits.base import create_sigma_agent
 from sigmaiq.llm.toolkits.sigma_toolkit import SigmaToolkit
 from sigmaiq.llm.tools.create_sigma_rule import CreateSigmaRuleVectorStoreTool
-from sigmaiq.llm.tools.translate_sigma_rule import TranslateSigmaRuleTool
 from sigmaiq.llm.tools.find_sigma_rule import FindSigmaRuleTool
 from sigmaiq.llm.tools.query_to_sigma_rule import QueryToSigmaRuleTool
+from sigmaiq.llm.tools.translate_sigma_rule import TranslateSigmaRuleTool
 
 
 class MockLLM(BaseLanguageModel):
@@ -152,9 +153,8 @@ def test_custom_openai_functions_agent_output_parser():
     parser = CustomOpenAIFunctionsAgentOutputParser()
 
     # Test parsing an AgentAction
-    message = AIMessage(
-        content="", additional_kwargs={"function_call": {"name": "test_function", "arguments": '{"arg1": "value1"}'}}
-    )
+    message = AIMessage(content="", additional_kwargs={
+        "function_call": {"name": "test_function", "arguments": '{"arg1": "value1"}'}})
     result = parser.parse(message)
     assert isinstance(result, AgentAction)
     assert result.tool == "test_function"
@@ -169,6 +169,5 @@ def test_custom_openai_functions_agent_output_parser():
     # Test parsing a string (should raise ValueError)
     with pytest.raises(ValueError):
         parser.parse("This is a string, not an AIMessage")
-
 
 # Add more tests as needed for other components and edge cases

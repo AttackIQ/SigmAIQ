@@ -104,7 +104,6 @@ def create_sigma_rule_obj(sigma_rule: Union[SigmaRule, SigmaCollection, dict, st
     if isinstance(sigma_rule, dict):
         # Check and convert v1 schema if needed
         if _is_v1_schema(sigma_rule):
-
             sigma_rule = _convert_to_v2_schema(sigma_rule)
         return SigmaRule.from_dict(sigma_rule)
     if isinstance(sigma_rule, str):
@@ -119,7 +118,5 @@ def create_sigma_rule_obj(sigma_rule: Union[SigmaRule, SigmaCollection, dict, st
         except Exception as e:
             print(e)
             return SigmaRule.from_yaml(sigma_rule)
-    raise TypeError(
-        f"Invalid type '{type(sigma_rule)}' for `sigma_rule`. "
-        f"Use a SigmaRule, SigmaCollection, dict, str, or list of these types instead."
-    )
+    raise TypeError(f"Invalid type '{type(sigma_rule)}' for `sigma_rule`. "
+                    f"Use a SigmaRule, SigmaCollection, dict, str, or list of these types instead.")
