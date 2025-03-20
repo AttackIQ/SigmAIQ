@@ -1,12 +1,14 @@
 from abc import ABC
-from sigma.processing.pipeline import ProcessingPipeline
-from sigmaiq.sigmaiq_pipeline_factory import SigmAIQPipeline, SigmAIQPipelineResolver
-from sigma.rule import SigmaRule
-from sigmaiq.utils.sigmaiq.sigmaiq_utils import create_sigma_rule_obj
-from sigma.conversion.base import Backend, TextQueryBackend
-from sigma.collection import SigmaCollection
 from typing import Union, Dict, List
+
+from sigma.collection import SigmaCollection
+from sigma.conversion.base import TextQueryBackend
+from sigma.processing.pipeline import ProcessingPipeline
+from sigma.rule import SigmaRule
+
 from sigmaiq.exceptions import InvalidOutputFormat
+from sigmaiq.sigmaiq_pipeline_factory import SigmAIQPipeline, SigmAIQPipelineResolver
+from sigmaiq.utils.sigmaiq.sigmaiq_utils import create_sigma_rule_obj
 
 
 class AbstractGenericSigmAIQBackendClass(TextQueryBackend, ABC):
