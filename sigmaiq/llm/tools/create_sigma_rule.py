@@ -39,7 +39,6 @@ to use as context. The output is a Sigma Rule in YAML format.
     llm: BaseLanguageModel
     k: int = 3
     verbose = False
-    verbose = False
 
     def _run(self, query: str) -> str:
         """Run the tool"""
