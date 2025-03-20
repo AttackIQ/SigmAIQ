@@ -9,7 +9,10 @@ from sigma.rule import SigmaRule
 # Backends
 from sigmaiq.backends.carbonblack import SigmAIQCarbonBlackBackend
 from sigmaiq.backends.cortexxdr import SigmAIQCortexXDRBackend
-from sigmaiq.backends.crowdstrike import (SigmAIQCrowdstrikeLogscaleBackend, SigmAIQCrowdstrikeSplunkBackend, )
+from sigmaiq.backends.crowdstrike import (
+    SigmAIQCrowdstrikeLogscaleBackend,
+    SigmAIQCrowdstrikeSplunkBackend,
+)
 from sigmaiq.backends.elasticsearch import SigmAIQElasticsearchBackend
 from sigmaiq.backends.insightidr import SigmAIQInsightIDRBackend
 from sigmaiq.backends.kusto import SigmAIQAzureMonitorBackend, SigmAIQDefenderXDRBackend, SigmAIQSentinelASIMBackend
@@ -20,28 +23,38 @@ from sigmaiq.backends.qradar import SigmAIQQRadarBackend
 from sigmaiq.backends.secops import SigmAIQSecOpsBackend
 from sigmaiq.backends.sentinelone import SigmAIQSentinelOneBackend
 from sigmaiq.backends.sigma import SigmAIQSigmaBackend
+
 ## Abstract
 from sigmaiq.backends.sigmaiq_abstract_backend import AbstractGenericSigmAIQBackendClass
 from sigmaiq.backends.splunk import SigmAIQSplunkBackend
 from sigmaiq.backends.stix import SigmAIQStixBackend
 from sigmaiq.exceptions import InvalidSigmAIQBackend
 from sigmaiq.sigmaiq_pipeline_factory import SigmAIQPipeline, SigmAIQPipelineResolver
+
 # Utils
 from sigmaiq.utils.sigmaiq.sigmaiq_utils import create_sigma_rule_obj
 
-AVAILABLE_BACKENDS = {"carbonblack": "Carbon Black EDR", "cortexxdr": "Palo Alto Cortex XDR",
-                      "crowdstrike_splunk": "Crowdstrike FDR Splunk Query",
-                      "crowdstrike_logscale": "Crowdstrike Logscale Query",
-                      "elasticsearch": "Elastic Elasticsearch SIEM",
-                      # RS uncommented this line after Stephen uncomment corresponding line in pyproject.toml
-                      # "insightidr": "Rapid7 InsightIDR SIEM",
-                      "loki": "Grafana Loki LogQL SIEM",
-                      "microsoft_xdr": "Microsoft XDR Advanced Hunting Query (KQL) (Defender, Office365, etc)",
-                      "microsoft_sentinel_asim": "Microsoft Sentinel ASIM Query (KQL)",
-                      "microsoft_azure_monitor": "Microsoft Azure Monitor Query (KQL)",
-                      "netwitness": "Netwitness Query", "opensearch": "OpenSearch Lucene", "qradar": "IBM QRadar",
-                      "secops": "Google SecOps (Chronicle)", "sentinelone": "SentinelOne EDR", "splunk": "Splunk SIEM",
-                      "sigma": "Original YAML/JSON Sigma Rule Output", "stix": "STIX 2.0 & STIX Shifter Queries", }
+AVAILABLE_BACKENDS = {
+    "carbonblack": "Carbon Black EDR",
+    "cortexxdr": "Palo Alto Cortex XDR",
+    "crowdstrike_splunk": "Crowdstrike FDR Splunk Query",
+    "crowdstrike_logscale": "Crowdstrike Logscale Query",
+    "elasticsearch": "Elastic Elasticsearch SIEM",
+    # RS uncommented this line after Stephen uncomment corresponding line in pyproject.toml
+    # "insightidr": "Rapid7 InsightIDR SIEM",
+    "loki": "Grafana Loki LogQL SIEM",
+    "microsoft_xdr": "Microsoft XDR Advanced Hunting Query (KQL) (Defender, Office365, etc)",
+    "microsoft_sentinel_asim": "Microsoft Sentinel ASIM Query (KQL)",
+    "microsoft_azure_monitor": "Microsoft Azure Monitor Query (KQL)",
+    "netwitness": "Netwitness Query",
+    "opensearch": "OpenSearch Lucene",
+    "qradar": "IBM QRadar",
+    "secops": "Google SecOps (Chronicle)",
+    "sentinelone": "SentinelOne EDR",
+    "splunk": "Splunk SIEM",
+    "sigma": "Original YAML/JSON Sigma Rule Output",
+    "stix": "STIX 2.0 & STIX Shifter Queries",
+}
 
 
 class SigmAIQBackend:
@@ -50,8 +63,12 @@ class SigmAIQBackend:
     to SIEM/Security Tool queries.
     """
 
-    def __init__(self, backend: str, processing_pipeline: Optional[Union[str, list, ProcessingPipeline]] = None,
-                 output_format: Optional[str] = None, ):
+    def __init__(
+        self,
+        backend: str,
+        processing_pipeline: Optional[Union[str, list, ProcessingPipeline]] = None,
+        output_format: Optional[str] = None,
+    ):
         """Initialize instance attributes.
 
         :param backend: Specifies the desired backend.
@@ -143,11 +160,11 @@ class SigmAIQBackend:
         if self.backend == "stix":
             return SigmAIQStixBackend(**kwargs)
 
-        raise InvalidSigmAIQBackend('Backend not supported: "{}". Available backends:\n{}'.format(self.backend,
-                                                                                                  "\n".join(
-                                                                                                      [f"{k}: {v}" for
-                                                                                                       k, v in
-                                                                                                       AVAILABLE_BACKENDS.items()])))
+        raise InvalidSigmAIQBackend(
+            'Backend not supported: "{}". Available backends:\n{}'.format(
+                self.backend, "\n".join([f"{k}: {v}" for k, v in AVAILABLE_BACKENDS.items()])
+            )
+        )
 
     @staticmethod
     def _setup_processing_pipeline(processing_pipeline):
@@ -166,9 +183,12 @@ class SigmAIQBackend:
         return None
 
     @classmethod
-    def create_all_and_translate(cls, sigma_rule: Union[SigmaRule, SigmaCollection, str, dict],
-                                 show_errors: Optional[bool] = False,
-                                 excluded_backends: Optional[List[str]] = None, ) -> Dict[Any, Any]:
+    def create_all_and_translate(
+        cls,
+        sigma_rule: Union[SigmaRule, SigmaCollection, str, dict],
+        show_errors: Optional[bool] = False,
+        excluded_backends: Optional[List[str]] = None,
+    ) -> Dict[Any, Any]:
         """Iterates through all combinations of backends, associated pipelines with each backend, and output formats
         for each backend, and creates a dict of outputs.
 

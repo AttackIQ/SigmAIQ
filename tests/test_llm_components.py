@@ -153,8 +153,9 @@ def test_custom_openai_functions_agent_output_parser():
     parser = CustomOpenAIFunctionsAgentOutputParser()
 
     # Test parsing an AgentAction
-    message = AIMessage(content="",
-        additional_kwargs={"function_call": {"name": "test_function", "arguments": '{"arg1": "value1"}'}})
+    message = AIMessage(
+        content="", additional_kwargs={"function_call": {"name": "test_function", "arguments": '{"arg1": "value1"}'}}
+    )
     result = parser.parse(message)
     assert isinstance(result, AgentAction)
     assert result.tool == "test_function"
@@ -169,5 +170,6 @@ def test_custom_openai_functions_agent_output_parser():
     # Test parsing a string (should raise ValueError)
     with pytest.raises(ValueError):
         parser.parse("This is a string, not an AIMessage")
+
 
 # Add more tests as needed for other components and edge cases
