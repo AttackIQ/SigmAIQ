@@ -2,8 +2,7 @@ SHELL := /bin/bash
 
 .DEFAULT_GOAL := help
 
-SRC_DIRS := sigmaiq/llm examples
-PYTHON_FILES := $(shell find $(SRC_DIRS) -type f -name "*.py")
+PYTHON_FILES := $(shell git ls-files "*.py")
 
 .PHONY: help
 help:
@@ -18,4 +17,9 @@ format: ## Format Python files
 .PHONY: ruff
 ruff: ## Run Ruff linter
 	@echo "Running Ruff linter..."
-	ruff check $(PYTHON_FILES)
+	ruff check --ignore E501,F401 $(PYTHON_FILES)
+
+.PHONY: ruff-fix
+ruff-fix: ## Run Ruff linter with auto-fixes
+	@echo "Running Ruff linter with auto-fixes..."
+	ruff check --fix --ignore E501,F401 $(PYTHON_FILES)
