@@ -1,13 +1,15 @@
 import datetime
 
+# ruff: noqa: F811
 import pytest
 import yaml
 from sigma.collection import SigmaCollection
-
-# Existing fixtures
 from sigma.rule import SigmaRule
 
 from sigmaiq.utils.sigmaiq.sigmaiq_utils import create_sigma_rule_obj, _is_v1_schema, _convert_to_v2_schema
+
+# Existing fixtures
+from tests.test_backend_factory import sigma_rule, sigma_rule_yaml_str, sigma_rule_dict, sigma_collection
 
 
 # New fixtures for schema conversion tests
