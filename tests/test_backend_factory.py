@@ -41,32 +41,21 @@ def sigma_rule():
 
 @pytest.fixture
 def sigma_rule_dict():
-    """Fixture for a PySigma SigmaRule object converted to a dict"""
-    return SigmaRule.from_yaml(
-        """
-            title: Test Rule
-            id: 12345678-abcd-abcd-1234-1234567890ab
-            status: test
-            description: A Test Sigma Rule
-            author: AttackIQ
-            date: 2023-01-01
-            modified: 2023-01-02
-            tags:
-                - attack.t1003
-                - attack.t1003.001
-                - attack.credential_access
-            logsource:
-                category: process_creation
-                product: windows
-            detection:
-                sel:
-                    CommandLine: valueA
-                condition: sel
-            falsepositives:
-                - None
-            level: high
-        """
-    ).to_dict()
+    """Fixture for a basic Sigma rule dict"""
+    return {
+        "title": "Test Rule",
+        "id": "12345678-abcd-abcd-1234-1234567890ab",
+        "status": "test",
+        "description": "A Test Sigma Rule",
+        "author": "AttackIQ",
+        "date": "2023-01-01",
+        "modified": "2023-01-02",
+        "tags": ["attack.t1003", "attack.t1003.001", "attack.credential_access"],
+        "logsource": {"category": "process_creation", "product": "windows"},
+        "detection": {"sel": {"CommandLine": "valueA"}, "condition": "sel"},
+        "falsepositives": ["None"],
+        "level": "high",
+    }
 
 
 @pytest.fixture

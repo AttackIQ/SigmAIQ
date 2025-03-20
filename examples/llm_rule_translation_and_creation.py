@@ -64,7 +64,7 @@ async def main():
     print("\n--------\nQUERY TO SIGMA RULE \n--------\n")
 
     user_input = """
-Convert this Microsoft365Defender query into a Sigma Rule:
+Convert this Microsoft XDR KQL query into a Sigma Rule:
 DeviceProcessEvents
 | where ((ProcessCommandLine contains "powershell.exe -enc" or ProcessCommandLine contains "cmd.exe /c" or ProcessCommandLine contains "rundll32.exe") or (InitiatingProcessFolderPath endswith "\\explorer.exe" or InitiatingProcessFolderPath endswith "\\svchost.exe")) and (not((ProcessCommandLine contains "schtasks" or ProcessCommandLine contains "tasklist")))
 
@@ -82,7 +82,7 @@ DeviceProcessEvents
 
     user_input = (
         "Create a Windows process creation Sigma Rule for certutil downloading a file "
-        "from definitely-not-malware.com, then translate it to a Microsoft 365 Defender query."
+        "from definitely-not-malware.com"
     )
 
     answer = await sigma_agent_executor.ainvoke({"input": user_input})
@@ -97,7 +97,7 @@ DeviceProcessEvents
 
     user_input = (
         "Create a Windows process creation Sigma Rule for certutil downloading a file "
-        "from definitely-not-malware.com, then translate it to a Microsoft 365 Defender query."
+        "from definitely-not-malware.com, then translate it to a Microsoft XDR KQL query."
     )
 
     answer = await sigma_agent_executor.ainvoke({"input": user_input})

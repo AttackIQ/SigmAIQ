@@ -160,5 +160,12 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 
+# VSCode
+.vscode/
+.cursorignore
+
 # Custom data folder for vectordb and sigma rules
 sigmaiq/llm/data/*
+
+# test file
+test.py
