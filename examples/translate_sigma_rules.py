@@ -2,12 +2,13 @@
 # %% easily, without having to worry about installing and configuring the correct backends, pipelines and other details.
 
 
-# %% Import SigmAIQ
-from sigmaiq import SigmAIQBackend
+from copy import copy
 
 # %% Import pprint for pretty printing, and copy for copying rules
 from pprint import pprint
-from copy import copy
+
+# %% Import SigmAIQ
+from sigmaiq import SigmAIQBackend
 
 # %% A basic Sigma Rule in YAML str to convert to a query.
 # %% SigmAIQ also accepts a rule in JSON/Dict format, SigmaRule objects, and SigmaCollection objects
@@ -67,11 +68,9 @@ print("\nSplunk CIM Query, Stanza Output: ", end="\n\n")
 pprint(query[0])
 print("\n-------------------")
 
-
 # %% You can also translate a Sigma rule to all supported backend, pipeline, and output format combinations at once.
 # %% Any combination that is not supported will not be included in the results
 # %% This is useful for testing and comparing the output of different backends and pipelines
-queries = SigmAIQBackend.create_all_and_translate(copy(sigma_rule))
-# We won't print it, as its a lot of output
+queries = SigmAIQBackend.create_all_and_translate(copy(sigma_rule))  # We won't print it, as its a lot of output
 # print("\n All Translations: ", end="\n\n")
 # pprint(queries)

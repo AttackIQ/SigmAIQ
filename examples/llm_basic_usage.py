@@ -3,7 +3,6 @@
 # %% 2. Create embeddings of the Sigma Rules in the package
 # %% 3. Create and save a VectorDB of the Sigma Rule embeddings
 # %% 4. Use a similarity search on the VectorDB to find Sigma Rules similar to a provided query
-from pprint import pprint
 
 # %% NOTE, this example uses OpenAI for embeddings. Ensure you have an OpenAI API key set in your environment variable
 # %% OPENAI_API_KEY
@@ -12,11 +11,11 @@ from pprint import pprint
 # `pip install -r requirements/common.txt -r requirements/llm.txt`
 
 
-# %% Import SigmAIQ LLM and OpenAIEmbeddings
-from sigmaiq.llm.base import SigmaLLM
-
 # %% Create a SigmaLLM object with default settings. See the class docstring for more information
 from langchain_openai import OpenAIEmbeddings
+
+# %% Import SigmAIQ LLM and OpenAIEmbeddings
+from sigmaiq.llm.base import SigmaLLM
 
 sigma_llm = SigmaLLM(embedding_model=OpenAIEmbeddings(model="text-embedding-3-large"))
 

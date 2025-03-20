@@ -1,16 +1,15 @@
 # stdlib
 import json
 from json import JSONDecodeError
-from typing import Optional, Dict, Any, Type, Union
+from typing import Optional, Dict, Any, Union
 
 # langchain
 from langchain.agents.agent import AgentExecutor
 from langchain.agents.format_scratchpad import format_to_openai_function_messages
 from langchain.agents.output_parsers import OpenAIFunctionsAgentOutputParser
-from langchain.prompts import ChatPromptTemplate
 
 # langchain typing
-from langchain.schema import AgentAction, AgentFinish, OutputParserException, AIMessage, BaseMessage
+from langchain.schema import AgentAction, AgentFinish, OutputParserException
 from langchain.schema.agent import AgentActionMessageLog
 from langchain.schema.language_model import BaseLanguageModel
 from langchain.schema.messages import (
