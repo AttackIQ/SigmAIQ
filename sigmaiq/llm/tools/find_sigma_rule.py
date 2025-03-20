@@ -7,17 +7,15 @@ from langchain.schema.output_parser import StrOutputParser
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.schema.vectorstore import VectorStore
 from langchain.tools import BaseTool
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, Extra
 
 
 class FindSigmaRuleInput(BaseModel):
-    """Input for QueryToSigmaRule tool, which converts a backend query to a Sigma Rule, and
-    uses SigmAIQ backend factory for validation.
-    """
+    """Input for FindSigmaRule tool, which searches for Sigma Rules in a vector database."""
 
     query: Union[str, dict] = Field(
-        default=None,
-        description="""A query string for a backend, which should be converted to a Sigma Rule YAML string.""",
+        ...,  # This makes the field required
+        description="""A query string or dictionary to search for Sigma Rules in the vector database.""",
     )
 
 
@@ -27,23 +25,27 @@ class FindSigmaRuleTool(BaseTool):
     name: str = "find_sigma_rule"
     args_schema: Type[BaseModel] = FindSigmaRuleInput
     description: str = """
-Use this tool to search for a Sigma Rule in the vector database. The input should be relevent information, such as
+Use this tool to search for a Sigma Rule in the vector database. The input should be relevant information, such as
 log artifacts, event IDs, operating systems, categories, indicators of compromise, MITRE ATT&CK information, or other relevant information to use
 to search the vector store. If multiple rules are returned from the vector store, select the most similar Sigma Rule and return it in YAML format.
 """
-    # return_direct = True  # We don't need an agent LLM to think about the output, it is what it is.
     llm: BaseLanguageModel
     sigmadb: VectorStore
     k: int = 3
     verbose: bool = False
 
-    def _run(self, query: Union[str, dict] = None) -> str:
+    class Config:
+        """Configuration for this pydantic object."""
+
+        extra = Extra.forbid
+
+    def _run(self, query: Union[str, dict]) -> str:
         return asyncio.run(self._arun(query))
 
-    async def _arun(self, query: Union[str, dict] = None) -> str:
+    async def _arun(self, query: Union[str, dict]) -> str:
         template = """You are a cybersecurity detection engineering assistant bot specializing in Sigma Rules.
 You are assisting a user searching for Sigma Rules stored in a vectorstore.
-Based on the users question, extract the relevent information, such as
+Based on the user's question, extract the relevant information, such as
 log artifacts, event IDs, operating systems, categories, indicators of compromise, 
 MITRE ATT&CK information, or other relevant information to use
 to search the vector store. If multiple rules are returned from the 

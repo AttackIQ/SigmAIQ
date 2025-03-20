@@ -1,13 +1,13 @@
 import asyncio
 import json
-from typing import Union, Type
+from typing import Optional, Union, Type
 
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema.language_model import BaseLanguageModel
 from langchain.schema.output_parser import StrOutputParser
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.tools import BaseTool
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, Extra
 
 from sigmaiq.sigmaiq_backend_factory import AVAILABLE_BACKENDS
 
@@ -43,12 +43,17 @@ The output is a Sigma Rule YAML string, or an error message if the conversion fa
 """
     # return_direct = True  # We don't need an agent LLM to think about the output, it is what it is.
     llm: BaseLanguageModel
-    verbose: bool = False
+    verbose = False
 
-    def _run(self, query: str = None, backend: str = None) -> str:
+    class Config:
+        """Configuration for this pydantic object."""
+
+        extra = Extra.forbid
+
+    def _run(self, query: Optional[str] = None, backend: Optional[str] = None) -> str:
         return asyncio.run(self._arun(query, backend))
 
-    async def _arun(self, query: str = None, backend: str = None) -> str:
+    async def _arun(self, query: Optional[str] = None, backend: Optional[str] = None) -> str:
         template = """You are a cybersecurity detection engineering assistant bot specializing in Sigma Rule creation.
 You are assisting a user in taking a query for a security/SIEM product, and converting it to a Sigma Rule.
 The backend is used to validate the query and ensure it is compatible with the backend.

@@ -22,6 +22,9 @@ class CreateSigmaRuleInput(BaseModel):
         description="The users question, used to search through the Sigma VectorStore and create a Sigma Rule."
     )
 
+    class Config(BaseTool.Config):
+        pass
+
 
 class CreateSigmaRuleVectorStoreTool(BaseTool):
     """Class for translating Sigma rules via SigmAIQ Backend Factory"""
