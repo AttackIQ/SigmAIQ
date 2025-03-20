@@ -35,12 +35,12 @@ class QueryToSigmaRuleTool(BaseTool):
     name: str = "query_to_sigma_rule"
     args_schema: Type[BaseModel] = QueryToSigmaRuleInput
     description: str = """
-        Use this tool to take an already existing query for a backend and convert it to a Sigma Rule.
-        Use the translate_sigma_rule tool to take the created Sigma Rule and convert it back to a query to 
-        determine if the queries are the same and the conversion is successful. Fix any errors if necessary.
-        The input must be a query string for a backend, and the backend must be specified.
-        The output is a Sigma Rule YAML string, or an error message if the conversion fails.
-        """
+Use this tool to take an already existing query for a backend and convert it to a Sigma Rule.
+Use the translate_sigma_rule tool to take the created Sigma Rule and convert it back to a query to 
+determine if the queries are the same and the conversion is successful. Fix any errors if necessary.
+The input must be a query string for a backend, and the backend must be specified.
+The output is a Sigma Rule YAML string, or an error message if the conversion fails.
+"""
     # return_direct = True  # We don't need an agent LLM to think about the output, it is what it is.
     llm: BaseLanguageModel
     verbose = False
