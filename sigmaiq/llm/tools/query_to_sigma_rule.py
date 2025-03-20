@@ -43,7 +43,7 @@ The output is a Sigma Rule YAML string, or an error message if the conversion fa
 """
     # return_direct = True  # We don't need an agent LLM to think about the output, it is what it is.
     llm: BaseLanguageModel
-    verbose = False
+    verbose: bool = False
 
     class Config:
         """Configuration for this pydantic object."""

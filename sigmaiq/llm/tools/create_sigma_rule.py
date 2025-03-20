@@ -2,6 +2,9 @@
 import asyncio
 from typing import Type
 
+# pydantic
+from pydantic import BaseModel, Field
+
 # langchain
 from langchain.prompts import ChatPromptTemplate
 
@@ -11,7 +14,6 @@ from langchain.schema.output_parser import StrOutputParser
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.schema.vectorstore import VectorStore
 from langchain.tools import BaseTool
-from pydantic import BaseModel, Field
 
 
 class CreateSigmaRuleInput(BaseModel):
@@ -21,9 +23,8 @@ class CreateSigmaRuleInput(BaseModel):
     query: str = Field(
         description="The users question, used to search through the Sigma VectorStore and create a Sigma Rule."
     )
-
-    class Config(BaseTool.Config):
-        pass
+    
+    # No need for Config class inheritance with pydantic v2
 
 
 class CreateSigmaRuleVectorStoreTool(BaseTool):

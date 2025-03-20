@@ -58,7 +58,7 @@ The output is json of the translated rule to a query for the backend, or an erro
 translation fails.
 """
     # return_direct = True  # We don't need an agent LLM to think about the output, it is what it is.
-    verbose = False
+    verbose: bool = False
 
     class Config:
         """Configuration for this pydantic object."""
