@@ -38,8 +38,7 @@ to use as context. The output is a Sigma Rule in YAML format.
     sigmadb: VectorStore
     llm: BaseLanguageModel
     k: int = 3
-    verbose = False
-    verbose = False
+    verbose: bool = False
 
     def _run(self, query: str) -> str:
         """Run the tool"""
