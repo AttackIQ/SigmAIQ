@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "SigmAIQ"
-version = "0.4.5"
+name = "attackiq-sigmaiq"
+version = "0.4.35-dev"
 description = "Wrapper and tools for pySigma and Sigma rules"
 authors = ["Stephen Lincoln <stephen.lincoln@attackiq.com>", "AttackIQ <support@attackiq.com>"]
 readme = "README.md"
@@ -55,6 +55,12 @@ pytest = "*"
 pytest-cov = "*"
 black = "*"
 ruff = "*"
+
+[tool.poetry.group.dev.dependencies]
+build = "^1.2.2.post1"
+twine = "^6.1.0"
+keyring = "^25.6.0"
+keyrings-alt = "^5.0.2"
 
 [build-system]
 requires = ["poetry-core"]
