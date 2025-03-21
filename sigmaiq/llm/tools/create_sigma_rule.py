@@ -23,7 +23,7 @@ class CreateSigmaRuleInput(BaseModel):
     query: str = Field(
         description="The users question, used to search through the Sigma VectorStore and create a Sigma Rule."
     )
-    
+
     # No need for Config class inheritance with pydantic v2
 
 
