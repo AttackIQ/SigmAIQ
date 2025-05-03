@@ -142,7 +142,7 @@ class SigmaLLM(SigmaRuleUpdater):
 
     def create_vectordb(self, sigma_docs: List[Document]):
         """Creates the VectorStore from the Sigma rule Documents in batches."""
-        batch_size = 100  # Define a batch size
+        batch_size = 50  # Define a batch size - Reduced from 100
         self.sigmadb = None
 
         # Process the first batch to initialize the vector store
