@@ -15,6 +15,7 @@ from langchain_community.vectorstores import FAISS
 
 # langchain
 from langchain_openai import OpenAIEmbeddings
+from tqdm import tqdm  # Import tqdm for progress bar
 
 from sigmaiq.globals import DEFAULT_DIRS
 
@@ -38,7 +39,8 @@ class SigmaLLM(SigmaRuleUpdater):
         rule_dir: str = None,
         vector_store_dir: str = None,
         embedding_model: OpenAIEmbeddings = None,
-        embedding_function: Type[Embeddings] = OpenAIEmbeddings,  # TODO RS : Consolidate this with embedding_model
+        embedding_function: Type[Embeddings] = OpenAIEmbeddings,
+        # TODO RS : Consolidate this with embedding_model
         vector_store: Type[VectorStore] = FAISS,
         rule_loader: Type[BaseLoader] = DirectoryLoader,
         rule_splitter: Type[BaseDocumentTransformer] = CharacterTextSplitter,
@@ -139,9 +141,40 @@ class SigmaLLM(SigmaRuleUpdater):
         return self.rule_splitter.split_documents(sigma_docs)
 
     def create_vectordb(self, sigma_docs: List[Document]):
-        """Creates the VectorStore from the Sigma rule Documents.
-        Override `from_documents()` below with how your vector store class adds documents to the Vector DB"""
-        self.sigmadb = self.vector_store.from_documents(sigma_docs, self.embedding_function)  # CHANGE ME IF NEEDED
+        """Creates the VectorStore from the Sigma rule Documents in batches."""
+        batch_size = 100  # Define a batch size
+        self.sigmadb = None
+
+        # Process the first batch to initialize the vector store
+        first_batch = sigma_docs[:batch_size]
+        if not first_batch:
+            print("No documents to process.")
+            return
+
+        print(f"Creating initial vector store with first batch of {len(first_batch)} documents...")
+        try:
+            self.sigmadb = self.vector_store.from_documents(first_batch, self.embedding_function)
+        except Exception as e:
+            print(f"Error creating initial vector store: {e}")
+            # Potentially raise the error or handle it more gracefully
+            raise e
+
+        # Process remaining documents in batches
+        print(f"Adding remaining documents in batches of {batch_size}...")
+        for i in tqdm(range(batch_size, len(sigma_docs), batch_size), desc="Embedding Batches"):
+            batch = sigma_docs[i : i + batch_size]
+            if batch:
+                try:
+                    # Use add_documents for subsequent batches (assuming FAISS or compatible store)
+                    self.sigmadb.add_documents(batch)
+                except Exception as e:
+                    print(f"Error adding batch {i // batch_size + 1} to vector store: {e}")
+                    # Decide how to handle batch errors (e.g., skip batch, log error, stop)
+                    # For now, we'll just print the error and continue
+                    # Consider raising the error if critical: raise e
+                    continue  # Or break, depending on desired behavior
+
+        print("Vector store creation complete.")
 
     def save_vectordb(self, vectordb_path: str = None):
         """Saves the VectorStore to disk. If no path is provided, will save to the path provided on initialization.
