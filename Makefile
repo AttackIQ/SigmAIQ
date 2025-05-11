@@ -2,6 +2,17 @@ SHELL := /bin/bash
 
 .DEFAULT_GOAL := help
 
+# ENSURE POETRY ENV
+# This block is similar to the one in DetectIQ/Makefile for consistency
+.PHONY: ensure-poetry-env
+ensure-poetry-env: ## Ensure Poetry environment is properly set up
+	@echo "\033[1;34m[i] Ensuring Poetry environment is available...\033[0m"
+	@if ! poetry env info -p >/dev/null 2>&1; then \
+		echo "\033[1;33m[*] Creating virtual environment...\033[0m"; \
+		poetry env use python3; \
+	fi
+	@echo "\033[1;32m[✓] Poetry environment: $$(poetry env info -p)\033[0m"
+
 PYTHON_FILES := $(shell git ls-files "*.py")
 
 .PHONY: help
@@ -27,17 +38,30 @@ ruff-fix: ## Run Ruff linter with auto-fixes
 	@echo "Running Ruff linter with auto-fixes..."
 	ruff check --fix --ignore E501,F401 $(PYTHON_FILES)
 
-# New targets for building and publishing
+# CLEAN TARGETS
+.PHONY: clean/poetry-env
+clean/poetry-env: ## Clean Poetry virtual environment
+	@echo "\033[1;33m[*] Cleaning Poetry virtual environment for SigmAIQ...\033[0m"
+	@if poetry env info -p >/dev/null 2>&1; then \
+		echo "Removing Poetry virtual environment for SigmAIQ..."; \
+		poetry env remove $$(poetry env info -p) 2>/dev/null || true; \
+	else \
+		echo "No Poetry environment found for this project."; \
+	fi
+	@echo "\033[1;32m[✓] Poetry environment cleaned\033[0m"
 
 .PHONY: clean
-clean: ## Clean up build artifacts
-	@echo "Cleaning up build artifacts..."
+clean: clean/poetry-env ## Clean up build artifacts and Poetry virtual environment
+	@echo "\033[1;33m[*] Cleaning SigmAIQ build artifacts...\033[0m"
 	rm -rf dist/ build/ .pytest_cache/ .coverage htmlcov/ *.egg-info/
 	find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
 	find . -type f -name "*.pyc" -delete
+	@echo "\033[1;32m[✓] SigmAIQ build artifacts cleaned\033[0m"
+	@echo "\033[1;33m[*] Deep cleaning project (artifacts & poetry env)\033[0m"
+	@echo "\033[1;32m[✓] SigmAIQ project cleaned\033[0m"
 
 .PHONY: test
-test: install-dev ## Run tests
+test: install ## Run tests (depends on the renamed 'install' target)
 	@echo "Running tests..."
 	pytest
 
@@ -152,17 +176,20 @@ _sync-version:
 	rm -f sigmaiq/__init__.py.bak
 
 .PHONY: _lock
-_lock:
+_lock: # No ensure-poetry-env here as it might be called before env exists for lock
 	@echo "Updating poetry.lock file..."
 	poetry lock
 
-.PHONY: install-dev
-install-dev: _lock ## Install development dependencies
-	@echo "Installing development dependencies..."
+.PHONY: install # Renamed from install-dev
+install: ensure-poetry-env _lock ## Install development dependencies
+	@echo "\033[1;33m[*] Installing SigmAIQ dependencies (including dev)\033[0m"
 	poetry install --with dev
-	poetry add --group dev twine keyring keyrings.alt build
+	@echo "\033[1;32m[✓] SigmAIQ dependencies installed\033[0m"
+	@# The following lines were removed as dependencies should ideally be in pyproject.toml:
+	@# poetry add --group dev twine keyring keyrings.alt build
 
 .PHONY: update
-update: ## Update dependencies to their latest versions
-	@echo "Updating dependencies..."
+update: ensure-poetry-env ## Update dependencies to their latest versions
+	@echo "\033[1;33m[*] Updating SigmAIQ dependencies\033[0m"
 	poetry update
+	@echo "\033[1;32m[✓] SigmAIQ dependencies updated\033[0m"
