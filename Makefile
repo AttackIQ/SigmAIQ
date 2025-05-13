@@ -13,7 +13,13 @@ ensure-poetry-env: ## Ensure Poetry environment is properly set up
 	fi
 	@echo -e "\033[1;32m[✓] Poetry environment: $$(poetry env info -p)\033[0m"
 
-PYTHON_FILES := $(shell git ls-files "*.py")
+PYTHON_FILES := $(shell \
+  (git ls-files && \
+   git ls-files --others --exclude-standard && \
+   git diff --name-only && \
+   git diff --name-only --cached) | \
+   sort | uniq | grep '\.py$$' \
+)
 
 .PHONY: help
 help: ## Show this help message
