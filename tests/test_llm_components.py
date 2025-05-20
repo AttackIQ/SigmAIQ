@@ -1,7 +1,7 @@
-from unittest.mock import patch, create_autospec
+from unittest.mock import create_autospec, patch
 
 import pytest
-from langchain.schema import AgentAction, AgentFinish, Document, AIMessage
+from langchain.schema import AgentAction, AgentFinish, AIMessage, Document
 from langchain.schema.language_model import BaseLanguageModel
 from langchain.schema.vectorstore import VectorStore
 from langchain_openai import OpenAIEmbeddings

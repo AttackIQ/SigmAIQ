@@ -1,10 +1,10 @@
 import pytest
 from sigma.collection import SigmaCollection
-from sigma.processing.pipeline import ProcessingPipeline, ProcessingItem
+from sigma.processing.pipeline import ProcessingItem, ProcessingPipeline
 from sigma.processing.transformations import SetStateTransformation
 from sigma.rule import SigmaRule
 
-from sigmaiq.exceptions import InvalidSigmAIQBackend, InvalidOutputFormat
+from sigmaiq.exceptions import InvalidOutputFormat, InvalidSigmAIQBackend
 from sigmaiq.sigmaiq_backend_factory import SigmAIQBackend
 
 

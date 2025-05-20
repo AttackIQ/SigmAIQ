@@ -1,9 +1,9 @@
 import pytest
-from sigma.processing.pipeline import ProcessingPipeline, ProcessingItem
+from sigma.processing.pipeline import ProcessingItem, ProcessingPipeline
 from sigma.processing.transformations import FieldMappingTransformation
 
 from sigmaiq.exceptions import InvalidCustomFieldMapping, InvalidSigmAIQPipeline
-from sigmaiq.sigmaiq_pipeline_factory import SigmAIQPipelineResolver, SigmAIQPipeline
+from sigmaiq.sigmaiq_pipeline_factory import SigmAIQPipeline, SigmAIQPipelineResolver
 
 
 def test_pipeline_factory_from_processing_pipeline():

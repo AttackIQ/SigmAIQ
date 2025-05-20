@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "attackiq-sigmaiq"
-version = "0.4.45"
+version = "0.4.46"
 description = "Wrapper and tools for pySigma and Sigma rules"
 authors = ["Stephen Lincoln <stephen.lincoln@attackiq.com>", "AttackIQ <support@attackiq.com>"]
 readme = "README.md"
@@ -78,3 +78,44 @@ omit = [
     # omit globals
     "sigmaiq/globals.py",
     ]
+
+[tool.ruff]
+line-length = 120
+# Exclude commonly ignored directories (can be adjusted as needed)
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
+
+[tool.ruff.lint]
+# Enable only isort rules, similar to DetectIQ
+select = ["I"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["sigmaiq"]
+combine-as-imports = true
+case-sensitive = false
