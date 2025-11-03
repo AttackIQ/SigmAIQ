@@ -1581,35 +1581,6 @@
       ]
     }
   },
-  "loki": {
-    "loki_grafana_logfmt": {
-      "default": [
-        "{job=~\"eventlog|winlog|windows|fluentbit.*\"} | json | CommandLine=~`(?i)valueA`",
-        "{job=~\"eventlog|winlog|windows|fluentbit.*\"} | json | CommandLine=~`(?i)valueB`"
-      ],
-      "ruler": [
-        "groups:\n- name: Sigma rules\n  rules:\n  - alert: Test_Rule_1\n    annotations:\n      description: null\n      summary: Test Rule 1\n    expr: sum(count_over_time({job=~\"eventlog|winlog|windows|fluentbit.*\"} | json\n      | CommandLine=~`(?i)valueA` [1m])) or vector(0) > 0\n    labels: {}\n  - alert: Test_Rule_2\n    annotations:\n      description: null\n      summary: Test Rule 2\n    expr: sum(count_over_time({job=~\"eventlog|winlog|windows|fluentbit.*\"} | json\n      | CommandLine=~`(?i)valueB` [1m])) or vector(0) > 0\n    labels: {}\n"
-      ]
-    },
-    "loki_promtail_sysmon": {
-      "default": [
-        "{job=~\"eventlog|winlog|windows|fluentbit.*\"} | json | CommandLine=~`(?i)valueA`",
-        "{job=~\"eventlog|winlog|windows|fluentbit.*\"} | json | CommandLine=~`(?i)valueB`"
-      ],
-      "ruler": [
-        "groups:\n- name: Sigma rules\n  rules:\n  - alert: Test_Rule_1\n    annotations:\n      description: null\n      summary: Test Rule 1\n    expr: sum(count_over_time({job=~\"eventlog|winlog|windows|fluentbit.*\"} | json\n      | CommandLine=~`(?i)valueA` [1m])) or vector(0) > 0\n    labels: {}\n  - alert: Test_Rule_2\n    annotations:\n      description: null\n      summary: Test Rule 2\n    expr: sum(count_over_time({job=~\"eventlog|winlog|windows|fluentbit.*\"} | json\n      | CommandLine=~`(?i)valueB` [1m])) or vector(0) > 0\n    labels: {}\n"
-      ]
-    },
-    "loki_okta_system_log": {
-      "default": [
-        "{job=~\"eventlog|winlog|windows|fluentbit.*\"} | json | CommandLine=~`(?i)valueA`",
-        "{job=~\"eventlog|winlog|windows|fluentbit.*\"} | json | CommandLine=~`(?i)valueB`"
-      ],
-      "ruler": [
-        "groups:\n- name: Sigma rules\n  rules:\n  - alert: Test_Rule_1\n    annotations:\n      description: null\n      summary: Test Rule 1\n    expr: sum(count_over_time({job=~\"eventlog|winlog|windows|fluentbit.*\"} | json\n      | CommandLine=~`(?i)valueA` [1m])) or vector(0) > 0\n    labels: {}\n  - alert: Test_Rule_2\n    annotations:\n      description: null\n      summary: Test Rule 2\n    expr: sum(count_over_time({job=~\"eventlog|winlog|windows|fluentbit.*\"} | json\n      | CommandLine=~`(?i)valueB` [1m])) or vector(0) > 0\n    labels: {}\n"
-      ]
-    }
-  },
   "microsoft365defender": {
     "microsoft365defender": {
       "default": [

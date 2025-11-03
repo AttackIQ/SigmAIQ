@@ -36,9 +36,6 @@ from sigma.pipelines.elasticsearch import (
 ## InsightIDR
 from sigma.pipelines.insight_idr import insight_idr_pipeline
 
-## Loki
-from sigma.pipelines.loki import loki_grafana_logfmt, loki_promtail_sysmon, loki_okta_system_log
-
 ## Microsoft
 from sigma.pipelines.microsoftxdr import microsoft_xdr_pipeline
 from sigma.pipelines.sentinelasim import sentinel_asim_pipeline
@@ -145,22 +142,6 @@ AVAILABLE_PIPELINES = {
         "description": "InsightIDR Log Entry Query Language (LEQL) Transformations",
         "pipeline": insight_idr_pipeline(),
         "display_name": "InsightIDR LEQL",
-    },
-    # Loki
-    "loki_grafana_logfmt": {
-        "description": "Converts field names to logfmt labels used by Grafana",
-        "pipeline": loki_grafana_logfmt(),
-        "display_name": "Logfmt Labels",
-    },
-    "loki_promtail_sysmon": {
-        "description": "Parse and adjust field names for Windows sysmon data produced by promtail",
-        "pipeline": loki_promtail_sysmon(),
-        "display_name": "WinSysmon Promtail",
-    },
-    "loki_okta_system_log": {
-        "description": "Parse the Okta System Log event json, adjusting field-names appropriately",
-        "pipeline": loki_okta_system_log(),
-        "display_name": "Okta System Event",
     },
     # Microsoft Kusto
     "microsoft_xdr": {

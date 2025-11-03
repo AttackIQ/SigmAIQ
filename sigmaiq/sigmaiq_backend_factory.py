@@ -16,7 +16,6 @@ from sigmaiq.backends.crowdstrike import (
 from sigmaiq.backends.elasticsearch import SigmAIQElasticsearchBackend
 from sigmaiq.backends.insightidr import SigmAIQInsightIDRBackend
 from sigmaiq.backends.kusto import SigmAIQAzureMonitorBackend, SigmAIQDefenderXDRBackend, SigmAIQSentinelASIMBackend
-from sigmaiq.backends.loki import SigmAIQLokiBackend
 from sigmaiq.backends.netwitness import SigmAIQNetwitnessBackend
 from sigmaiq.backends.opensearch import SigmAIQOpensearchBackend
 from sigmaiq.backends.qradar import SigmAIQQRadarBackend
@@ -41,7 +40,6 @@ AVAILABLE_BACKENDS = {
     "crowdstrike_logscale": "Crowdstrike Logscale Query",
     "elasticsearch": "Elastic Elasticsearch SIEM",
     "insightidr": "Rapid7 InsightIDR SIEM",
-    "loki": "Grafana Loki LogQL SIEM",
     "microsoft_xdr": "Microsoft XDR Advanced Hunting Query (KQL) (Defender, Office365, etc)",
     "microsoft_sentinel_asim": "Microsoft Sentinel ASIM Query (KQL)",
     "microsoft_azure_monitor": "Microsoft Azure Monitor Query (KQL)",
@@ -118,9 +116,6 @@ class SigmAIQBackend:
         # InsightIDR
         if self.backend == "insightidr":
             return SigmAIQInsightIDRBackend(**kwargs)
-        # Loki (Grafana)
-        if self.backend == "loki":
-            return SigmAIQLokiBackend(**kwargs)
         # Microsoft Kusto
         if self.backend == "microsoft_xdr":
             return SigmAIQDefenderXDRBackend(**kwargs)

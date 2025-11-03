@@ -12,7 +12,6 @@ pysigma-backend-crowdstrike==2.0.0 ; python_version >= "3.9" and python_version 
 pysigma-backend-elasticsearch==1.1.2 ; python_version >= "3.9" and python_version < "3.13"
 pysigma-backend-insightidr==0.2.4 ; python_version >= "3.9" and python_version < "3.13"
 pysigma-backend-kusto==0.4.2 ; python_version >= "3.9" and python_version < "3.13"
-pysigma-backend-loki==0.12.2 ; python_version >= "3.9" and python_version < "3.13"
 pysigma-backend-netwitness==0.1.3 ; python_version >= "3.9" and python_version < "3.13"
 pysigma-backend-opensearch==1.0.2 ; python_version >= "3.9" and python_version < "3.13"
 pysigma-backend-qradar-aql==0.3.2 ; python_version >= "3.9" and python_version < "3.13"

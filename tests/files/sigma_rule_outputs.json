@@ -914,65 +914,6 @@
       ]
     }
   },
-  "loki": {
-    "loki_grafana_logfmt": {
-      "default": [
-        "{job=~\"eventlog|winlog|windows|fluentbit.*\"} | json | CommandLine=~`(?i)valueA`"
-      ],
-      "ruler": [
-        {
-          "alert": "Test_Rule",
-          "annotations": {
-            "description": "A Test Sigma Rule",
-            "summary": "Test Rule",
-            "author": "AttackIQ"
-          },
-          "expr": "sum(count_over_time({job=~\"eventlog|winlog|windows|fluentbit.*\"} | json | CommandLine=~`(?i)valueA` [1m])) or vector(0) > 0",
-          "labels": {
-            "severity": "high"
-          }
-        }
-      ]
-    },
-    "loki_promtail_sysmon": {
-      "default": [
-        "{job=~\"eventlog|winlog|windows|fluentbit.*\"} | json | CommandLine=~`(?i)valueA`"
-      ],
-      "ruler": [
-        {
-          "alert": "Test_Rule",
-          "annotations": {
-            "description": "A Test Sigma Rule",
-            "summary": "Test Rule",
-            "author": "AttackIQ"
-          },
-          "expr": "sum(count_over_time({job=~\"eventlog|winlog|windows|fluentbit.*\"} | json | CommandLine=~`(?i)valueA` [1m])) or vector(0) > 0",
-          "labels": {
-            "severity": "high"
-          }
-        }
-      ]
-    },
-    "loki_okta_system_log": {
-      "default": [
-        "{job=~\"eventlog|winlog|windows|fluentbit.*\"} | json | CommandLine=~`(?i)valueA`"
-      ],
-      "ruler": [
-        {
-          "alert": "Test_Rule",
-          "annotations": {
-            "description": "A Test Sigma Rule",
-            "summary": "Test Rule",
-            "author": "AttackIQ"
-          },
-          "expr": "sum(count_over_time({job=~\"eventlog|winlog|windows|fluentbit.*\"} | json | CommandLine=~`(?i)valueA` [1m])) or vector(0) > 0",
-          "labels": {
-            "severity": "high"
-          }
-        }
-      ]
-    }
-  },
   "microsoft365defender": {
     "microsoft365defender": {
       "default": [
